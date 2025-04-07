@@ -1,0 +1,40 @@
+.products_container {
+    position: relative;
+}
+
+.product_image_size {
+    height: 40vh;
+    max-width: 25vw;
+    filter: brightness(100%);
+}
+
+.products_text {
+    text-align: center;
+    font-family: "Roboto Serif", serif;
+    font-optical-sizing: auto;
+    font-weight: 300;
+    font-style: normal;
+}
+
+/* .vision_text p {
+    width: 40%;
+} */
+
+.products_grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 2fr));
+    text-align: center;
+}
+
+.products_grid a {
+    color: #212529 !important; /* blue colors for links too */
+    text-decoration: none !important; /* no underline */
+  }
+
+@media (max-width: 700px) {
+    .product_image_size {
+        height: 40vh;
+        max-width: 75vw;
+        filter: brightness(100%);
+    }
+}

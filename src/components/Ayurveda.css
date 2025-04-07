@@ -1,0 +1,42 @@
+.ayurveda_benefits_container {
+    position: relative;
+    background-color: #FED8A8;
+}
+
+.idealogy_image_size {
+    height: 70vh;
+    width: 50vw;
+    filter: brightness(100%);
+}
+
+.ayurveda_benefits_text {
+    position: absolute;
+    top: 10%;
+    left: 5%;
+    margin-right: 20px;
+    font-family: "Fira Sans", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    line-height: 2.0;
+    word-spacing: 3px;
+}
+
+@media (max-width: 700px) {
+    .ayurveda_benefits_text {
+        position: absolute;
+        top: 5%;
+        left: 5%;
+    }
+    .idealogy_image_size {
+        height: 85vh;
+        width: 100vw;
+        filter: brightness(100%);
+    }
+    .ayurveda_benefits_text {
+        position: absolute;
+        font-family: "Fira Sans", sans-serif;
+        font-weight: 400;
+        font-style: normal;
+        line-height: 1.5;
+    }
+}

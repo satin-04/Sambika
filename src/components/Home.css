@@ -1,0 +1,19 @@
+.image-size {
+    height: 92vh;
+    width: 100vw;
+    opacity: 1;
+    filter: brightness(30%);
+}
+
+.carousel-caption {
+    top: 0;
+    padding-top: 10rem !important;
+  }
+
+  .carousel-text-alignment {
+    margin: auto;
+  }
+
+.text-line-height {
+  line-height: 2.0;
+}

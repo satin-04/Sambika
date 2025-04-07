@@ -1,0 +1,116 @@
+
+.product_specific_grid {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+}
+
+.buy-btn {
+    width: 80%;
+    justify-self: center;
+    height: 60px;
+    padding: 20px;
+    text-align: center;
+    background-color: lightgreen;
+    border-radius: 50px;
+    cursor: pointer;
+    text-transform: uppercase;
+}
+
+.product_image_sticky {
+    position: sticky;
+    top: 150px;
+}
+
+.product_detail_image_size {
+    justify-self: center;
+    max-width: 25vw;
+    height: 40vh;
+}
+
+/* .product_description_grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    line-height: 2.2;
+} */
+
+.product_actual_cost {
+    color: red;
+    font-size: 1.75rem;
+}
+
+.product_discount {
+    color: slategray;
+    font-weight: 500;
+    border: 1px solid;
+    padding: 2px;
+}
+
+.product_cost_footer {
+    font-size: 0.75rem;
+    line-height: 2.5;
+}
+
+.product_heading {
+    font-weight: 300;
+}
+
+.product_description {
+    font-family: "Roboto Serif", serif;
+    font-optical-sizing: auto;
+    font-weight: 300;
+    font-style: normal;
+    font-variation-settings:
+        "wdth" 100,
+        "GRAD" 0;
+}
+
+.product_description_border {
+    border-top: 0.1rem solid rgb(210, 213, 217);
+    border-bottom: 0.1rem solid rgb(210, 213, 217);
+}
+
+.product_description_border_bottom {
+    border-bottom: 0.1rem solid rgb(210, 213, 217);
+}
+
+.description_header {
+    display: grid;
+    grid-template-columns: 1fr 50px;
+    line-height: 1;
+    color: darkslategray;
+    font-weight: 300;
+}
+
+.hide-description {
+    opacity: 0;
+    height: 0;
+    overflow: hidden;
+    transition: height 800ms 800ms, opacity 400ms 0ms;
+}
+
+.show-description {
+    opacity: 1;
+    display: block;
+    margin-top: 30px;
+    color: #212326;
+    height: auto;
+    transition: height 800ms 800ms, opacity 400ms 0ms;
+}
+
+.ingredients_grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+}
+
+@media (max-width: 700px) {
+    .product_specific_grid {
+        display: grid;
+        grid-template-columns: 1fr;
+    }
+
+    .product_detail_image_size {
+        justify-self: center;
+        max-width: 75vw;
+        height: 40vh;
+    }
+}
