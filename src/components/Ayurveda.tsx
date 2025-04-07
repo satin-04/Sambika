@@ -3,7 +3,7 @@ import './Ayurveda.css'
 function Ayurveda() {
     return ( 
         <div className="ayurveda_benefits_container" id="Idealogy">
-            <img src="src/assets/Idealogy.jpg" className='idealogy_image_size'></img>
+            <img src="/assets/Idealogy.jpg" className='idealogy_image_size'></img>
             <div className="ayurveda_benefits_text">
                 <b>
                     <h4>Sambika Idealogy</h4>

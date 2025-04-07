@@ -89,7 +89,7 @@ function Hair()
                 <div className="product_image_container shadow p-3 mb-5 bg-body rounded m-3 text-center">
                     <div className="product_image_sticky">
 
-                        <img src="src/assets/hair.png" className='product_detail_image_size'></img>
+                        <img src="/assets/hair.png" className='product_detail_image_size'></img>
                         <div className="buy-btn"><b>Buy Now</b></div>
                     </div>
                 </div>

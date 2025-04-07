@@ -6,7 +6,7 @@ function Footer()
         <div>
             <div className="container" id="ContactUs">
                 <div className="text-center shadow p-3 mb-5 bg-body rounded m-3">
-                    <img src="src/assets/family.jpg" className='family_image'></img>
+                    <img src="/assets/family.jpg" className='family_image'></img>
                 </div>
             </div>
             <div className="text-center contact_us_text m-3">

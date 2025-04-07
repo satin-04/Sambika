@@ -16,7 +16,7 @@ function Vision() {
                     </b>
                 </div>
                 <div className='text-center my-3    '>
-                    <img src="src/assets/company_vision.png" className='vision_image_size'></img>
+                    <img src="/assets/company_vision.png" className='vision_image_size'></img>
                 </div>
             </div>
         </div>
