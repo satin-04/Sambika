@@ -4,6 +4,10 @@
     grid-template-columns: 1fr 2fr;
 }
 
+.product_image_container {
+    justify-self: center;
+}
+
 .buy-btn {
     width: 80%;
     justify-self: center;
@@ -19,6 +23,7 @@
 .product_image_sticky {
     position: sticky;
     top: 150px;
+    justify-self: center;
 }
 
 .product_detail_image_size {

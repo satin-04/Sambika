@@ -1,4 +1,4 @@
-.image-size {
+.home-image-size {
     height: 92vh;
     width: 100vw;
     opacity: 1;
@@ -16,4 +16,10 @@
 
 .text-line-height {
   line-height: 2.0;
+}
+
+@media (max-width: 700px) {
+    .home-image-size {
+      height: 70vh;
+    }
 }

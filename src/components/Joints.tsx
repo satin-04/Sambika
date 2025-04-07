@@ -88,7 +88,6 @@ function Joints()
             <div className="product_specific_grid" id="Joints">
                 <div className="product_image_container shadow p-3 mb-5 bg-body rounded m-3 text-center">
                     <div className="product_image_sticky">
-
                         <img src="/assets/joints.png" className='product_detail_image_size'></img>
                         <div className="buy-btn"><b>Buy Now</b></div>
                     </div>
@@ -114,7 +113,7 @@ function Joints()
                             <span className="badge text-bg-danger me-2">Sciatica</span>
                             <span className="badge text-bg-danger me-2">Cartilage & Tissue Tare</span>
                             <span className="badge text-bg-danger me-2">Spine & Knee Pain</span>
-                            <span className="badge text-bg-danger me-2">Weal Muscles</span>
+                            <span className="badge text-bg-danger me-2">Weak Muscles</span>
                         </div>
                         <div className="product_description_border  p-3 py-4">
                             <div className="description_header">
