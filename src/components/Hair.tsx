@@ -1,5 +1,5 @@
 import "./Hair.css"
-import React, { useState } from 'react';
+import { useState } from 'react';
 
 function Hair()
 {
