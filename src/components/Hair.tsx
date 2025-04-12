@@ -90,7 +90,7 @@ function Hair()
                     <div className="product_image_sticky">
 
                         <img src="/assets/hair.png" className='product_detail_image_size'></img>
-                        <div className="buy-btn"><b>Buy Now</b></div>
+                        <a href="https://www.1mg.com/otc/sambika-herbal-hair-root-kare-oil-100ml-each-otc1093119" target="_blank"><div className="buy-btn"><b>Buy Now</b></div></a>
                     </div>
                 </div>
                 <div className="product_description m-3 mt-4">
@@ -118,9 +118,9 @@ function Hair()
                             <span className="badge text-bg-danger me-2">Bald Patches</span>
                         </div>
                         <div className="product_description_border  p-3 py-4">
-                            <div className="description_header">
+                            <div className="description_header" onClick={handleFirstContentClick}>
                                 <div>WHAT IT IS</div>
-                                <div onClick={handleFirstContentClick} className="text-center"><i className={firstIconClassName}></i></div>
+                                <div className="text-center"><i className={firstIconClassName}></i></div>
                             </div>
                             <div className={firstContentClassName}>
                                 Sambika Hair Roots Kare Oil is a powerful blend of herbs and oils that address common hair concerns like hair fall, slow growth, dandruff, bald patches and undernourished hair. It acts on the roots of the hair making it stronger, healthier and vibrant hair. The combination of Arjun chal, Dhania, Amla, Jatamansi, Bhringraj, Coconut Oil, and Till Oil ensures nourishment, strength, and promoting healthy hair growth while preventing hair fall and premature graying.
@@ -128,9 +128,9 @@ function Hair()
                         </div>
 
                         <div className="product_description_border_bottom  p-3 py-4">
-                            <div className="description_header">
+                            <div className="description_header" onClick={handleSecondContentClick}>
                                 <div>INGREDIENTS</div>
-                                <div onClick={handleSecondContentClick} className="text-center"><i className={secondIconClassName}></i></div>
+                                <div className="text-center"><i className={secondIconClassName}></i></div>
                             </div>
                             <div className={secondContentClassName}>
                                 <ul>
@@ -144,9 +144,9 @@ function Hair()
                         </div>
 
                         <div className="product_description_border_bottom  p-3 py-4">
-                            <div className="description_header">
+                            <div className="description_header" onClick={handleThirdContentClick}>
                                 <div>SAMBIKA PROMISE</div>
-                                <div onClick={handleThirdContentClick} className="text-center"><i className={thirdIconClassName}></i></div>
+                                <div className="text-center"><i className={thirdIconClassName}></i></div>
                             </div>
                             <div className={thirdContentClassName}>
                                 <ul>
@@ -161,9 +161,9 @@ function Hair()
                         </div>
 
                         <div className="product_description_border_bottom  p-3 py-4">
-                            <div className="description_header">
+                            <div className="description_header" onClick={handleFourthContentClick}>
                                 <div>BENEFITS</div>
-                                <div onClick={handleFourthContentClick} className="text-center"><i className={fourthIconClassName}></i></div>
+                                <div className="text-center"><i className={fourthIconClassName}></i></div>
                             </div>
                             <div className={fourthContentClassName}>
                                 <ul>
@@ -177,9 +177,9 @@ function Hair()
                         </div>
 
                         <div className="product_description_border_bottom  p-3 py-4">
-                            <div className="description_header">
+                            <div className="description_header" onClick={handleFifthContentClick}>
                                 <div>HOW TO USE</div>
-                                <div onClick={handleFifthContentClick} className="text-center"><i className={fifthIconClassName}></i></div>
+                                <div className="text-center"><i className={fifthIconClassName}></i></div>
                             </div>
                             <div className={fifthContentClassName}>
                                 <ul>

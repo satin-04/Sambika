@@ -26,6 +26,14 @@
     justify-self: center;
 }
 
+.product_image_sticky {
+    a {
+        color: #212326 !important;
+        text-decoration: none !important;
+    }
+}
+    
+
 .product_detail_image_size {
     justify-self: center;
     max-width: 25vw;

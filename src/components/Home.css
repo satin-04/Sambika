@@ -8,6 +8,7 @@
 .carousel-caption {
     top: 0;
     padding-top: 10rem !important;
+    font-family: "Roboto Serif", serif;
   }
 
   .carousel-text-alignment {
@@ -21,5 +22,9 @@
 @media (max-width: 700px) {
     .home-image-size {
       height: 70vh;
+    }
+    .carousel-caption {
+      top: 0;
+      padding-top: 4rem !important;
     }
 }

@@ -85,11 +85,12 @@ function Joints()
 
     return (
         <div>
+            <hr />
             <div className="product_specific_grid" id="Joints">
                 <div className="product_image_container shadow p-3 mb-5 bg-body rounded m-3 text-center">
                     <div className="product_image_sticky">
                         <img src="/assets/joints.png" className='product_detail_image_size'></img>
-                        <div className="buy-btn"><b>Buy Now</b></div>
+                        <a href="https://www.1mg.com/otc/sambika-herbal-joints-kare-oil-otc1093111" target="_blank"><div className="buy-btn"><b>Buy Now</b></div></a>
                     </div>
                 </div>
                 <div className="product_description m-3 mt-4">
@@ -116,9 +117,9 @@ function Joints()
                             <span className="badge text-bg-danger me-2">Weak Muscles</span>
                         </div>
                         <div className="product_description_border  p-3 py-4">
-                            <div className="description_header">
+                            <div className="description_header" onClick={handleFirstContentClick}>
                                 <div>WHAT IT IS</div>
-                                <div onClick={handleFirstContentClick} className="text-center"><i className={firstIconClassName}></i></div>
+                                <div className="text-center"><i className={firstIconClassName}></i></div>
                             </div>
                             <div className={firstContentClassName}>
                                 Sambika Joints Kare Oil is a powerful blend of natural ingredients that provides relief from a variety of joints and muscles pain. Whether it's arthritis, sciatica, spine pain, frozen shoulder, or weakness in the legs, this oil targets inflammation, strengthens joints, and improves circulation. The combination of Amba Haldi, Methi, Ajwain, Haldi, Jaiphal, Rai Oil, Coconut Oil, and Till Oil ensures effective pain relief, supports cartilage and tissue repair, and long-term joint health. This oil offers holistic support for anyone dealing with chronic joint pain.
@@ -126,9 +127,9 @@ function Joints()
                         </div>
 
                         <div className="product_description_border_bottom  p-3 py-4">
-                            <div className="description_header">
+                            <div className="description_header" onClick={handleSecondContentClick}>
                                 <div>INGREDIENTS</div>
-                                <div onClick={handleSecondContentClick} className="text-center"><i className={secondIconClassName}></i></div>
+                                <div className="text-center"><i className={secondIconClassName}></i></div>
                             </div>
                             <div className={secondContentClassName}>
                                 <ul>
@@ -142,9 +143,9 @@ function Joints()
                         </div>
 
                         <div className="product_description_border_bottom  p-3 py-4">
-                            <div className="description_header">
+                            <div className="description_header" onClick={handleThirdContentClick}>
                                 <div>SAMBIKA PROMISE</div>
-                                <div onClick={handleThirdContentClick} className="text-center"><i className={thirdIconClassName}></i></div>
+                                <div className="text-center"><i className={thirdIconClassName}></i></div>
                             </div>
                             <div className={thirdContentClassName}>
                                 <ul>
@@ -159,9 +160,9 @@ function Joints()
                         </div>
 
                         <div className="product_description_border_bottom  p-3 py-4">
-                            <div className="description_header">
+                            <div className="description_header" onClick={handleFourthContentClick}>
                                 <div>BENEFITS</div>
-                                <div onClick={handleFourthContentClick} className="text-center"><i className={fourthIconClassName}></i></div>
+                                <div className="text-center"><i className={fourthIconClassName}></i></div>
                             </div>
                             <div className={fourthContentClassName}>
                                 <ul>
@@ -175,9 +176,9 @@ function Joints()
                         </div>
 
                         <div className="product_description_border_bottom  p-3 py-4">
-                            <div className="description_header">
+                            <div className="description_header" onClick={handleFifthContentClick}>
                                 <div>HOW TO USE</div>
-                                <div onClick={handleFifthContentClick} className="text-center"><i className={fifthIconClassName}></i></div>
+                                <div className="text-center"><i className={fifthIconClassName}></i></div>
                             </div>
                             <div className={fifthContentClassName}>
                                 <ul>

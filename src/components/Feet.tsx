@@ -90,7 +90,7 @@ function Feet()
                     <div className="product_image_sticky">
 
                         <img src="/assets/feet.png" className='product_detail_image_size'></img>
-                        <div className="buy-btn"><b>Buy Now</b></div>
+                        <a href="https://www.1mg.com/otc/sambika-herbal-feet-kare-oil-100ml-each-otc1093114" target="_blank"><div className="buy-btn"><b>Buy Now</b></div></a>
                     </div>
                 </div>
                 <div className="product_description m-3 mt-4">
@@ -118,9 +118,9 @@ function Feet()
                             <span className="badge text-bg-danger me-2">Damaged Feet</span>
                         </div>
                         <div className="product_description_border  p-3 py-4">
-                            <div className="description_header">
+                            <div className="description_header" onClick={handleFirstContentClick}>
                                 <div>WHAT IT IS</div>
-                                <div onClick={handleFirstContentClick} className="text-center"><i className={firstIconClassName}></i></div>
+                                <div className="text-center"><i className={firstIconClassName}></i></div>
                             </div>
                             <div className={firstContentClassName}>
                                 Sambika Feet Kare Oil helps address a variety of common feet issues, especially those related to pain, diabetic foot, numbness, tingling, thickened skin, and burning sensations. It has various herbs that provide relief from core through its anti-inflammatory, pain-relieving and healing properties. This oil offers holistic solution to common foot discomforts, helping restore comfort and mobility.
@@ -128,9 +128,9 @@ function Feet()
                         </div>
 
                         <div className="product_description_border_bottom  p-3 py-4">
-                            <div className="description_header">
+                            <div className="description_header" onClick={handleSecondContentClick}>
                                 <div>INGREDIENTS</div>
-                                <div onClick={handleSecondContentClick} className="text-center"><i className={secondIconClassName}></i></div>
+                                <div className="text-center"><i className={secondIconClassName}></i></div>
                             </div>
                             <div className={secondContentClassName}>
                                 <ul>
@@ -143,9 +143,9 @@ function Feet()
                         </div>
 
                         <div className="product_description_border_bottom  p-3 py-4">
-                            <div className="description_header">
+                            <div className="description_header" onClick={handleThirdContentClick}>
                                 <div>SAMBIKA PROMISE</div>
-                                <div onClick={handleThirdContentClick} className="text-center"><i className={thirdIconClassName}></i></div>
+                                <div className="text-center"><i className={thirdIconClassName}></i></div>
                             </div>
                             <div className={thirdContentClassName}>
                                 <ul>
@@ -160,9 +160,9 @@ function Feet()
                         </div>
 
                         <div className="product_description_border_bottom  p-3 py-4">
-                            <div className="description_header">
+                            <div className="description_header" onClick={handleFourthContentClick}>
                                 <div>BENEFITS</div>
-                                <div onClick={handleFourthContentClick} className="text-center"><i className={fourthIconClassName}></i></div>
+                                <div className="text-center"><i className={fourthIconClassName}></i></div>
                             </div>
                             <div className={fourthContentClassName}>
                                 <ul>
@@ -176,9 +176,9 @@ function Feet()
                         </div>
 
                         <div className="product_description_border_bottom  p-3 py-4">
-                            <div className="description_header">
+                            <div className="description_header" onClick={handleFifthContentClick}>
                                 <div>HOW TO USE</div>
-                                <div onClick={handleFifthContentClick} className="text-center"><i className={fifthIconClassName}></i></div>
+                                <div className="text-center"><i className={fifthIconClassName}></i></div>
                             </div>
                             <div className={fifthContentClassName}>
                                 <ul>

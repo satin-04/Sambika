@@ -11,20 +11,20 @@ function Products() {
             <div className="products_grid">
                 <div className="product_image_container shadow p-3 mb-5 bg-body rounded m-3">
                     <a href="#Joints">
-                        <img src="/assets/joints.png" className='product_image_size'></img>
                         <div><b>SAMBIKA JOINTS KARE OIL</b></div>
+                        <img src="/assets/joints.png" className='product_image_size'></img>
                     </a>
                 </div>
                 <div className="product_image_container shadow p-3 mb-5 bg-body rounded m-3">
                     <a href="#Feet">
-                        <img src="/assets/feet.png" className='product_image_size'></img>
                         <div><b>SAMBIKA FEET CARE OIL</b></div>
+                        <img src="/assets/feet.png" className='product_image_size'></img>
                     </a>
                 </div>
                 <div className="product_image_container shadow p-3 mb-5 bg-body rounded m-3">
                     <a href="#Hair">
-                        <img src="/assets/hair.png" className='product_image_size'></img>
                         <div><b>SAMBIKA HAIR ROOTS KARE OIL</b></div>
+                        <img src="/assets/hair.png" className='product_image_size'></img>
                     </a>
                 </div>
                 {/* <div className="product_image_container shadow p-3 mb-5 bg-body rounded m-3">
