@@ -88,10 +88,7 @@ function Joints()
         <div>
             <Helmet>
                 <title>Natural Ayurvedic Oils </title>
-                <meta
-                    name="description"
-                    content="Sambika, Sambika Healthcare, #Sambika, Joint pain, Knee Pain, Back Pain, Healthcare, Wellness, 100% Natural, Ayurvedic, Joint pain relief, knee pain relief, 100% pure Ayurvedic"
-                />
+                <meta name="google-site-verification" content="cGude0fySuLxIPTuv5xf_HbboB39SvVlDMGpJLxxXOE" />
             </Helmet>
             <hr />
             <div className="product_specific_grid" id="Joints">
