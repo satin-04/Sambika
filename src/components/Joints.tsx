@@ -1,5 +1,6 @@
 import "./Joints.css"
 import { useState } from 'react';
+import { Helmet } from 'react-helmet';
 
 function Joints()
 {
@@ -85,6 +86,13 @@ function Joints()
 
     return (
         <div>
+            <Helmet>
+                <title>Natural Ayurvedic Oils </title>
+                <meta
+                    name="description"
+                    content="Sambika, Sambika Healthcare, #Sambika, Joint pain, Knee Pain, Back Pain, Healthcare, Wellness, 100% Natural, Ayurvedic, Joint pain relief, knee pain relief, 100% pure Ayurvedic"
+                />
+            </Helmet>
             <hr />
             <div className="product_specific_grid" id="Joints">
                 <div className="product_image_container shadow p-3 mb-5 bg-body rounded m-3 text-center">
