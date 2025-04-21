@@ -87,7 +87,7 @@ function Joints()
     return (
         <div>
             <Helmet>
-                <title>Natural Ayurvedic Oils </title>
+                <title>Sambika Healthcare</title>
                 <meta name="google-site-verification" content="cGude0fySuLxIPTuv5xf_HbboB39SvVlDMGpJLxxXOE" />
             </Helmet>
             <hr />
