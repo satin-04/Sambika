@@ -1,6 +1,6 @@
 import "./Joints.css"
 import { useState } from 'react';
-import { Helmet } from 'react-helmet';
+// import { Helmet } from 'react-helmet';
 
 function Joints()
 {
