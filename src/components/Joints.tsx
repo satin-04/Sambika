@@ -86,10 +86,10 @@ function Joints()
 
     return (
         <div>
-            <Helmet>
+            {/* <Helmet>
                 <title>Sambika Healthcare</title>
                 <meta name="google-site-verification" content="cGude0fySuLxIPTuv5xf_HbboB39SvVlDMGpJLxxXOE" />
-            </Helmet>
+            </Helmet> */}
             <hr />
             <div className="product_specific_grid" id="Joints">
                 <div className="product_image_container shadow p-3 mb-5 bg-body rounded m-3 text-center">
