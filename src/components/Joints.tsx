@@ -1,11 +1,18 @@
 import "./Joints.css"
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 // import { Helmet } from 'react-helmet';
 
 function Joints()
 {
     const [firstContentClassName, setfirstContentClassName] = useState('hide-description');
     const [firstIconClassName, setfirstIconClassName] = useState('fa fa-chevron-down');
+    const product = 1;
+    const navigate = useNavigate();
+
+    const handleProductClick = (product: number) => {
+        navigate('/cart', { state: { product } });
+    };
     
     const handleFirstContentClick = () => {
         if (firstContentClassName === 'hide-description') {
@@ -95,15 +102,16 @@ function Joints()
                 <div className="product_image_container shadow p-3 mb-5 bg-body rounded m-3 text-center">
                     <div className="product_image_sticky">
                         <img src="/assets/joints.png" className='product_detail_image_size'></img>
-                        <a href="https://www.1mg.com/otc/sambika-herbal-joints-kare-oil-otc1093111" target="_blank"><div className="buy-btn"><b>Buy Now</b></div></a>
+                        {/* <a href="https://www.1mg.com/otc/sambika-herbal-joints-kare-oil-otc1093111" target="_blank"><div className="buy-btn"><b>Buy Now</b></div></a> */}
+                        <div className="buy-btn" onClick={() => handleProductClick(product)}><b>Buy Now</b></div>
                     </div>
                 </div>
                 <div className="product_description m-3 mt-4">
                     <h3 className="product_heading"><b>SAMBIKA Joints Kare Oil</b></h3>
                     <div className="product_cost px-2">
                         <span><s><span>Rs.</span> 499</s></span>
-                        <span className="product_actual_cost ms-2"><span>Rs.</span> 450</span>
-                        <span className="product_discount ms-2">-9.82%</span>
+                        <span className="product_actual_cost ms-2"><span>Rs.</span> 424</span>
+                        <span className="product_discount ms-2">-15.00%</span>
                         <div className="product_cost_footer">
                             Tax included. Shipping calculated at checkout.
                         </div>

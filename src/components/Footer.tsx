@@ -19,7 +19,11 @@ function Footer()
                         </div>
                         <div>
                             <b className="address_title">Email: </b> <br />
-                            sambikahealthcare@gmail.com
+                            sambikahealthcare@gmail.com <br /> <br />
+                        </div>
+                        <div>
+                            <b className="address_title">Contact Number: </b> <br />
+                            +91 7208-472-001
                         </div>
                     </div>
                     {/* <div>
