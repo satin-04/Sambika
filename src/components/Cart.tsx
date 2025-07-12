@@ -122,7 +122,7 @@ function Cart()
 
                 <div className="bg-white p-4 rounded-lg cart-product-grid">
                     <img
-                        src="/assets/joints.png"
+                        src="/assets/feet.png"
                         alt="SAMBIKA Feet Kare Oil"
                         className="cart_product_img"
                     />
@@ -151,7 +151,7 @@ function Cart()
 
                 <div className="bg-white p-4 rounded-lg cart-product-grid">
                     <img
-                        src="/assets/joints.png"
+                        src="/assets/hair.png"
                         alt="SAMBIKA Hair Roots Kare Oil"
                         className="cart_product_img"
                     />
