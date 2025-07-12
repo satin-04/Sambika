@@ -18,6 +18,16 @@
     font-size: 2rem;
 }
 
+.product_cart_amount {
+    color: slategray;
+    font-size: 22px;
+}
+
+.product_cart_delivery {
+    color: slategray;
+    font-size: 18px;
+} 
+
 .product_cart_cost {
     color: slategray;
     font-size: 28px;
@@ -26,6 +36,17 @@
 .btn-decrement-count {
     color: white;
     background-color: black;
+}
+
+.cart-product-amount {
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.delivery-charge-label {
+    font-weight: 500;
+    margin-bottom: 2px;
+    align-self: end;
 }
 
 .cart-product-total {
@@ -37,6 +58,15 @@
     width: 100%;
     padding: 10px;
     margin: 10px;
+}
+
+.form-payment-alignment {
+    padding: 5px 23px !important;
+    font-size: 18px;
+}
+
+.mode-of-payment-label {
+    font-weight: bold;
 }
 
 .submit-order-btn {

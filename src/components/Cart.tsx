@@ -4,7 +4,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
 import { useRef } from 'react';
 import emailjs from 'emailjs-com';
-import { ToastContainer, toast } from 'react-toastify';
+import { Bounce, ToastContainer, toast } from 'react-toastify';
 
 function Cart()
 {
@@ -33,7 +33,10 @@ function Cart()
         emailjs.sendForm(serviceID, templateID, formRef.current, userID)
         .then(() => {
             toast.success("The order was placed.");
-            navigate('/');
+            // navigate('/');
+            const timer = setTimeout(() => {
+                navigate('/', { replace: true });
+            }, 5000);
         })
         .catch(err => {
             toast.error("Failed to submit order.");
@@ -175,10 +178,20 @@ function Cart()
 
                 <div className="cart-title"></div>
                 <div className="cart-product-grid">
-                    <div className="text-lg font-bold cart-product-total text-center">Total</div>
-                    <span className="product_cart_cost"><span>Rs.</span> {(jointCount+feetCount+hairCount)*424}</span>
+                    <div className="font-bold cart-product-amount text-center">Amount</div>
+                    <span className="product_cart_amount"><span>Rs.</span> {(jointCount+feetCount+hairCount)*424}</span>
+                    <div className="text-center delivery-charge-label">Delivery Charge</div>
+                    <span className="product_cart_delivery"><span>Rs. </span> {(jointCount+feetCount+hairCount) >= 3 ? 0 : (jointCount+feetCount+hairCount) > 0 ? 75 : 0}</span>
+                </div>
+                <div className="ms-2 mb-2">
+                    <i>* Free Delivery on purchase of 3 or more products!</i>
                 </div>
                 <div className="cart-title"></div>
+
+                <div className="cart-product-grid">
+                    <div className="text-lg font-bold cart-product-total text-center">Total</div>
+                    <span className="product_cart_cost"><span>Rs.</span> {((jointCount+feetCount+hairCount) >= 3 ? (jointCount+feetCount+hairCount)*424 : (jointCount+feetCount+hairCount) > 0 ? (jointCount+feetCount+hairCount)*424 + 75 : 0)}</span>
+                </div>
 
             </div>
 
@@ -213,17 +226,40 @@ function Cart()
                         <div className="col-6">
                             <input name="email" className="form-input" placeholder="Email (optional)" type="email" />
                         </div>
+                        <div className="col-12 form-payment-alignment">
+                            <span className="mode-of-payment-label">Mode of Payment</span> &nbsp; &nbsp; &nbsp;
+                            <label>
+                                <input name="mode-of-payment" type="radio" value="Cash On Delivery" required />
+                                &nbsp;Cash On Delivery &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                            </label>
+                            <label>
+                                <input name="mode-of-payment" type="radio" value="Online Payment" />
+                                &nbsp;Online Payment
+                            </label>
+                        </div>
                         <div hidden>
                             <input name="jointCount" className="form-input" value={jointCount} readOnly />
                             <input name="feetCount" className="form-input" value={feetCount} readOnly />
                             <input name="hairCount" className="form-input" value={hairCount} readOnly />
-                            <input name="total" className="form-input" value={(jointCount+feetCount+hairCount)*424} readOnly />
+                            <input name="total" className="form-input" value={((jointCount+feetCount+hairCount) >= 3 ? (jointCount+feetCount+hairCount)*424 : (jointCount+feetCount+hairCount) > 0 ? (jointCount+feetCount+hairCount)*424 + 75 : 0)} readOnly />
 
                         </div>
                     </div>
                     <div className="submit-order-btn">
                         <button type="submit" className="submit-btn">SUBMIT ORDER</button>
-                        <ToastContainer />
+                        <ToastContainer
+                            position="bottom-right"
+                            autoClose={5000}
+                            hideProgressBar={false}
+                            newestOnTop={false}
+                            closeOnClick={false}
+                            rtl={false}
+                            pauseOnFocusLoss
+                            draggable
+                            pauseOnHover
+                            theme="light"
+                            transition={Bounce}
+                        />
                     </div>
                 </form>
             </div>
