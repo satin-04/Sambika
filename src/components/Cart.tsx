@@ -35,12 +35,12 @@ function Cart()
             var modeOfPayment = formRef.current?.elements["mode-of-payment"].value;
             if(modeOfPayment === "Online Payment")
             {
-                toast.success(<>Thank you for your order.<br/><br/>You will receive our QR code within the next 24 hours on your WhatsApp.</>);
+                toast.success(<>Thank you for your order!<br/><br/>You will receive our QR code within the next 24 hours on your WhatsApp.</>);
 
             }
             else
             {
-                toast.success("The order was placed.");
+                toast.success("The order was placed!");
             }
             // navigate('/');
             setTimeout(() => {
