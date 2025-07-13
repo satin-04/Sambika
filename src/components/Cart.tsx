@@ -32,11 +32,20 @@ function Cart()
 
         emailjs.sendForm(serviceID, templateID, formRef.current, userID)
         .then(() => {
-            toast.success("The order was placed.");
+            var modeOfPayment = formRef.current?.elements["mode-of-payment"].value;
+            if(modeOfPayment === "Online Payment")
+            {
+                toast.success(<>Thank you for your order.<br/><br/>You will receive our QR code within the next 24 hours on your WhatsApp.</>);
+
+            }
+            else
+            {
+                toast.success("The order was placed.");
+            }
             // navigate('/');
             setTimeout(() => {
                 navigate('/', { replace: true });
-            }, 5000);
+            }, 10000);
         })
         .catch(err => {
             toast.error("Failed to submit order.");
@@ -249,7 +258,7 @@ function Cart()
                         <button type="submit" className="submit-btn">SUBMIT ORDER</button>
                         <ToastContainer
                             position="bottom-right"
-                            autoClose={5000}
+                            autoClose={10000}
                             hideProgressBar={false}
                             newestOnTop={false}
                             closeOnClick={false}
