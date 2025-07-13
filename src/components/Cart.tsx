@@ -228,11 +228,11 @@ function Cart()
                         </div>
                         <div className="col-12 form-payment-alignment">
                             <span className="mode-of-payment-label">Mode of Payment</span> &nbsp; &nbsp; &nbsp;
-                            <label>
+                            <label className="slategray-color">
                                 <input name="mode-of-payment" type="radio" value="Cash On Delivery" required />
                                 &nbsp;Cash On Delivery &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
                             </label>
-                            <label>
+                            <label className="slategray-color">
                                 <input name="mode-of-payment" type="radio" value="Online Payment" />
                                 &nbsp;Online Payment
                             </label>

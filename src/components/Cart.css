@@ -66,7 +66,11 @@
 }
 
 .mode-of-payment-label {
-    font-weight: bold;
+    color: darkslategrey;
+}
+
+.slategray-color {
+    color: darkslategrey;
 }
 
 .submit-order-btn {
