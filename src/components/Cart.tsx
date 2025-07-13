@@ -32,20 +32,27 @@ function Cart()
 
         emailjs.sendForm(serviceID, templateID, formRef.current, userID)
         .then(() => {
-            var modeOfPayment = formRef.current?.elements["mode-of-payment"].value;
-            if(modeOfPayment === "Online Payment")
+            const form = formRef.current;
+            if(form) 
             {
-                toast.success(<>Thank you for your order!<br/><br/>You will receive our QR code within the next 24 hours on your WhatsApp.</>);
-
+                const elements = form.elements as HTMLFormControlsCollection & {
+                    [name: string]: HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement;
+                };
+                const modeOfPayment = elements["mode-of-payment"].value;
+                // var modeOfPayment = formRef.current?.elements["mode-of-payment"].value;
+                if(modeOfPayment === "Online Payment")
+                {
+                    toast.success(<>Thank you for your order!<br/><br/>You will receive our QR code within the next 24 hours on your WhatsApp.</>);
+                }
+                else
+                {
+                    toast.success("The order was placed!");
+                }
+                // navigate('/');
+                setTimeout(() => {
+                    navigate('/', { replace: true });
+                }, 10000);
             }
-            else
-            {
-                toast.success("The order was placed!");
-            }
-            // navigate('/');
-            setTimeout(() => {
-                navigate('/', { replace: true });
-            }, 10000);
         })
         .catch(err => {
             toast.error("Failed to submit order.");
