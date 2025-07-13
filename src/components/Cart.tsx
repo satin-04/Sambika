@@ -34,7 +34,7 @@ function Cart()
         .then(() => {
             toast.success("The order was placed.");
             // navigate('/');
-            const timer = setTimeout(() => {
+            setTimeout(() => {
                 navigate('/', { replace: true });
             }, 5000);
         })
