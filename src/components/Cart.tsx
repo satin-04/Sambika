@@ -115,7 +115,7 @@ function Cart()
                     />
                     <div>
                         <h3 className="text-lg font-bold cart-product-header">SAMBIKA Joints Kare Oil</h3>
-                        <span className="product_cart_cost"><span>Rs.</span> 424</span>
+                        <span className="product_cart_cost"><span>Rs.</span> 400</span>
                         <div className="flex items-center gap-4 mt-1 py-3">
                             <button
                                 className="bg-gray-200 btn-decrement-count"
@@ -144,7 +144,7 @@ function Cart()
                     />
                     <div>
                         <h3 className="text-lg font-bold cart-product-header">SAMBIKA Feet Kare Oil</h3>
-                        <span className="product_cart_cost"><span>Rs.</span> 424</span>
+                        <span className="product_cart_cost"><span>Rs.</span> 400</span>
                         <div className="flex items-center gap-4 mt-1 py-3">
                             <button
                                 className="bg-gray-200 btn-decrement-count"
@@ -173,7 +173,7 @@ function Cart()
                     />
                     <div>
                         <h3 className="text-lg font-bold cart-product-header">SAMBIKA Hair Roots Kare Oil</h3>
-                        <span className="product_cart_cost"><span>Rs.</span> 424</span>
+                        <span className="product_cart_cost"><span>Rs.</span> 400</span>
                         <div className="flex items-center gap-4 mt-1 py-3">
                             <button
                                 className="bg-gray-200 btn-decrement-count"
@@ -195,18 +195,18 @@ function Cart()
                 <div className="cart-title"></div>
                 <div className="cart-product-grid">
                     <div className="font-bold cart-product-amount text-center">Amount</div>
-                    <span className="product_cart_amount"><span>Rs.</span> {(jointCount+feetCount+hairCount)*424}</span>
-                    <div className="text-center delivery-charge-label">Delivery Charge</div>
-                    <span className="product_cart_delivery"><span>Rs. </span> {(jointCount+feetCount+hairCount) >= 3 ? 0 : (jointCount+feetCount+hairCount) > 0 ? 75 : 0}</span>
+                    <span className="product_cart_amount"><span>Rs.</span> {(jointCount+feetCount+hairCount)*400}</span>
+                    {/* <div className="text-center delivery-charge-label">Delivery Charge</div>
+                    <span className="product_cart_delivery"><span>Rs. </span> {(jointCount+feetCount+hairCount) >= 3 ? 0 : (jointCount+feetCount+hairCount) > 0 ? 0 : 0}</span> */}
                 </div>
                 <div className="ms-2 mb-2">
-                    <i>* Free Delivery on purchase of 3 or more products!</i>
+                    <i>*Delivery charges applicable based on location</i>
                 </div>
                 <div className="cart-title"></div>
 
                 <div className="cart-product-grid">
                     <div className="text-lg font-bold cart-product-total text-center">Total</div>
-                    <span className="product_cart_cost"><span>Rs.</span> {((jointCount+feetCount+hairCount) >= 3 ? (jointCount+feetCount+hairCount)*424 : (jointCount+feetCount+hairCount) > 0 ? (jointCount+feetCount+hairCount)*424 + 75 : 0)}</span>
+                    <span className="product_cart_cost"><span>Rs.</span> {((jointCount+feetCount+hairCount) >= 3 ? (jointCount+feetCount+hairCount)*400 : (jointCount+feetCount+hairCount) > 0 ? (jointCount+feetCount+hairCount)*400 + 0 : 0)}</span>
                 </div>
 
             </div>
@@ -257,7 +257,7 @@ function Cart()
                             <input name="jointCount" className="form-input" value={jointCount} readOnly />
                             <input name="feetCount" className="form-input" value={feetCount} readOnly />
                             <input name="hairCount" className="form-input" value={hairCount} readOnly />
-                            <input name="total" className="form-input" value={((jointCount+feetCount+hairCount) >= 3 ? (jointCount+feetCount+hairCount)*424 : (jointCount+feetCount+hairCount) > 0 ? (jointCount+feetCount+hairCount)*424 + 75 : 0)} readOnly />
+                            <input name="total" className="form-input" value={((jointCount+feetCount+hairCount) >= 3 ? (jointCount+feetCount+hairCount)*400 : (jointCount+feetCount+hairCount) > 0 ? (jointCount+feetCount+hairCount)*400 + 0 : 0)} readOnly />
 
                         </div>
                     </div>
