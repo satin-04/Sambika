@@ -148,23 +148,38 @@ function Cart()
                     const form = formRef.current;
                     if(form) 
                     {
-                        const elements = form.elements as HTMLFormControlsCollection & {
-                            [name: string]: HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement;
-                        };
-                        const modeOfPayment = elements["mode-of-payment"].value;
+                        // const elements = form.elements as HTMLFormControlsCollection & {
+                        //     [name: string]: HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement;
+                        // };
+                        // const modeOfPayment = elements["mode-of-payment"].value;
+                        navigate('/', { 
+                            state: { 
+                                showToast: true 
+                            }
+                        });
                         // var modeOfPayment = formRef.current?.elements["mode-of-payment"].value;
-                        if(modeOfPayment === "Online Payment")
-                        {
-                            toast.success(<>Your order has been placed!<br/><br/>You will receive the confirmation within the next 24 hours on your WhatsApp/SMS.</>);
-                        }
-                        else
-                        {
-                            toast.success("The order was placed!");
-                        }
+                        // if(modeOfPayment === "Online Payment")
+                        // {
+                        //     navigate('/', { 
+                        //         state: { 
+                        //             showToast: true, 
+                        //             message: "<>Your order has been placed!<br/><br/>You will receive the confirmation within the next 24 hours on your WhatsApp/SMS.</>" 
+                        //         } 
+                        //     });
+                        // }
+                        // else
+                        // {
+                        //     navigate('/', { 
+                        //         state: { 
+                        //             showToast: true, 
+                        //             message: "The order was placed!" 
+                        //         }
+                        //     });
+                        // }
                         // navigate('/');
-                        setTimeout(() => {
-                            navigate('/', { replace: true });
-                        }, 10000);
+                        // setTimeout(() => {
+                        //     navigate('/', { replace: true });
+                        // }, 10000);
                     }
                 })
                 .catch(err => {
@@ -187,29 +202,35 @@ function Cart()
         }
         setShouldSendEmail(true);
         setDisplayToast(true);
+
         emailjs.sendForm(serviceID, templateID, formRef.current, userID)
         .then(() => {
             const form = formRef.current;
             if(form) 
             {
-                const elements = form.elements as HTMLFormControlsCollection & {
-                    [name: string]: HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement;
-                };
-                const modeOfPayment = elements["mode-of-payment"].value;
+                // const elements = form.elements as HTMLFormControlsCollection & {
+                //     [name: string]: HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement;
+                // };
+                // const modeOfPayment = elements["mode-of-payment"].value;
                 // var modeOfPayment = formRef.current?.elements["mode-of-payment"].value;
-                if(modeOfPayment === "Online Payment")
-                {
-                    toast.success(<>Thank you for your order!<br/><br/>Your order has been placed and you will receive confirmation and tracking on your WhatsApp / SMS in the next 24 hours!</>);
-                }
-                else
-                {
-                    toast.success("The order was placed!");
-                }
-                // navigate('/');
-                setShouldSendEmail(false);
-                setTimeout(() => {
-                    navigate('/', { replace: true });
-                }, 10000);
+                // if(modeOfPayment === "Online Payment")
+                // {
+                //     toast.success(<>Thank you for your order!<br/><br/>Your order has been placed and you will receive confirmation and tracking on your WhatsApp / SMS in the next 24 hours!</>);
+                // }
+                // else
+                // {
+                //     toast.success("The order was placed!");
+                // }
+                // // navigate('/');
+                // setShouldSendEmail(false);
+                // setTimeout(() => {
+                //     navigate('/', { replace: true });
+                // }, 10000);
+                navigate('/', { 
+                    state: { 
+                        showToast: true 
+                    }
+                });
             }
         })
         .catch(err => {
@@ -357,8 +378,8 @@ function Cart()
                     <div className="cart-product-grid">
                         <div className="font-bold cart-product-amount text-center">Amount</div>
                         <span className="product_cart_amount"><span>Rs.</span> {(jointCount+feetCount+hairCount)*400}</span>
-                        {/* <div className="text-center delivery-charge-label">Delivery Charge</div>
-                        <span className="product_cart_delivery"><span>Rs. </span> {(jointCount+feetCount+hairCount) >= 3 ? 0 : (jointCount+feetCount+hairCount) > 0 ? 0 : 0}</span> */}
+                        <div className="text-center delivery-charge-label">Delivery Charge</div>
+                        <span className="product_cart_delivery"><span>Rs. </span> {(jointCount+feetCount+hairCount) >= 3 ? 0 : (jointCount+feetCount+hairCount) > 0 ? 25 : 0}</span>
                     </div>
                     <div className="ms-2 mb-2">
                         <i>*Delivery charges applicable based on location</i>
@@ -367,7 +388,7 @@ function Cart()
 
                     <div className="cart-product-grid">
                         <div className="text-lg font-bold cart-product-total text-center">Total</div>
-                        <span className="product_cart_cost"><span>Rs.</span> {((jointCount+feetCount+hairCount) >= 3 ? (jointCount+feetCount+hairCount)*400 : (jointCount+feetCount+hairCount) > 0 ? (jointCount+feetCount+hairCount)*400 + 0 : 0)}</span>
+                        <span className="product_cart_cost"><span>Rs.</span> {((jointCount+feetCount+hairCount) >= 3 ? (jointCount+feetCount+hairCount)*400 : (jointCount+feetCount+hairCount) > 0 ? (jointCount+feetCount+hairCount)*400 + 25 : 0)}</span>
                     </div>
 
                 </div>
@@ -418,7 +439,7 @@ function Cart()
                                 <input name="jointCount" className="form-input" value={jointCount} readOnly />
                                 <input name="feetCount" className="form-input" value={feetCount} readOnly />
                                 <input name="hairCount" className="form-input" value={hairCount} readOnly />
-                                <input name="total" className="form-input" value={((jointCount+feetCount+hairCount) >= 3 ? (jointCount+feetCount+hairCount)*400 : (jointCount+feetCount+hairCount) > 0 ? (jointCount+feetCount+hairCount)*400 + 0 : 0)} readOnly />
+                                <input name="total" className="form-input" value={((jointCount+feetCount+hairCount) >= 3 ? (jointCount+feetCount+hairCount)*400 : (jointCount+feetCount+hairCount) > 0 ? (jointCount+feetCount+hairCount)*400 + 25 : 0)} readOnly />
 
                             </div>
                         </div>
