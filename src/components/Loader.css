@@ -1,0 +1,18 @@
+.full-screen-overlay {
+  /* Position it fixed relative to the viewport */
+  position: fixed; 
+  top: 0;
+  left: 0;
+  /* Make it take the full width and height */
+  width: 100vw; 
+  height: 100vh;
+  /* Center the content (spinner and text) */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  /* Add a background overlay (e.g., semi-transparent black or white) */
+  background-color: rgba(255, 255, 255, 0.85);
+  /* Ensure it is above all other content */
+  z-index: 1000; 
+}
