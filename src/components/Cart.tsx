@@ -6,7 +6,6 @@ import { useRef } from 'react';
 import { useRazorpay, RazorpayOrderOptions } from "react-razorpay";
 import emailjs from 'emailjs-com';
 import { Bounce, ToastContainer, toast } from 'react-toastify';
-import { Puff } from 'react-loader-spinner';
 import Loader from './Loader';
 
 function Cart()
@@ -19,7 +18,7 @@ function Cart()
     const [feetCount, setFeetCount] = useState(0);
     const [hairCount, setHairCount] = useState(0);
 
-    const { error, isLoading, Razorpay } = useRazorpay();
+    const { Razorpay } = useRazorpay();
     const [isProcessingPayment, setIsProcessingPayment] = useState(false);
     const [shouldSendEmail, setShouldSendEmail] = useState(false);
     const [displayToast, setDisplayToast] = useState(false);
@@ -44,7 +43,7 @@ function Cart()
         const name = (formData.elements.namedItem('fullName') as HTMLInputElement | null)?.value ?? "";
         const email = (formData.elements.namedItem('email') as HTMLInputElement | null)?.value ?? "";
         const phone = (formData.elements.namedItem('phone') as HTMLInputElement | null)?.value ?? "";
-        const address1 = (formData.elements.namedItem('address1') as HTMLInputElement | null)?.value ?? "";
+        // const address1 = (formData.elements.namedItem('address1') as HTMLInputElement | null)?.value ?? "";
         const paymentMode = (formData.elements.namedItem('mode-of-payment') as HTMLInputElement | null)?.value ?? "";
         const currency = "INR";
         const receiptId = "qwsap1";
@@ -79,7 +78,7 @@ function Cart()
                     "description": "Sambika Healthcare",
                     "image": "",
                     "order_id": order.id, //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
-                    "handler": function (response){
+                    "handler": function (){
                         // alert(response.razorpay_payment_id);
                         // alert(response.razorpay_order_id);
                         // alert(response.razorpay_signature)
