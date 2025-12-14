@@ -41,6 +41,24 @@ function App() {
             <Cart />
           </>
         } />
+        <Route path="/joints" element={
+          <>
+            <Navbar />
+            <Joints />
+          </>
+        } />
+        <Route path="/feet" element={
+          <>
+            <Navbar />
+            <Feet />
+          </>
+        } />
+        <Route path="/hair" element={
+          <>
+            <Navbar />
+            <Hair />
+          </>
+        } />
       </Routes>
     </Router>
   )
