@@ -29,9 +29,9 @@ function Cart()
         e.preventDefault();
 
         console.log("form submit clicked");
-        const serviceID = 'service_lg6qo5i';
-        const templateID = 'template_0237p7r';
-        const userID = 'Rw9K12h_Iz_TPh1ve';
+        // const serviceID = 'service_lg6qo5i';
+        // const templateID = 'template_0237p7r';
+        // const userID = 'Rw9K12h_Iz_TPh1ve';
 
         if (!formRef.current) {
             toast.error("Please verify all Address Details are correct.");
