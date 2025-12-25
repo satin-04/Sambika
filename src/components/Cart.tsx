@@ -44,13 +44,13 @@ function Cart()
         const email = (formData.elements.namedItem('email') as HTMLInputElement | null)?.value ?? "";
         const phone = (formData.elements.namedItem('phone') as HTMLInputElement | null)?.value ?? "";
         // const address1 = (formData.elements.namedItem('address1') as HTMLInputElement | null)?.value ?? "";
-        const paymentMode = (formData.elements.namedItem('mode-of-payment') as HTMLInputElement | null)?.value ?? "";
+        // const paymentMode = (formData.elements.namedItem('mode-of-payment') as HTMLInputElement | null)?.value ?? "";
         const currency = "INR";
         const receiptId = "qwsap1";
         const amount = Number(total)*100;
 
-        if(paymentMode === "Online Payment")
-        {
+        // if(paymentMode === "Online Payment")
+        // {
             setIsProcessingPayment(true);
     
             try 
@@ -138,56 +138,56 @@ function Cart()
                 console.error("Error opening Razorpay:", err);
                 setIsProcessingPayment(false); // Hide the spinner if an error occurs
             }
-        }
-        else
-        {
-            setShouldSendEmail(true);
-            setDisplayToast(true);
-            emailjs.sendForm(serviceID, templateID, formRef.current, userID)
-                .then(() => {
-                    const form = formRef.current;
-                    if(form) 
-                    {
-                        // const elements = form.elements as HTMLFormControlsCollection & {
-                        //     [name: string]: HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement;
-                        // };
-                        // const modeOfPayment = elements["mode-of-payment"].value;
-                        navigate('/', { 
-                            state: { 
-                                showToast: true 
-                            }
-                        });
-                        // var modeOfPayment = formRef.current?.elements["mode-of-payment"].value;
-                        // if(modeOfPayment === "Online Payment")
-                        // {
-                        //     navigate('/', { 
-                        //         state: { 
-                        //             showToast: true, 
-                        //             message: "<>Your order has been placed!<br/><br/>You will receive the confirmation within the next 24 hours on your WhatsApp/SMS.</>" 
-                        //         } 
-                        //     });
-                        // }
-                        // else
-                        // {
-                        //     navigate('/', { 
-                        //         state: { 
-                        //             showToast: true, 
-                        //             message: "The order was placed!" 
-                        //         }
-                        //     });
-                        // }
-                        // navigate('/');
-                        // setTimeout(() => {
-                        //     navigate('/', { replace: true });
-                        // }, 10000);
-                    }
-                })
-                .catch(err => {
-                    toast.error("Failed to submit order.");
-                    console.error('Email error:', err);
-                });
-            setShouldSendEmail(false);
-        }
+        // }
+        // else
+        // {
+        //     setShouldSendEmail(true);
+        //     setDisplayToast(true);
+        //     emailjs.sendForm(serviceID, templateID, formRef.current, userID)
+        //         .then(() => {
+        //             const form = formRef.current;
+        //             if(form) 
+        //             {
+        //                 // const elements = form.elements as HTMLFormControlsCollection & {
+        //                 //     [name: string]: HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement;
+        //                 // };
+        //                 // const modeOfPayment = elements["mode-of-payment"].value;
+        //                 navigate('/', { 
+        //                     state: { 
+        //                         showToast: true 
+        //                     }
+        //                 });
+        //                 // var modeOfPayment = formRef.current?.elements["mode-of-payment"].value;
+        //                 // if(modeOfPayment === "Online Payment")
+        //                 // {
+        //                 //     navigate('/', { 
+        //                 //         state: { 
+        //                 //             showToast: true, 
+        //                 //             message: "<>Your order has been placed!<br/><br/>You will receive the confirmation within the next 24 hours on your WhatsApp/SMS.</>" 
+        //                 //         } 
+        //                 //     });
+        //                 // }
+        //                 // else
+        //                 // {
+        //                 //     navigate('/', { 
+        //                 //         state: { 
+        //                 //             showToast: true, 
+        //                 //             message: "The order was placed!" 
+        //                 //         }
+        //                 //     });
+        //                 // }
+        //                 // navigate('/');
+        //                 // setTimeout(() => {
+        //                 //     navigate('/', { replace: true });
+        //                 // }, 10000);
+        //             }
+        //         })
+        //         .catch(err => {
+        //             toast.error("Failed to submit order.");
+        //             console.error('Email error:', err);
+        //         });
+        //     setShouldSendEmail(false);
+        // }
 
     };
 
@@ -297,7 +297,7 @@ function Cart()
                         />
                         <div>
                             <h3 className="text-lg font-bold cart-product-header">SAMBIKA Joints Kare Oil</h3>
-                            <span className="product_cart_cost"><span>Rs.</span> 400</span>
+                            <span className="product_cart_cost"><span>Rs.</span> 425</span>
                             <div className="flex items-center gap-4 mt-1 py-3">
                                 <button
                                     className="bg-gray-200 btn-decrement-count"
@@ -326,7 +326,7 @@ function Cart()
                         />
                         <div>
                             <h3 className="text-lg font-bold cart-product-header">SAMBIKA Feet Kare Oil</h3>
-                            <span className="product_cart_cost"><span>Rs.</span> 400</span>
+                            <span className="product_cart_cost"><span>Rs.</span> 425</span>
                             <div className="flex items-center gap-4 mt-1 py-3">
                                 <button
                                     className="bg-gray-200 btn-decrement-count"
@@ -355,7 +355,7 @@ function Cart()
                         />
                         <div>
                             <h3 className="text-lg font-bold cart-product-header">SAMBIKA Hair Roots Kare Oil</h3>
-                            <span className="product_cart_cost"><span>Rs.</span> 400</span>
+                            <span className="product_cart_cost"><span>Rs.</span> 425</span>
                             <div className="flex items-center gap-4 mt-1 py-3">
                                 <button
                                     className="bg-gray-200 btn-decrement-count"
@@ -377,18 +377,18 @@ function Cart()
                     <div className="cart-title"></div>
                     <div className="cart-product-grid">
                         <div className="font-bold cart-product-amount text-center">Amount</div>
-                        <span className="product_cart_amount"><span>Rs.</span> {(jointCount+feetCount+hairCount)*400}</span>
-                        <div className="text-center delivery-charge-label">Delivery Charge</div>
-                        <span className="product_cart_delivery"><span>Rs. </span> {(jointCount+feetCount+hairCount) >= 3 ? 0 : (jointCount+feetCount+hairCount) > 0 ? 25 : 0}</span>
+                        <span className="product_cart_amount"><span>Rs.</span> {(jointCount+feetCount+hairCount)*425}</span>
+                        {/* <div className="text-center delivery-charge-label">Delivery Charge</div>
+                        <span className="product_cart_delivery"><span>Rs. </span> {(jointCount+feetCount+hairCount) >= 3 ? 0 : (jointCount+feetCount+hairCount) > 0 ? 25 : 0}</span> */}
                     </div>
-                    <div className="ms-2 mb-2">
+                    {/* <div className="ms-2 mb-2">
                         <i>*Delivery charges applicable based on location</i>
-                    </div>
+                    </div> */}
                     <div className="cart-title"></div>
 
                     <div className="cart-product-grid">
                         <div className="text-lg font-bold cart-product-total text-center">Total</div>
-                        <span className="product_cart_cost"><span>Rs.</span> {((jointCount+feetCount+hairCount) >= 3 ? (jointCount+feetCount+hairCount)*400 : (jointCount+feetCount+hairCount) > 0 ? (jointCount+feetCount+hairCount)*400 + 25 : 0)}</span>
+                        <span className="product_cart_cost"><span>Rs.</span> {((jointCount+feetCount+hairCount) >= 3 ? (jointCount+feetCount+hairCount)*425 : (jointCount+feetCount+hairCount) > 0 ? (jointCount+feetCount+hairCount)*425 + 0 : 0)}</span>
                     </div>
 
                 </div>
@@ -424,7 +424,7 @@ function Cart()
                             <div className="col-6">
                                 <input name="email" className="form-input" placeholder="Email (optional)" type="email" />
                             </div>
-                            <div className="col-12 form-payment-alignment">
+                            {/* <div className="col-12 form-payment-alignment">
                                 <span className="mode-of-payment-label">Mode of Payment</span> &nbsp; &nbsp; &nbsp;
                                 <label className="slategray-color">
                                     <input name="mode-of-payment" type="radio" value="Cash On Delivery" required />
@@ -434,7 +434,7 @@ function Cart()
                                     <input name="mode-of-payment" type="radio" value="Online Payment" />
                                     &nbsp;Online Payment
                                 </label>
-                            </div>
+                            </div> */}
                             <div hidden>
                                 <input name="jointCount" className="form-input" value={jointCount} readOnly />
                                 <input name="feetCount" className="form-input" value={feetCount} readOnly />
