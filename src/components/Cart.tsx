@@ -439,7 +439,7 @@ function Cart()
                                 <input name="jointCount" className="form-input" value={jointCount} readOnly />
                                 <input name="feetCount" className="form-input" value={feetCount} readOnly />
                                 <input name="hairCount" className="form-input" value={hairCount} readOnly />
-                                <input name="total" className="form-input" value={((jointCount+feetCount+hairCount) >= 3 ? (jointCount+feetCount+hairCount)*400 : (jointCount+feetCount+hairCount) > 0 ? (jointCount+feetCount+hairCount)*400 + 25 : 0)} readOnly />
+                                <input name="total" className="form-input" value={((jointCount+feetCount+hairCount) >= 3 ? (jointCount+feetCount+hairCount)*450 : (jointCount+feetCount+hairCount) > 0 ? (jointCount+feetCount+hairCount)*450 + 0 : 0)} readOnly />
 
                             </div>
                         </div>
