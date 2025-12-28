@@ -71,7 +71,7 @@ function Cart()
     
                 
                 var options: RazorpayOrderOptions = {
-                    "key": "rzp_test_RVYOyk7mioCs68", // Enter the Key ID generated from the Dashboard
+                    "key": "rzp_live_RtWMicyX3rOqul", // Enter the Key ID generated from the Dashboard
                     "amount": amount, // Amount is in currency subunits.
                     "currency": "INR",
                     "name": "Sambika Healthcare", //your business name
