@@ -40,6 +40,13 @@ function Cart()
             return;
         }
 
+        const indiaTime = new Date().toLocaleString("en-IN", {
+            timeZone: "Asia/Kolkata",
+            dateStyle: "full",
+            timeStyle: "medium",
+            hour12: true,
+        });
+
         const formData = formRef.current;
         var total = (formData.elements.namedItem('total') as HTMLInputElement | null)?.value ?? "";
         const name = (formData.elements.namedItem('fullName') as HTMLInputElement | null)?.value ?? "";
@@ -70,7 +77,8 @@ function Cart()
                 JointsKareOil: jointCount,
                 FeetKareOil: feetCount,
                 HairKareOil: hairCount,
-                Amount: total
+                Amount: total,
+                CreatedAt: indiaTime
             });
         }
         catch (err) {
@@ -186,7 +194,8 @@ function Cart()
                     JointsKareOil: jointCount,
                     FeetKareOil: feetCount,
                     HairKareOil: hairCount,
-                    Amount: total
+                    Amount: total,
+                    CreatedAt: indiaTime
                 });
             }
             catch (err) {
@@ -252,6 +261,13 @@ function Cart()
         setShouldSendEmail(true);
         setDisplayToast(true);
 
+        const indiaTime = new Date().toLocaleString("en-IN", {
+            timeZone: "Asia/Kolkata",
+            dateStyle: "full",
+            timeStyle: "medium",
+            hour12: true,
+        });
+
         const formData = formRef.current;
         var total = (formData.elements.namedItem('total') as HTMLInputElement | null)?.value ?? "";
         const name = (formData.elements.namedItem('fullName') as HTMLInputElement | null)?.value ?? "";
@@ -279,7 +295,8 @@ function Cart()
                 JointsKareOil: jointCount,
                 FeetKareOil: feetCount,
                 HairKareOil: hairCount,
-                Amount: total
+                Amount: total,
+                CreatedAt: indiaTime
             });
         }
         catch (err) {
