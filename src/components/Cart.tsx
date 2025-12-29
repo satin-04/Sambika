@@ -7,6 +7,8 @@ import { useRazorpay, RazorpayOrderOptions } from "react-razorpay";
 import emailjs from 'emailjs-com';
 import { Bounce, ToastContainer, toast } from 'react-toastify';
 import Loader from './Loader';
+import { collection, addDoc } from "firebase/firestore";
+import {db} from '../firebase';
 
 function Cart()
 {
@@ -43,11 +45,37 @@ function Cart()
         const name = (formData.elements.namedItem('fullName') as HTMLInputElement | null)?.value ?? "";
         const email = (formData.elements.namedItem('email') as HTMLInputElement | null)?.value ?? "";
         const phone = (formData.elements.namedItem('phone') as HTMLInputElement | null)?.value ?? "";
-        // const address1 = (formData.elements.namedItem('address1') as HTMLInputElement | null)?.value ?? "";
+        const address1 = (formData.elements.namedItem('address1') as HTMLInputElement | null)?.value ?? "";
+        const address2 = (formData.elements.namedItem('address2') as HTMLInputElement | null)?.value ?? "";
+        const city = (formData.elements.namedItem('city') as HTMLInputElement | null)?.value ?? "";
+        const state = (formData.elements.namedItem('state') as HTMLInputElement | null)?.value ?? "";
+        const zipcode = (formData.elements.namedItem('zipcode') as HTMLInputElement | null)?.value ?? "";
         const paymentMode = (formData.elements.namedItem('mode-of-payment') as HTMLInputElement | null)?.value ?? "";
         const currency = "INR";
         const receiptId = "qwsap1";
         const amount = Number(total)*100;
+
+        try
+        {
+            await addDoc(collection(db, "order-draft"), {
+                Customer: name,
+                Address1: address1,
+                Address2: address2,
+                City: city,
+                State: state,
+                ZipCode: zipcode,
+                Phone: phone,
+                Email: email,
+                ModeOfPayment: paymentMode,
+                JointsKareOil: jointCount,
+                FeetKareOil: feetCount,
+                HairKareOil: hairCount,
+                Amount: total
+            });
+        }
+        catch (err) {
+            console.error("Error sending data to db:", err);
+        }
 
         if(paymentMode === "Online Payment")
         {
@@ -143,6 +171,27 @@ function Cart()
         {
             setShouldSendEmail(true);
             setDisplayToast(true);
+            try
+            {
+                await addDoc(collection(db, "order"), {
+                    Customer: name,
+                    Address1: address1,
+                    Address2: address2,
+                    City: city,
+                    State: state,
+                    ZipCode: zipcode,
+                    Phone: phone,
+                    Email: email,
+                    ModeOfPayment: paymentMode,
+                    JointsKareOil: jointCount,
+                    FeetKareOil: feetCount,
+                    HairKareOil: hairCount,
+                    Amount: total
+                });
+            }
+            catch (err) {
+                console.error("Error sending data to db:", err);
+            }
             emailjs.sendForm(serviceID, templateID, formRef.current, userID)
                 .then(() => {
                     const form = formRef.current;
@@ -191,7 +240,7 @@ function Cart()
 
     };
 
-    const SendConfirmationEmail = () => {
+    const SendConfirmationEmail = async () => {
         const serviceID = 'service_lg6qo5i';
         const templateID = 'template_0237p7r';
         const userID = 'Rw9K12h_Iz_TPh1ve';
@@ -202,6 +251,40 @@ function Cart()
         }
         setShouldSendEmail(true);
         setDisplayToast(true);
+
+        const formData = formRef.current;
+        var total = (formData.elements.namedItem('total') as HTMLInputElement | null)?.value ?? "";
+        const name = (formData.elements.namedItem('fullName') as HTMLInputElement | null)?.value ?? "";
+        const email = (formData.elements.namedItem('email') as HTMLInputElement | null)?.value ?? "";
+        const phone = (formData.elements.namedItem('phone') as HTMLInputElement | null)?.value ?? "";
+        const address1 = (formData.elements.namedItem('address1') as HTMLInputElement | null)?.value ?? "";
+        const address2 = (formData.elements.namedItem('address2') as HTMLInputElement | null)?.value ?? "";
+        const city = (formData.elements.namedItem('city') as HTMLInputElement | null)?.value ?? "";
+        const state = (formData.elements.namedItem('state') as HTMLInputElement | null)?.value ?? "";
+        const zipcode = (formData.elements.namedItem('zipcode') as HTMLInputElement | null)?.value ?? "";
+        const paymentMode = (formData.elements.namedItem('mode-of-payment') as HTMLInputElement | null)?.value ?? "";
+
+        try
+        {
+            await addDoc(collection(db, "order"), {
+                Customer: name,
+                Address1: address1,
+                Address2: address2,
+                City: city,
+                State: state,
+                ZipCode: zipcode,
+                Phone: phone,
+                Email: email,
+                ModeOfPayment: paymentMode,
+                JointsKareOil: jointCount,
+                FeetKareOil: feetCount,
+                HairKareOil: hairCount,
+                Amount: total
+            });
+        }
+        catch (err) {
+            console.error("Error sending data to db:", err);
+        }
 
         emailjs.sendForm(serviceID, templateID, formRef.current, userID)
         .then(() => {
