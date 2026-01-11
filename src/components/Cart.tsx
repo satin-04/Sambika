@@ -23,7 +23,6 @@ function Cart()
     const { Razorpay } = useRazorpay();
     const [isProcessingPayment, setIsProcessingPayment] = useState(false);
     const [shouldSendEmail, setShouldSendEmail] = useState(false);
-    const [displayToast, setDisplayToast] = useState(false);
     const [isSubmitting, setIsSubmitting] = useState(false);
 
     const formRef = useRef<HTMLFormElement>(null);
@@ -191,7 +190,6 @@ function Cart()
         else
         {
             setShouldSendEmail(true);
-            setDisplayToast(true);
             try
             {
                 await addDoc(collection(db, "order"), {
@@ -293,7 +291,6 @@ function Cart()
             return;
         }
         setShouldSendEmail(true);
-        setDisplayToast(true);
 
         const indiaTime = new Date().toLocaleString("en-IN", {
             timeZone: "Asia/Kolkata",
