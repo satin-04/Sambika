@@ -65,6 +65,13 @@ function Cart()
         const receiptId = "qwsap1";
         const amount = Number(total)*100;
 
+        if(amount == 0)
+        {
+            setIsSubmitting(false);
+            toast.error("Please select at least 1 product to order.");
+            return;
+        }
+
         try
         {
             await addDoc(collection(db, "order-draft"), {
@@ -592,21 +599,21 @@ function Cart()
                         </div>
                         <div className="submit-order-btn">
                             <button type="submit" disabled={isSubmitting} className="submit-btn">{isSubmitting ? 'Processing...' : 'SUBMIT ORDER'}</button>
-                            {displayToast ? (
-                                <ToastContainer
-                                    position="bottom-right"
-                                    autoClose={10000}
-                                    hideProgressBar={false}
-                                    newestOnTop={false}
-                                    closeOnClick={false}
-                                    rtl={false}
-                                    pauseOnFocusLoss
-                                    draggable
-                                    pauseOnHover
-                                    theme="light"
-                                    transition={Bounce}
-                                />
-                            ) : <></>}
+                            
+                            <ToastContainer
+                                position="bottom-right"
+                                autoClose={10000}
+                                hideProgressBar={false}
+                                newestOnTop={false}
+                                closeOnClick={false}
+                                rtl={false}
+                                pauseOnFocusLoss
+                                draggable
+                                pauseOnHover
+                                theme="light"
+                                transition={Bounce}
+                            />
+                            
                         </div>
                     </form>
                 </div>
