@@ -11,6 +11,7 @@ import Hair from './components/Hair.tsx';
 import Certifications from './components/Certifications.tsx';
 import Footer from './components/Footer.tsx';
 import Cart from './components/Cart.tsx';
+import OrderSummary from './components/OrderSummary.tsx';
 import RouteChangeTracker from './components/RouteChangeTracker.tsx';
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
@@ -59,6 +60,12 @@ function App() {
           <>
             <Navbar />
             <Hair />
+          </>
+        } />
+        <Route path="/order-summary" element={
+          <>
+            <Navbar />
+            <OrderSummary />
           </>
         } />
       </Routes>

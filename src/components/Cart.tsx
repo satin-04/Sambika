@@ -201,6 +201,24 @@ function Cart()
             catch (err) {
                 console.error("Error sending data to db:", err);
             }
+
+            const orderData = {
+                Customer: name,
+                Address1: address1,
+                Address2: address2,
+                City: city,
+                State: state,
+                ZipCode: zipcode,
+                Phone: phone,
+                Email: email,
+                ModeOfPayment: paymentMode,
+                JointsKareOil: jointCount,
+                FeetKareOil: feetCount,
+                HairKareOil: hairCount,
+                Amount: total,
+                CreatedAt: indiaTime
+            };
+
             emailjs.sendForm(serviceID, templateID, formRef.current, userID)
                 .then(() => {
                     const form = formRef.current;
@@ -210,9 +228,10 @@ function Cart()
                         //     [name: string]: HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement;
                         // };
                         // const modeOfPayment = elements["mode-of-payment"].value;
-                        navigate('/', { 
+                        navigate('/order-summary', { 
                             state: { 
-                                showToast: true 
+                                order: orderData,
+                                authorized: true
                             }
                         });
                         // var modeOfPayment = formRef.current?.elements["mode-of-payment"].value;
@@ -303,6 +322,23 @@ function Cart()
             console.error("Error sending data to db:", err);
         }
 
+        const orderData = {
+            Customer: name,
+            Address1: address1,
+            Address2: address2,
+            City: city,
+            State: state,
+            ZipCode: zipcode,
+            Phone: phone,
+            Email: email,
+            ModeOfPayment: paymentMode,
+            JointsKareOil: jointCount,
+            FeetKareOil: feetCount,
+            HairKareOil: hairCount,
+            Amount: total,
+            CreatedAt: indiaTime
+        };
+
         emailjs.sendForm(serviceID, templateID, formRef.current, userID)
         .then(() => {
             const form = formRef.current;
@@ -326,9 +362,10 @@ function Cart()
                 // setTimeout(() => {
                 //     navigate('/', { replace: true });
                 // }, 10000);
-                navigate('/', { 
+                navigate('/order-summary', { 
                     state: { 
-                        showToast: true 
+                        order: orderData,
+                        authorized: true
                     }
                 });
             }
