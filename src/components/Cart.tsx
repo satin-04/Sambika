@@ -24,6 +24,7 @@ function Cart()
     const [isProcessingPayment, setIsProcessingPayment] = useState(false);
     const [shouldSendEmail, setShouldSendEmail] = useState(false);
     const [displayToast, setDisplayToast] = useState(false);
+    const [isSubmitting, setIsSubmitting] = useState(false);
 
     const formRef = useRef<HTMLFormElement>(null);
 
@@ -39,6 +40,8 @@ function Cart()
             toast.error("Please verify all Address Details are correct.");
             return;
         }
+
+        setIsSubmitting(true);
 
         const indiaTime = new Date().toLocaleString("en-IN", {
             timeZone: "Asia/Kolkata",
@@ -120,6 +123,7 @@ function Cart()
                         // alert(response.razorpay_signature)
 
                         SendConfirmationEmail();
+                        setIsSubmitting(false);
                     },
                     "prefill": { //We recommend using the prefill parameter to auto-fill customer's contact information, especially their phone number
                         "name": name, //your customer's name
@@ -136,6 +140,7 @@ function Cart()
                 razorpayInstance.open();
                 e.preventDefault();
                 setIsProcessingPayment(false);
+                setIsSubmitting(false);
                 
                 if(shouldSendEmail)
                 {
@@ -173,6 +178,7 @@ function Cart()
             } catch (err) {
                 console.error("Error opening Razorpay:", err);
                 setIsProcessingPayment(false); // Hide the spinner if an error occurs
+                setIsSubmitting(false);
             }
         }
         else
@@ -228,6 +234,7 @@ function Cart()
                         //     [name: string]: HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement;
                         // };
                         // const modeOfPayment = elements["mode-of-payment"].value;
+                        setIsSubmitting(false);
                         navigate('/order-summary', { 
                             state: { 
                                 order: orderData,
@@ -264,6 +271,7 @@ function Cart()
                     console.error('Email error:', err);
                 });
             setShouldSendEmail(false);
+            setIsSubmitting(false);
         }
 
     };
@@ -362,6 +370,7 @@ function Cart()
                 // setTimeout(() => {
                 //     navigate('/', { replace: true });
                 // }, 10000);
+                setIsSubmitting(false);
                 navigate('/order-summary', { 
                     state: { 
                         order: orderData,
@@ -373,6 +382,7 @@ function Cart()
         .catch(err => {
             toast.error("Failed to submit order.");
             console.error('Email error:', err);
+            setIsSubmitting(false);
         });
     }
 
@@ -581,7 +591,7 @@ function Cart()
                             </div>
                         </div>
                         <div className="submit-order-btn">
-                            <button type="submit" className="submit-btn">SUBMIT ORDER</button>
+                            <button type="submit" disabled={isSubmitting} className="submit-btn">{isSubmitting ? 'Processing...' : 'SUBMIT ORDER'}</button>
                             {displayToast ? (
                                 <ToastContainer
                                     position="bottom-right"
