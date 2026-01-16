@@ -100,7 +100,7 @@ function Cart()
     
             try 
             {
-                const response = await fetch("https://sambika-backend.onrender.com/order", {
+                const response = await fetch("https://exciting-aggie-sambika-8d12e213.koyeb.app/order", {
                     method: "POST",
                     body: JSON.stringify({
                         "amount": amount,
