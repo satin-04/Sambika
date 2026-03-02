@@ -200,13 +200,19 @@ function Massage()
                             </div>
                             <div className={fourthContentClassName}>
                                 <ul>
-                                    <li> Supports improved stamina and long-lasting performance </li>
-                                    <li> Promotes healthy blood circulation for better natural strength </li>
-                                    <li> Helps enhance confidence and overall vitality in men </li>
-                                    <li> Assists in managing stress-related weakness and fatigue </li>
-                                    <li> Useful to increase vitality in diabetic individuals </li>
-                                    <li> Helps maintain overall male wellness and energy levels </li>
-                                    <li> Can be used for people above 18 years of age </li>
+                                    <li> Provides a powerful boost for enhanced strength, performance, and confidence </li>
+                                    <li> Supports improvement in sperm count </li>
+                                    <li> Helps with recovery from loose erection and low performance concerns </li>
+                                    <li> Assists in managing stress-related loss of interest </li>
+                                    <li> Supports stronger and firmer erection </li>
+                                    <li> Helps control early leakage concerns </li>
+                                    <li> Supports muscle strengthening to help manage white discharge issues </li>
+                                    <li> Assists in addressing low erection concerns related to diabetic conditions </li>
+                                    <li> Helps manage age-related performance issues </li>
+                                    <li> Supports recovery from weakness caused by stress and certain lifestyle habits such as excessive mobile use, smoking, alcohol, and tobacco consumption </li>
+                                    <li> Promotes thicker, stronger, and harder erection </li>
+                                    <li> Provides an overall boost to power, performance, and pleasure with improved stamina </li>
+                                    <li> Works by supporting muscle strength, improving blood flow, and enhancing nerve responsiveness </li>
                                 </ul>
                             </div>
                         </div>
