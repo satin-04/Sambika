@@ -9,7 +9,6 @@ import { Bounce, ToastContainer, toast } from 'react-toastify';
 import Loader from './Loader';
 import { collection, addDoc } from "firebase/firestore";
 import {db} from '../firebase';
-import Massage from "./Massage";
 
 function Cart()
 {
