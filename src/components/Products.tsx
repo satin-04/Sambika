@@ -49,6 +49,12 @@ function Products() {
                             <img src="/assets/hair.png" className='product_image_size'></img>
                         </a>
                     </div>
+                    <div className="product_image_container shadow p-3 mb-5 bg-body rounded m-3">
+                        <a href="#Massage">
+                            <div><b>SAMBIKA MASSAGE OIL</b></div>
+                            <img src="/assets/massage.png" className='product_image_size'></img>
+                        </a>
+                    </div>
                     {/* <div className="product_image_container shadow p-3 mb-5 bg-body rounded m-3">
                         <img src="/assets/massage.png" className='product_image_size'></img>
                         <div><b>Massage Oil</b></div>

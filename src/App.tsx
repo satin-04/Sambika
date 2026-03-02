@@ -8,6 +8,7 @@ import Products from './components/Products.tsx';
 import Joints from './components/Joints.tsx';
 import Feet from './components/Feet.tsx';
 import Hair from './components/Hair.tsx';
+import Massage from './components/Massage.tsx';
 import Certifications from './components/Certifications.tsx';
 import Footer from './components/Footer.tsx';
 import Cart from './components/Cart.tsx';
@@ -31,6 +32,7 @@ function App() {
             <Joints />
             <Feet />
             <Hair />
+            <Massage />
             <Home />
             <Vision />
             <Ayurveda />
@@ -60,6 +62,12 @@ function App() {
           <>
             <Navbar />
             <Hair />
+          </>
+        } />
+        <Route path="/massage" element={
+          <>
+            <Navbar />
+            <Massage />
           </>
         } />
         <Route path="/order-summary" element={

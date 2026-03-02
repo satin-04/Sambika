@@ -9,6 +9,7 @@ import { Bounce, ToastContainer, toast } from 'react-toastify';
 import Loader from './Loader';
 import { collection, addDoc } from "firebase/firestore";
 import {db} from '../firebase';
+import Massage from "./Massage";
 
 function Cart()
 {
@@ -19,6 +20,7 @@ function Cart()
     const [jointCount, setJointCount] = useState(0);
     const [feetCount, setFeetCount] = useState(0);
     const [hairCount, setHairCount] = useState(0);
+    const [massageCount, setMassageCount] = useState(0);
 
     const { Razorpay } = useRazorpay();
     const [isProcessingPayment, setIsProcessingPayment] = useState(false);
@@ -86,6 +88,7 @@ function Cart()
                 JointsKareOil: jointCount,
                 FeetKareOil: feetCount,
                 HairKareOil: hairCount,
+                MassageOil: massageCount,
                 Amount: total,
                 CreatedAt: indiaTime
             });
@@ -205,6 +208,7 @@ function Cart()
                     JointsKareOil: jointCount,
                     FeetKareOil: feetCount,
                     HairKareOil: hairCount,
+                    MassageOil: massageCount,
                     Amount: total,
                     CreatedAt: indiaTime
                 });
@@ -226,6 +230,7 @@ function Cart()
                 JointsKareOil: jointCount,
                 FeetKareOil: feetCount,
                 HairKareOil: hairCount,
+                MassageOil: massageCount,
                 Amount: total,
                 CreatedAt: indiaTime
             };
@@ -326,6 +331,7 @@ function Cart()
                 JointsKareOil: jointCount,
                 FeetKareOil: feetCount,
                 HairKareOil: hairCount,
+                MassageOil: massageCount,
                 Amount: total,
                 CreatedAt: indiaTime
             });
@@ -347,6 +353,7 @@ function Cart()
             JointsKareOil: jointCount,
             FeetKareOil: feetCount,
             HairKareOil: hairCount,
+            MassageOil: massageCount,
             Amount: total,
             CreatedAt: indiaTime
         };
@@ -414,6 +421,15 @@ function Cart()
         setHairCount(hairCount => hairCount == 0 ? 0 : hairCount - 1);
     };
 
+    const incrementMassageCount = () => {
+        setMassageCount(massageCount => massageCount + 1);
+    };
+
+    const decrementMassageCount = () => {
+        setMassageCount(massageCount => massageCount == 0 ? 0 : massageCount - 1);
+    };
+
+
     useEffect(() => {
         if(product === 1)
         {
@@ -427,7 +443,10 @@ function Cart()
         {
             setHairCount(hairCount => hairCount + 1);
         }
-        
+        if(product === 4)
+        {
+            setMassageCount(massageCount => massageCount + 1);
+        }
     }, [product, navigate]);
 
     return (
@@ -526,9 +545,38 @@ function Cart()
                     </div>
 
                     <div className="cart-title"></div>
+
+                    <div className="bg-white p-4 rounded-lg cart-product-grid">
+                        <img
+                            src="/assets/massage.png"
+                            alt="SAMBIKA Massage Oil"
+                            className="cart_product_img"
+                        />
+                        <div>
+                            <h3 className="text-lg font-bold cart-product-header">SAMBIKA Massage Oil</h3>
+                            <span className="product_cart_cost"><span>Rs.</span> 200</span>
+                            <div className="flex items-center gap-4 mt-1 py-3">
+                                <button
+                                    className="bg-gray-200 btn-decrement-count"
+                                    onClick={decrementMassageCount}
+                                >
+                                    −
+                                </button>
+                                <span className="text-md font-medium p-2">{massageCount}</span>
+                                <button
+                                    className="bg-gray-200 btn-decrement-count"
+                                    onClick={incrementMassageCount}
+                                >
+                                    +
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div className="cart-title"></div>
                     <div className="cart-product-grid">
                         <div className="font-bold cart-product-amount text-center">Amount</div>
-                        <span className="product_cart_amount"><span>Rs.</span> {(jointCount+feetCount+hairCount)*450}</span>
+                        <span className="product_cart_amount"><span>Rs.</span> {(jointCount+feetCount+hairCount)*450 + (massageCount*200)}</span>
                         {/* <div className="text-center delivery-charge-label">Delivery Charge</div>
                         <span className="product_cart_delivery"><span>Rs. </span> {(jointCount+feetCount+hairCount) >= 3 ? 0 : (jointCount+feetCount+hairCount) > 0 ? 25 : 0}</span> */}
                     </div>
@@ -539,7 +587,7 @@ function Cart()
 
                     <div className="cart-product-grid">
                         <div className="text-lg font-bold cart-product-total text-center">Total</div>
-                        <span className="product_cart_cost"><span>Rs.</span> {((jointCount+feetCount+hairCount) >= 3 ? (jointCount+feetCount+hairCount)*450 : (jointCount+feetCount+hairCount) > 0 ? (jointCount+feetCount+hairCount)*450 + 0 : 0)}</span>
+                        <span className="product_cart_cost"><span>Rs.</span> {((jointCount+feetCount+hairCount+massageCount) >= 3 ? (jointCount+feetCount+hairCount)*450 + (massageCount*200) : (jointCount+feetCount+hairCount+massageCount) > 0 ? (jointCount+feetCount+hairCount)*450 + (massageCount*200) + 0 : 0)}</span>
                     </div>
 
                 </div>
@@ -590,7 +638,8 @@ function Cart()
                                 <input name="jointCount" className="form-input" value={jointCount} readOnly />
                                 <input name="feetCount" className="form-input" value={feetCount} readOnly />
                                 <input name="hairCount" className="form-input" value={hairCount} readOnly />
-                                <input name="total" className="form-input" value={((jointCount+feetCount+hairCount) >= 3 ? (jointCount+feetCount+hairCount)*450 : (jointCount+feetCount+hairCount) > 0 ? (jointCount+feetCount+hairCount)*450 + 0 : 0)} readOnly />
+                                <input name="massageCount" className="form-input" value={massageCount} readOnly />
+                                <input name="total" className="form-input" value={((jointCount+feetCount+hairCount+massageCount) >= 3 ? (jointCount+feetCount+hairCount)*450 + (massageCount*200) : (jointCount+feetCount+hairCount+massageCount) > 0 ? (jointCount+feetCount+hairCount)*450 + (massageCount*200) + 0 : 0)} readOnly />
 
                             </div>
                         </div>
