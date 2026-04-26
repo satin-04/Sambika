@@ -19,8 +19,14 @@ import "bootstrap/dist/js/bootstrap.bundle.min.js";
 import "./App.css";
 import 'font-awesome/css/font-awesome.min.css';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { useEffect } from 'react';
+import { captureUtmParams } from './utils/utmTracker';
 
 function App() {
+  useEffect(() => {
+    captureUtmParams().catch(console.error);
+  }, []);
+
   return (
     <Router>
       <RouteChangeTracker />

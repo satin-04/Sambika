@@ -9,6 +9,7 @@ import { Bounce, ToastContainer, toast } from 'react-toastify';
 import Loader from './Loader';
 import { collection, addDoc } from "firebase/firestore";
 import {db} from '../firebase';
+import { getUtmData } from '../utils/utmTracker';
 
 function Cart()
 {
@@ -72,6 +73,22 @@ function Cart()
             return;
         }
 
+        if(!/^[0-9]{6}$/.test(zipcode))
+        {
+            setIsSubmitting(false);
+            toast.error("Zip Code must be exactly 6 digits.");
+            return;
+        }
+
+        if(!/^[0-9]{10}$/.test(phone))
+        {
+            setIsSubmitting(false);
+            toast.error("Phone number must be exactly 10 digits.");
+            return;
+        }
+
+        const utmData = getUtmData();
+
         try
         {
             await addDoc(collection(db, "order-draft"), {
@@ -89,7 +106,8 @@ function Cart()
                 HairKareOil: hairCount,
                 MassageOil: massageCount,
                 Amount: total,
-                CreatedAt: indiaTime
+                CreatedAt: indiaTime,
+                ...utmData
             });
         }
         catch (err) {
@@ -209,7 +227,8 @@ function Cart()
                     HairKareOil: hairCount,
                     MassageOil: massageCount,
                     Amount: total,
-                    CreatedAt: indiaTime
+                    CreatedAt: indiaTime,
+                    ...utmData
                 });
             }
             catch (err) {
@@ -315,6 +334,7 @@ function Cart()
         const zipcode = (formData.elements.namedItem('zipcode') as HTMLInputElement | null)?.value ?? "";
         const paymentMode = (formData.elements.namedItem('mode-of-payment') as HTMLInputElement | null)?.value ?? "";
 
+        const utmData = getUtmData();
         try
         {
             await addDoc(collection(db, "order"), {
@@ -332,7 +352,8 @@ function Cart()
                 HairKareOil: hairCount,
                 MassageOil: massageCount,
                 Amount: total,
-                CreatedAt: indiaTime
+                CreatedAt: indiaTime,
+                ...utmData
             });
         }
         catch (err) {
@@ -614,10 +635,10 @@ function Cart()
                                 <input name="state" className="form-input" placeholder="State" required />
                             </div>
                             <div className="col-4">
-                                <input name="zipcode" className="form-input" placeholder="Zip Code" required />
+                                <input name="zipcode" className="form-input" placeholder="Zip Code" required inputMode="numeric" pattern="[0-9]{6}" maxLength={6} />
                             </div>
                             <div className="col-6">
-                                <input name="phone" className="form-input" placeholder="Phone Number" required />
+                                <input name="phone" className="form-input" placeholder="Phone Number" required inputMode="numeric" pattern="[0-9]{10}" maxLength={10} />
                             </div>
                             <div className="col-6">
                                 <input name="email" className="form-input" placeholder="Email (optional)" type="email" />
