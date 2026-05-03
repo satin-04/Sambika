@@ -1,7 +1,32 @@
 // import "./Joints.css"
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-// import { Helmet } from 'react-helmet';
+import { useState, useEffect } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
+import { Helmet } from 'react-helmet';
+import { fbViewContent, fbAddToCart } from '../utils/fbPixel';
+import { ga4ViewItem, ga4AddToCart } from '../utils/ga4Events';
+
+const massageSchema = {
+    "@context": "https://schema.org/",
+    "@type": "Product",
+    "name": "SAMBIKA Massage Oil",
+    "image": "https://sambika-healthcare.netlify.app/assets/massage.png",
+    "description": "Ayurvedic massage oil for men's stamina, strength & vitality. Made with Safed Musli, Shilajit, Ashwagandha, Walnut Oil. 100% herbal, no side effects.",
+    "brand": { "@type": "Brand", "name": "Sambika Healthcare" },
+    "offers": {
+        "@type": "Offer",
+        "url": "https://sambika-healthcare.netlify.app/massage",
+        "priceCurrency": "INR",
+        "price": "200",
+        "priceValidUntil": "2026-12-31",
+        "itemCondition": "https://schema.org/NewCondition",
+        "availability": "https://schema.org/InStock"
+    },
+    "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "4.9",
+        "reviewCount": "63"
+    }
+};
 
 function Massage()
 {
@@ -9,8 +34,19 @@ function Massage()
     const [firstIconClassName, setfirstIconClassName] = useState('fa fa-chevron-down');
     const product = 4;
     const navigate = useNavigate();
+    const location = useLocation();
+    const isProductRoute = location.pathname === '/massage';
+
+    useEffect(() => {
+        if (isProductRoute) {
+            fbViewContent('SAMBIKA Massage Oil', 'massage-oil', 200);
+            ga4ViewItem('SAMBIKA Massage Oil', 'massage-oil', 200);
+        }
+    }, [isProductRoute]);
 
     const handleProductClick = (product: number) => {
+        fbAddToCart('SAMBIKA Massage Oil', 'massage-oil', 200);
+        ga4AddToCart('SAMBIKA Massage Oil', 'massage-oil', 200);
         navigate('/cart', { state: { product } });
     };
     
@@ -93,6 +129,19 @@ function Massage()
 
     return (
         <div>
+            {isProductRoute && (
+                <Helmet>
+                    <title>SAMBIKA Massage Oil | Ayurvedic Men's Stamina &amp; Vitality Oil | ₹200 | India</title>
+                    <meta name="description" content="Ayurvedic massage oil for men's stamina, strength & vitality. Made with Safed Musli, Shilajit, Ashwagandha. 100% herbal, no side effects. Free shipping in India. COD available." />
+                    <meta name="keywords" content="ayurvedic massage oil men india, safed musli oil india, ashwagandha massage oil, men stamina oil india, shilajit oil india, sambika massage oil" />
+                    <meta property="og:title" content="SAMBIKA Massage Oil | ₹200 | Ayurvedic Men's Stamina Oil" />
+                    <meta property="og:description" content="Ayurvedic massage oil for men's stamina & vitality. Made with Safed Musli, Shilajit, Ashwagandha. Free shipping in India." />
+                    <meta property="og:image" content="https://sambika-healthcare.netlify.app/assets/massage.png" />
+                    <meta property="og:url" content="https://sambika-healthcare.netlify.app/massage" />
+                    <link rel="canonical" href="https://sambika-healthcare.netlify.app/massage" />
+                    <script type="application/ld+json">{JSON.stringify(massageSchema)}</script>
+                </Helmet>
+            )}
             {/* <Helmet>
                 <title>Sambika Healthcare</title>
                 <meta name="google-site-verification" content="cGude0fySuLxIPTuv5xf_HbboB39SvVlDMGpJLxxXOE" />
@@ -115,6 +164,12 @@ function Massage()
                         <div className="product_cost_footer">
                             Tax included. Shipping calculated at checkout.
                         </div>
+                    </div>
+                    <div className="social-proof-badge">
+                        <span className="badge-item">⭐ 4.9/5</span>
+                        <span className="badge-item">✓ 500+ Happy Customers</span>
+                        <span className="badge-item">🚚 Free Shipping</span>
+                        <span className="badge-item">🌿 100% Ayurvedic</span>
                     </div>
                     <div className="product_details">
                         <p className="mt-2 px-2">

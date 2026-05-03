@@ -35,6 +35,47 @@
     font-style: normal;
 }
 
+.social-links {
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+    margin-top: 12px;
+}
+
+.social-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    background: #109D48;
+    color: #fff;
+    font-size: 1.2rem;
+    text-decoration: none;
+    transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.social-link:hover {
+    background: #0d7a38;
+    transform: scale(1.1);
+    color: #fff;
+}
+
+.footer-policy {
+    margin-top: 10px;
+}
+
+.policy-link {
+    color: #109D48;
+    font-size: 0.85rem;
+    text-decoration: underline;
+}
+
+.policy-link:hover {
+    color: #0d7a38;
+}
+
 @media (max-width: 700px) {
     .footer_text {
         font-size: 2rem;

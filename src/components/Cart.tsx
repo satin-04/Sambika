@@ -10,6 +10,8 @@ import Loader from './Loader';
 import { collection, addDoc } from "firebase/firestore";
 import {db} from '../firebase';
 import { getUtmData } from '../utils/utmTracker';
+import { fbInitiateCheckout, fbPurchase } from '../utils/fbPixel';
+import { ga4BeginCheckout, ga4Purchase } from '../utils/ga4Events';
 
 function Cart()
 {
@@ -21,6 +23,12 @@ function Cart()
     const [feetCount, setFeetCount] = useState(0);
     const [hairCount, setHairCount] = useState(0);
     const [massageCount, setMassageCount] = useState(0);
+
+    // Bundle discount: 5% off when buying 3 or more items
+    const subtotal = (jointCount + feetCount + hairCount) * 450 + massageCount * 200;
+    const totalItems = jointCount + feetCount + hairCount + massageCount;
+    const bundleDiscount = totalItems >= 3 ? Math.floor(subtotal * 0.05) : 0;
+    const cartTotal = totalItems > 0 ? subtotal - bundleDiscount : 0;
 
     const { Razorpay } = useRazorpay();
     const [isProcessingPayment, setIsProcessingPayment] = useState(false);
@@ -144,10 +152,8 @@ function Cart()
                     "image": "",
                     "order_id": order.id, //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
                     "handler": function (){
-                        // alert(response.razorpay_payment_id);
-                        // alert(response.razorpay_order_id);
-                        // alert(response.razorpay_signature)
-
+                        fbPurchase(amount / 100);
+                        ga4Purchase(amount / 100, `rzp-${Date.now()}`);
                         SendConfirmationEmail();
                         setIsSubmitting(false);
                     },
@@ -258,10 +264,8 @@ function Cart()
                     const form = formRef.current;
                     if(form) 
                     {
-                        // const elements = form.elements as HTMLFormControlsCollection & {
-                        //     [name: string]: HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement;
-                        // };
-                        // const modeOfPayment = elements["mode-of-payment"].value;
+                        fbPurchase(Number(total));
+                        ga4Purchase(Number(total), `cod-${Date.now()}`);
                         setIsSubmitting(false);
                         navigate('/order-summary', { 
                             state: { 
@@ -383,24 +387,6 @@ function Cart()
             const form = formRef.current;
             if(form) 
             {
-                // const elements = form.elements as HTMLFormControlsCollection & {
-                //     [name: string]: HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement;
-                // };
-                // const modeOfPayment = elements["mode-of-payment"].value;
-                // var modeOfPayment = formRef.current?.elements["mode-of-payment"].value;
-                // if(modeOfPayment === "Online Payment")
-                // {
-                //     toast.success(<>Thank you for your order!<br/><br/>Your order has been placed and you will receive confirmation and tracking on your WhatsApp / SMS in the next 24 hours!</>);
-                // }
-                // else
-                // {
-                //     toast.success("The order was placed!");
-                // }
-                // // navigate('/');
-                // setShouldSendEmail(false);
-                // setTimeout(() => {
-                //     navigate('/', { replace: true });
-                // }, 10000);
                 setIsSubmitting(false);
                 navigate('/order-summary', { 
                     state: { 
@@ -467,6 +453,10 @@ function Cart()
         {
             setMassageCount(massageCount => massageCount + 1);
         }
+        // Fire InitiateCheckout — value uses base price of the selected product
+        const initialValue = product === 4 ? 200 : 450;
+        fbInitiateCheckout(initialValue, 1);
+        ga4BeginCheckout(initialValue);
     }, [product, navigate]);
 
     return (
@@ -594,20 +584,38 @@ function Cart()
                     </div>
 
                     <div className="cart-title"></div>
+
+                    {/* Bundle offer banner */}
+                    {totalItems > 0 && totalItems < 3 && (
+                        <div className="bundle-offer-banner">
+                            🎁 <strong>Buy {3 - totalItems} more bottle{3 - totalItems > 1 ? 's' : ''}</strong> and save 5% on your order!
+                        </div>
+                    )}
+                    {totalItems >= 3 && (
+                        <div className="bundle-offer-banner bundle-applied">
+                            ✅ <strong>Bundle Discount Applied!</strong> You saved ₹{bundleDiscount} (5% off)
+                        </div>
+                    )}
+
                     <div className="cart-product-grid">
-                        <div className="font-bold cart-product-amount text-center">Amount</div>
-                        <span className="product_cart_amount"><span>Rs.</span> {(jointCount+feetCount+hairCount)*450 + (massageCount*200)}</span>
-                        {/* <div className="text-center delivery-charge-label">Delivery Charge</div>
-                        <span className="product_cart_delivery"><span>Rs. </span> {(jointCount+feetCount+hairCount) >= 3 ? 0 : (jointCount+feetCount+hairCount) > 0 ? 25 : 0}</span> */}
+                        <div className="font-bold cart-product-amount text-center">Subtotal</div>
+                        <span className="product_cart_amount"><span>Rs.</span> {subtotal}</span>
                     </div>
-                    {/* <div className="ms-2 mb-2">
-                        <i>*Delivery charges applicable based on location</i>
-                    </div> */}
+                    {bundleDiscount > 0 && (
+                        <div className="cart-product-grid">
+                            <div className="font-bold cart-product-amount text-center" style={{color: '#2e7d32'}}>Bundle Savings</div>
+                            <span className="product_cart_amount" style={{color: '#2e7d32'}}>- Rs. {bundleDiscount}</span>
+                        </div>
+                    )}
+                    <div className="cart-product-grid">
+                        <div className="font-bold cart-product-amount text-center">Shipping</div>
+                        <span className="product_cart_amount" style={{color: '#2e7d32'}}>🚚 FREE</span>
+                    </div>
                     <div className="cart-title"></div>
 
                     <div className="cart-product-grid">
                         <div className="text-lg font-bold cart-product-total text-center">Total</div>
-                        <span className="product_cart_cost"><span>Rs.</span> {((jointCount+feetCount+hairCount+massageCount) >= 3 ? (jointCount+feetCount+hairCount)*450 + (massageCount*200) : (jointCount+feetCount+hairCount+massageCount) > 0 ? (jointCount+feetCount+hairCount)*450 + (massageCount*200) + 0 : 0)}</span>
+                        <span className="product_cart_cost"><span>Rs.</span> {cartTotal}</span>
                     </div>
 
                 </div>
@@ -659,8 +667,7 @@ function Cart()
                                 <input name="feetCount" className="form-input" value={feetCount} readOnly />
                                 <input name="hairCount" className="form-input" value={hairCount} readOnly />
                                 <input name="massageCount" className="form-input" value={massageCount} readOnly />
-                                <input name="total" className="form-input" value={((jointCount+feetCount+hairCount+massageCount) >= 3 ? (jointCount+feetCount+hairCount)*450 + (massageCount*200) : (jointCount+feetCount+hairCount+massageCount) > 0 ? (jointCount+feetCount+hairCount)*450 + (massageCount*200) + 0 : 0)} readOnly />
-
+                                <input name="total" className="form-input" value={cartTotal} readOnly />
                             </div>
                         </div>
                         <div className="submit-order-btn">

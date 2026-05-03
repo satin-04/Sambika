@@ -1,17 +1,29 @@
 import './Navbar.css'
+import { Link } from 'react-router-dom';
 
 function Navbar() {
     return ( 
         <nav className="navbar navbar-expand-lg sticky-top navbar-dark bg-dark p-2">
             <div className="container-fluid">
-                <a className="navbar-brand" href="/">Sambika</a>
+                <Link className="navbar-brand" to="/">Sambika</Link>
                 <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span className="navbar-toggler-icon"></span>
                 </button>
                 <div className="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul className="navbar-nav me-auto mb-2 mb-lg-0">
                         <li className="nav-item">
-                            <a className="nav-link" aria-current="page" href="/">Home</a>
+                            <Link className="nav-link" to="/">Home</Link>
+                        </li>
+                        <li className="nav-item dropdown">
+                            <a className="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Products
+                            </a>
+                            <ul className="dropdown-menu dropdown-menu-dark">
+                                <li><Link className="dropdown-item" to="/joints">Joints Kare Oil</Link></li>
+                                <li><Link className="dropdown-item" to="/feet">Feet Kare Oil</Link></li>
+                                <li><Link className="dropdown-item" to="/hair">Hair Roots Kare Oil</Link></li>
+                                <li><Link className="dropdown-item" to="/massage">Massage Oil</Link></li>
+                            </ul>
                         </li>
                         <li className="nav-item">
                             <a className="nav-link" href="/#Vision">Vision</a>
@@ -20,27 +32,12 @@ function Navbar() {
                             <a className="nav-link" href="/#Idealogy">Idealogy</a>
                         </li>
                         <li className="nav-item">
-                            <a className="nav-link" href="/#Products">Products</a>
-                        </li>
-                        <li className="nav-item">
                             <a className="nav-link" href="/#ContactUs">Contact Us</a>
                         </li>
-                        {/* <li className="nav-item dropdown">
-                            <a className="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                Dropdown
-                            </a>
-                            <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <li><a className="dropdown-item" href="#">Action</a></li>
-                                <li><a className="dropdown-item" href="#">Another action</a></li>
-                                <li><hr className="dropdown-divider" /></li>
-                                <li><a className="dropdown-item" href="#">Something else here</a></li>
-                            </ul>
-                        </li> */}
+                        <li className="nav-item">
+                            <Link className="nav-link" to="/policy">Policy</Link>
+                        </li>
                     </ul>
-                    {/* <form className="d-flex">
-                        <input className="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
-                        <button className="btn btn-outline-success" type="submit">Search</button>
-                    </form> */}
                 </div>
             </div>
         </nav>

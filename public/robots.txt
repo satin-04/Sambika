@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://sambika-healthcare.netlify.app/sitemap.xml

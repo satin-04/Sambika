@@ -23,14 +23,25 @@ function Footer()
                         </div>
                         <div>
                             <b className="address_title">Contact Number: </b> <br />
-                            +91 7208-472-001
+                            +91 8097-931-971
                         </div>
                     </div>
-                    {/* <div>
-                        <i className="fa fa-instagram"></i>
-                        <i className="fa fa-linkedin"></i>
-                    </div> */}
+                </div>
 
+                <div className="social-links mt-3">
+                    <a href="https://www.instagram.com/sambikahealthcare" target="_blank" rel="noopener noreferrer" className="social-link" aria-label="Follow us on Instagram">
+                        <i className="fa fa-instagram"></i>
+                    </a>
+                    <a href="https://www.facebook.com/61575020845357/" target="_blank" rel="noopener noreferrer" className="social-link" aria-label="Like us on Facebook">
+                        <i className="fa fa-facebook-square"></i>
+                    </a>
+                    <a href="https://wa.me/918097931971" target="_blank" rel="noopener noreferrer" className="social-link" aria-label="Chat on WhatsApp">
+                        <i className="fa fa-whatsapp"></i>
+                    </a>
+                </div>
+
+                <div className="footer-policy mt-2">
+                    <a href="/policy" className="policy-link">Shipping Policy</a>
                 </div>
             </div>
             <div className="container" id="ContactUs">

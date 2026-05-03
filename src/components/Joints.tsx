@@ -1,7 +1,32 @@
 import "./Joints.css"
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-// import { Helmet } from 'react-helmet';
+import { useState, useEffect } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
+import { Helmet } from 'react-helmet';
+import { fbViewContent, fbAddToCart } from '../utils/fbPixel';
+import { ga4ViewItem, ga4AddToCart } from '../utils/ga4Events';
+
+const jointSchema = {
+    "@context": "https://schema.org/",
+    "@type": "Product",
+    "name": "SAMBIKA Joints Kare Oil",
+    "image": "https://sambika-healthcare.netlify.app/assets/joints.png",
+    "description": "100% Ayurvedic oil for joint pain relief. Effective for arthritis, sciatica, spine & knee pain. Made with Amba Haldi, Methi, Ajwain. ISO & GMP certified.",
+    "brand": { "@type": "Brand", "name": "Sambika Healthcare" },
+    "offers": {
+        "@type": "Offer",
+        "url": "https://sambika-healthcare.netlify.app/joints",
+        "priceCurrency": "INR",
+        "price": "450",
+        "priceValidUntil": "2026-12-31",
+        "itemCondition": "https://schema.org/NewCondition",
+        "availability": "https://schema.org/InStock"
+    },
+    "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "4.9",
+        "reviewCount": "124"
+    }
+};
 
 function Joints()
 {
@@ -9,8 +34,19 @@ function Joints()
     const [firstIconClassName, setfirstIconClassName] = useState('fa fa-chevron-down');
     const product = 1;
     const navigate = useNavigate();
+    const location = useLocation();
+    const isProductRoute = location.pathname === '/joints';
+
+    useEffect(() => {
+        if (isProductRoute) {
+            fbViewContent('SAMBIKA Joints Kare Oil', 'joints-kare-oil', 450);
+            ga4ViewItem('SAMBIKA Joints Kare Oil', 'joints-kare-oil', 450);
+        }
+    }, [isProductRoute]);
 
     const handleProductClick = (product: number) => {
+        fbAddToCart('SAMBIKA Joints Kare Oil', 'joints-kare-oil', 450);
+        ga4AddToCart('SAMBIKA Joints Kare Oil', 'joints-kare-oil', 450);
         navigate('/cart', { state: { product } });
     };
     
@@ -93,6 +129,19 @@ function Joints()
 
     return (
         <div>
+            {isProductRoute && (
+                <Helmet>
+                    <title>SAMBIKA Joints Kare Oil | Ayurvedic Joint Pain Relief | ₹450 | Buy Online India</title>
+                    <meta name="description" content="100% Ayurvedic relief for arthritis, sciatica, knee pain, spine pain & frozen shoulder. Made with Amba Haldi, Methi, Ajwain. ISO & GMP certified. ₹450. Free shipping. COD available." />
+                    <meta name="keywords" content="ayurvedic joint pain oil india, arthritis oil india, knee pain relief oil, sciatica oil india, sambika joints kare oil, buy joint pain oil online india" />
+                    <meta property="og:title" content="SAMBIKA Joints Kare Oil | ₹450 | Free Shipping India" />
+                    <meta property="og:description" content="100% Ayurvedic relief for arthritis, sciatica & knee pain. ISO & GMP certified. Free shipping across India." />
+                    <meta property="og:image" content="https://sambika-healthcare.netlify.app/assets/joints.png" />
+                    <meta property="og:url" content="https://sambika-healthcare.netlify.app/joints" />
+                    <link rel="canonical" href="https://sambika-healthcare.netlify.app/joints" />
+                    <script type="application/ld+json">{JSON.stringify(jointSchema)}</script>
+                </Helmet>
+            )}
             {/* <Helmet>
                 <title>Sambika Healthcare</title>
                 <meta name="google-site-verification" content="cGude0fySuLxIPTuv5xf_HbboB39SvVlDMGpJLxxXOE" />
@@ -115,6 +164,12 @@ function Joints()
                         <div className="product_cost_footer">
                             Tax included. Shipping calculated at checkout.
                         </div>
+                    </div>
+                    <div className="social-proof-badge">
+                        <span className="badge-item">⭐ 4.9/5</span>
+                        <span className="badge-item">✓ 500+ Happy Customers</span>
+                        <span className="badge-item">🚚 Free Shipping</span>
+                        <span className="badge-item">💊 ISO &amp; GMP Certified</span>
                     </div>
                     <div className="product_details">
                         <p className="mt-2 px-2">

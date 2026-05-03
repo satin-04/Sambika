@@ -1,6 +1,32 @@
 import "./Feet.css"
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
+import { Helmet } from 'react-helmet';
+import { fbViewContent, fbAddToCart } from '../utils/fbPixel';
+import { ga4ViewItem, ga4AddToCart } from '../utils/ga4Events';
+
+const feetSchema = {
+    "@context": "https://schema.org/",
+    "@type": "Product",
+    "name": "SAMBIKA Feet Kare Oil",
+    "image": "https://sambika-healthcare.netlify.app/assets/feet.png",
+    "description": "Ayurvedic oil for heel pain, diabetic foot care, numbness, tingling & cracked feet. Made with Ajwain, Haldi, Til Oil, Rosemary Oil. ISO & GMP certified.",
+    "brand": { "@type": "Brand", "name": "Sambika Healthcare" },
+    "offers": {
+        "@type": "Offer",
+        "url": "https://sambika-healthcare.netlify.app/feet",
+        "priceCurrency": "INR",
+        "price": "450",
+        "priceValidUntil": "2026-12-31",
+        "itemCondition": "https://schema.org/NewCondition",
+        "availability": "https://schema.org/InStock"
+    },
+    "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "4.9",
+        "reviewCount": "98"
+    }
+};
 
 function Feet()
 {
@@ -8,8 +34,19 @@ function Feet()
     const [firstIconClassName, setfirstIconClassName] = useState('fa fa-chevron-down');
     const product = 2;
     const navigate = useNavigate();
+    const location = useLocation();
+    const isProductRoute = location.pathname === '/feet';
+
+    useEffect(() => {
+        if (isProductRoute) {
+            fbViewContent('SAMBIKA Feet Kare Oil', 'feet-kare-oil', 450);
+            ga4ViewItem('SAMBIKA Feet Kare Oil', 'feet-kare-oil', 450);
+        }
+    }, [isProductRoute]);
 
     const handleProductClick = (product: number) => {
+        fbAddToCart('SAMBIKA Feet Kare Oil', 'feet-kare-oil', 450);
+        ga4AddToCart('SAMBIKA Feet Kare Oil', 'feet-kare-oil', 450);
         navigate('/cart', { state: { product } });
     };
     
@@ -92,6 +129,19 @@ function Feet()
 
     return (
         <div>
+            {isProductRoute && (
+                <Helmet>
+                    <title>SAMBIKA Feet Kare Oil | Heel Pain &amp; Diabetic Feet Relief | ₹450 | Buy Online India</title>
+                    <meta name="description" content="Ayurvedic oil for heel pain, diabetic foot care, numbness, tingling & cracked feet. Made with Ajwain, Haldi, Rosemary. Free shipping across India. COD available." />
+                    <meta name="keywords" content="heel pain oil india, diabetic foot care oil, ayurvedic feet oil india, feet numbness relief, sambika feet kare oil, heel pain ayurvedic" />
+                    <meta property="og:title" content="SAMBIKA Feet Kare Oil | Heel Pain & Diabetic Feet Relief | ₹450" />
+                    <meta property="og:description" content="Ayurvedic relief for heel pain, diabetic feet, numbness & cracked skin. Free shipping in India." />
+                    <meta property="og:image" content="https://sambika-healthcare.netlify.app/assets/feet.png" />
+                    <meta property="og:url" content="https://sambika-healthcare.netlify.app/feet" />
+                    <link rel="canonical" href="https://sambika-healthcare.netlify.app/feet" />
+                    <script type="application/ld+json">{JSON.stringify(feetSchema)}</script>
+                </Helmet>
+            )}
             <div className="product_specific_grid" id="Feet">
                 <div className="product_image_container shadow p-3 mb-5 bg-body rounded m-3 text-center">
                     <div className="product_image_sticky">
@@ -110,6 +160,12 @@ function Feet()
                         <div className="product_cost_footer">
                             Tax included. Shipping calculated at checkout.
                         </div>
+                    </div>
+                    <div className="social-proof-badge">
+                        <span className="badge-item">⭐ 4.9/5</span>
+                        <span className="badge-item">✓ 500+ Happy Customers</span>
+                        <span className="badge-item">🚚 Free Shipping</span>
+                        <span className="badge-item">💊 ISO &amp; GMP Certified</span>
                     </div>
                     <div className="product_details">
                         <p className="mt-2 px-2">

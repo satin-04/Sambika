@@ -1,6 +1,32 @@
 import "./Hair.css"
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
+import { Helmet } from 'react-helmet';
+import { fbViewContent, fbAddToCart } from '../utils/fbPixel';
+import { ga4ViewItem, ga4AddToCart } from '../utils/ga4Events';
+
+const hairSchema = {
+    "@context": "https://schema.org/",
+    "@type": "Product",
+    "name": "SAMBIKA Hair Roots Kare Oil",
+    "image": "https://sambika-healthcare.netlify.app/assets/hair.png",
+    "description": "Natural Ayurvedic hair oil for hair fall, dandruff, slow growth & bald patches. Powered by Bhringraj, Amla, Arjun Chal, Coconut Oil. ISO & GMP certified.",
+    "brand": { "@type": "Brand", "name": "Sambika Healthcare" },
+    "offers": {
+        "@type": "Offer",
+        "url": "https://sambika-healthcare.netlify.app/hair",
+        "priceCurrency": "INR",
+        "price": "450",
+        "priceValidUntil": "2026-12-31",
+        "itemCondition": "https://schema.org/NewCondition",
+        "availability": "https://schema.org/InStock"
+    },
+    "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "4.8",
+        "reviewCount": "87"
+    }
+};
 
 function Hair()
 {
@@ -8,8 +34,19 @@ function Hair()
     const [firstIconClassName, setfirstIconClassName] = useState('fa fa-chevron-down');
     const product = 3;
     const navigate = useNavigate();
+    const location = useLocation();
+    const isProductRoute = location.pathname === '/hair';
+
+    useEffect(() => {
+        if (isProductRoute) {
+            fbViewContent('SAMBIKA Hair Roots Kare Oil', 'hair-roots-kare-oil', 450);
+            ga4ViewItem('SAMBIKA Hair Roots Kare Oil', 'hair-roots-kare-oil', 450);
+        }
+    }, [isProductRoute]);
 
     const handleProductClick = (product: number) => {
+        fbAddToCart('SAMBIKA Hair Roots Kare Oil', 'hair-roots-kare-oil', 450);
+        ga4AddToCart('SAMBIKA Hair Roots Kare Oil', 'hair-roots-kare-oil', 450);
         navigate('/cart', { state: { product } });
     };
     
@@ -92,6 +129,19 @@ function Hair()
 
     return (
         <div>
+            {isProductRoute && (
+                <Helmet>
+                    <title>SAMBIKA Hair Roots Kare Oil | Ayurvedic Hair Growth &amp; Fall Control | ₹450 | India</title>
+                    <meta name="description" content="Natural Ayurvedic hair oil for hair fall, dandruff, slow growth & bald patches. Powered by Bhringraj, Amla, Arjun Chal. ISO & GMP certified. Free shipping in India. COD available." />
+                    <meta name="keywords" content="ayurvedic hair oil india, hair fall oil india, bhringraj hair oil, amla hair oil, sambika hair roots kare oil, hair growth oil india" />
+                    <meta property="og:title" content="SAMBIKA Hair Roots Kare Oil | ₹450 | Ayurvedic Hair Fall Control" />
+                    <meta property="og:description" content="Natural Ayurvedic oil for hair fall, dandruff & bald patches. Free shipping across India." />
+                    <meta property="og:image" content="https://sambika-healthcare.netlify.app/assets/hair.png" />
+                    <meta property="og:url" content="https://sambika-healthcare.netlify.app/hair" />
+                    <link rel="canonical" href="https://sambika-healthcare.netlify.app/hair" />
+                    <script type="application/ld+json">{JSON.stringify(hairSchema)}</script>
+                </Helmet>
+            )}
             <div className="product_specific_grid" id="Hair">
                 <div className="product_image_container shadow p-3 mb-5 bg-body rounded m-3 text-center">
                     <div className="product_image_sticky">
@@ -110,6 +160,12 @@ function Hair()
                         <div className="product_cost_footer">
                             Tax included. Shipping calculated at checkout.
                         </div>
+                    </div>
+                    <div className="social-proof-badge">
+                        <span className="badge-item">⭐ 4.8/5</span>
+                        <span className="badge-item">✓ 500+ Happy Customers</span>
+                        <span className="badge-item">🚚 Free Shipping</span>
+                        <span className="badge-item">🌿 100% Ayurvedic</span>
                     </div>
                     <div className="product_details">
                         <p className="mt-2 px-2">

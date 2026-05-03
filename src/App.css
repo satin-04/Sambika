@@ -2,3 +2,26 @@
 body {
     background-color: ghostwhite;
 }
+
+.social-proof-badge {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
+    margin: 8px 8px 12px;
+    font-size: 0.85rem;
+    color: #555;
+}
+
+.social-proof-badge .badge-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    background: #f0faf1;
+    border: 1px solid #c8e6c9;
+    border-radius: 20px;
+    padding: 3px 10px;
+    color: #2e7d32;
+    font-weight: 600;
+    white-space: nowrap;
+}
