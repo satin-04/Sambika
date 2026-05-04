@@ -15,7 +15,6 @@ import Cart from './components/Cart.tsx';
 import OrderSummary from './components/OrderSummary.tsx';
 import RouteChangeTracker from './components/RouteChangeTracker.tsx';
 import Testimonials from './components/Testimonials.tsx';
-import WhatsApp from './components/WhatsApp.tsx';
 import Policy from './components/Policy.tsx';
 import JointsLanding from './components/JointsLanding.tsx';
 import FeetLanding from './components/FeetLanding.tsx';
@@ -65,7 +64,6 @@ function App() {
   return (
     <Router>
       <RouteChangeTracker />
-      <WhatsApp />
       <Routes>
         <Route path="/" element={
           <>

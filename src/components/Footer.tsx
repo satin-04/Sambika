@@ -35,9 +35,6 @@ function Footer()
                     <a href="https://www.facebook.com/61575020845357/" target="_blank" rel="noopener noreferrer" className="social-link" aria-label="Like us on Facebook">
                         <i className="fa fa-facebook-square"></i>
                     </a>
-                    <a href="https://wa.me/918097931971" target="_blank" rel="noopener noreferrer" className="social-link" aria-label="Chat on WhatsApp">
-                        <i className="fa fa-whatsapp"></i>
-                    </a>
                 </div>
 
                 <div className="footer-policy mt-2">
