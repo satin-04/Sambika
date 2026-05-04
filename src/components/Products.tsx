@@ -1,6 +1,6 @@
 import './Products.css'
 import { useEffect } from 'react';
-import { useLocation, Link } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import { Bounce, ToastContainer, toast } from 'react-toastify';
 
 function Products() {
@@ -32,28 +32,28 @@ function Products() {
                 </div>
                 <div className="products_grid">
                     <div className="product_image_container shadow p-3 mb-5 bg-body rounded m-3">
-                        <Link to="/joints">
+                        <a href="#Joints">
                             <div><b>SAMBIKA JOINTS KARE OIL</b></div>
                             <img src="/assets/joints.png" className='product_image_size'></img>
-                        </Link>
+                        </a>
                     </div>
                     <div className="product_image_container shadow p-3 mb-5 bg-body rounded m-3">
-                        <Link to="/feet">
+                        <a href="#Feet">
                             <div><b>SAMBIKA FEET CARE OIL</b></div>
                             <img src="/assets/feet.png" className='product_image_size'></img>
-                        </Link>
+                        </a>
                     </div>
                     <div className="product_image_container shadow p-3 mb-5 bg-body rounded m-3">
-                        <Link to="/hair">
+                        <a href="#Hair">
                             <div><b>SAMBIKA HAIR ROOTS KARE OIL</b></div>
                             <img src="/assets/hair.png" className='product_image_size'></img>
-                        </Link>
+                        </a>
                     </div>
                     <div className="product_image_container shadow p-3 mb-5 bg-body rounded m-3">
-                        <Link to="/massage">
+                        <a href="#Massage">
                             <div><b>SAMBIKA MASSAGE OIL</b></div>
                             <img src="/assets/massage.png" className='product_image_size'></img>
-                        </Link>
+                        </a>
                     </div>
                     {/* <div className="product_image_container shadow p-3 mb-5 bg-body rounded m-3">
                         <img src="/assets/massage.png" className='product_image_size'></img>
