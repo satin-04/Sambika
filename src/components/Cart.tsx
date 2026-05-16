@@ -24,8 +24,13 @@ function Cart()
     const [hairCount, setHairCount] = useState(0);
     const [massageCount, setMassageCount] = useState(0);
 
+    const [paymentMode, setPaymentMode] = useState<string>("");
+
+    // ₹450 products cost ₹400 when paying online
+    const unitPrice450 = paymentMode === "Online Payment" ? 400 : 450;
+
     // Bundle discount: 5% off when buying 3 or more items
-    const subtotal = (jointCount + feetCount + hairCount) * 450 + massageCount * 200;
+    const subtotal = (jointCount + feetCount + hairCount) * unitPrice450 + massageCount * 200;
     const totalItems = jointCount + feetCount + hairCount + massageCount;
     const bundleDiscount = totalItems >= 3 ? Math.floor(subtotal * 0.05) : 0;
     const cartTotal = totalItems > 0 ? subtotal - bundleDiscount : 0;
@@ -477,7 +482,7 @@ function Cart()
                         />
                         <div>
                             <h3 className="text-lg font-bold cart-product-header">SAMBIKA Joints Kare Oil</h3>
-                            <span className="product_cart_cost"><span>Rs.</span> 450</span>
+                            <span className="product_cart_cost"><span>Rs.</span> {unitPrice450}</span>
                             <div className="flex items-center gap-4 mt-1 py-3">
                                 <button
                                     className="bg-gray-200 btn-decrement-count"
@@ -506,7 +511,7 @@ function Cart()
                         />
                         <div>
                             <h3 className="text-lg font-bold cart-product-header">SAMBIKA Feet Kare Oil</h3>
-                            <span className="product_cart_cost"><span>Rs.</span> 450</span>
+                            <span className="product_cart_cost"><span>Rs.</span> {unitPrice450}</span>
                             <div className="flex items-center gap-4 mt-1 py-3">
                                 <button
                                     className="bg-gray-200 btn-decrement-count"
@@ -535,7 +540,7 @@ function Cart()
                         />
                         <div>
                             <h3 className="text-lg font-bold cart-product-header">SAMBIKA Hair Roots Kare Oil</h3>
-                            <span className="product_cart_cost"><span>Rs.</span> 450</span>
+                            <span className="product_cart_cost"><span>Rs.</span> {unitPrice450}</span>
                             <div className="flex items-center gap-4 mt-1 py-3">
                                 <button
                                     className="bg-gray-200 btn-decrement-count"
@@ -654,11 +659,11 @@ function Cart()
                             <div className="col-12 form-payment-alignment">
                                 <span className="mode-of-payment-label">Mode of Payment</span> &nbsp; &nbsp; &nbsp;
                                 <label className="slategray-color">
-                                    <input name="mode-of-payment" type="radio" value="Cash On Delivery" required />
+                                    <input name="mode-of-payment" type="radio" value="Cash On Delivery" required onChange={(e) => setPaymentMode(e.target.value)} />
                                     &nbsp;Cash On Delivery &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
                                 </label>
                                 <label className="slategray-color">
-                                    <input name="mode-of-payment" type="radio" value="Online Payment" />
+                                    <input name="mode-of-payment" type="radio" value="Online Payment" onChange={(e) => setPaymentMode(e.target.value)} />
                                     &nbsp;Online Payment
                                 </label>
                             </div>

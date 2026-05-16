@@ -23,6 +23,8 @@ const OrderSummary = () => {
     navigate("/");
   }
 
+  const unitPrice450 = order.ModeOfPayment === "Online Payment" ? 400 : 450;
+
   return (
     <div className="summary-container">
 
@@ -40,7 +42,7 @@ const OrderSummary = () => {
                     />
                     <div>
                         <h3 className="text-lg font-bold cart-product-header">SAMBIKA Joints Kare Oil</h3>
-                        <span className="product_cart_cost"><span>Rs.</span> {order.JointsKareOil*450}</span>
+                        <span className="product_cart_cost"><span>Rs.</span> {order.JointsKareOil*unitPrice450}</span>
                         <div className="flex items-center gap-4 mt-1 py-3">
                             <span className="order-summary-quantity">Quantity: {order.JointsKareOil}</span>
                         </div>
@@ -58,7 +60,7 @@ const OrderSummary = () => {
                     />
                     <div>
                         <h3 className="text-lg font-bold cart-product-header">SAMBIKA Feet Kare Oil</h3>
-                        <span className="product_cart_cost"><span>Rs.</span> {order.FeetKareOil*450}</span>
+                        <span className="product_cart_cost"><span>Rs.</span> {order.FeetKareOil*unitPrice450}</span>
                         <div className="flex items-center gap-4 mt-1 py-3">
                             <span className="order-summary-quantity">Quantity: {order.FeetKareOil}</span>
                         </div>
@@ -76,7 +78,7 @@ const OrderSummary = () => {
                     />
                     <div>
                         <h3 className="text-lg font-bold cart-product-header">SAMBIKA Hair Roots Kare Oil</h3>
-                        <span className="product_cart_cost"><span>Rs.</span> {order.HairKareOil*450}</span>
+                        <span className="product_cart_cost"><span>Rs.</span> {order.HairKareOil*unitPrice450}</span>
                         <div className="flex items-center gap-4 mt-1 py-3">
                             <span className="order-summary-quantity">Quantity: {order.HairKareOil}</span>
                         </div>

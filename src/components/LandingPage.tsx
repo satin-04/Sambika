@@ -67,9 +67,18 @@ function LandingPage({ product }: LandingPageProps) {
 
           <div className="lp-price-row">
             <span className="lp-price-mrp">Rs. {product.mrp}</span>
-            <span className="lp-price-actual">Rs. {product.price}</span>
-            <span className="lp-price-badge">10% OFF</span>
+            <span className="lp-price-actual">Rs. {product.price === 450 ? 400 : product.price}</span>
+            {product.price === 450 ? (
+              <span className="lp-price-badge">₹50 OFF Online</span>
+            ) : (
+              <span className="lp-price-badge">10% OFF</span>
+            )}
           </div>
+          {product.price === 450 && (
+            <div style={{ fontSize: '0.82rem', color: '#666', marginBottom: '6px' }}>
+              💳 <strong>₹400</strong> via Online Payment &nbsp;|&nbsp; 💵 <strong>₹450</strong> via Cash on Delivery
+            </div>
+          )}
 
           <div className="lp-badges">
             <span className="lp-badge">✓ 100% Ayurvedic</span>
@@ -80,7 +89,7 @@ function LandingPage({ product }: LandingPageProps) {
           </div>
 
           <button className="lp-cta" onClick={handleBuyNow}>
-            🛒 ORDER NOW — Rs. {product.price}
+            🛒 ORDER NOW — Rs. {product.price === 450 ? '400 (Online) / Rs. 450 (COD)' : product.price}
           </button>
           <p className="lp-trust">✅ Free shipping · Cash on Delivery · Delivered in 5–7 days</p>
         </div>
@@ -112,7 +121,7 @@ function LandingPage({ product }: LandingPageProps) {
 
         <div className="lp-bottom-cta">
           <button className="lp-cta" onClick={handleBuyNow}>
-            🛒 ORDER NOW — Rs. {product.price}
+            🛒 ORDER NOW — Rs. {product.price === 450 ? '400 (Online) / Rs. 450 (COD)' : product.price}
           </button>
           <p className="lp-trust">✅ Free shipping · Cash on Delivery · Delivered in 5–7 days</p>
         </div>
@@ -125,7 +134,7 @@ function LandingPage({ product }: LandingPageProps) {
                 <img src={`/assets/${p.image}`} alt={p.name} />
                 <div className="lp-cs-name">{p.name}</div>
                 <div className="lp-cs-tagline">{p.tagline}</div>
-                <div className="lp-cs-price">₹{p.price}</div>
+                <div className="lp-cs-price">{p.price === 450 ? '₹400 Online / ₹450 COD' : `₹${p.price}`}</div>
                 <button className="lp-cs-btn">View Product →</button>
               </div>
             ))}
