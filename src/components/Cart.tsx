@@ -46,9 +46,9 @@ function Cart()
         e.preventDefault();
 
         console.log("form submit clicked");
-        const serviceID = 'service_lg6qo5i';
-        const templateID = 'template_0237p7r';
-        const userID = 'Rw9K12h_Iz_TPh1ve';
+        const serviceID = import.meta.env.VITE_EMAILJS_SERVICE_ID;
+        const templateID = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
+        const userID = import.meta.env.VITE_EMAILJS_USER_ID;
 
         if (!formRef.current) {
             toast.error("Please verify all Address Details are correct.");
@@ -149,7 +149,7 @@ function Cart()
     
                 
                 var options: RazorpayOrderOptions = {
-                    "key": "rzp_live_RtWMicyX3rOqul", // Enter the Key ID generated from the Dashboard
+                    "key": import.meta.env.VITE_RAZORPAY_KEY,
                     "amount": amount, // Amount is in currency subunits.
                     "currency": "INR",
                     "name": "Sambika Healthcare", //your business name
@@ -314,9 +314,9 @@ function Cart()
     };
 
     const SendConfirmationEmail = async () => {
-        const serviceID = 'service_lg6qo5i';
-        const templateID = 'template_0237p7r';
-        const userID = 'Rw9K12h_Iz_TPh1ve';
+        const serviceID = import.meta.env.VITE_EMAILJS_SERVICE_ID;
+        const templateID = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
+        const userID = import.meta.env.VITE_EMAILJS_USER_ID;
 
         if (!formRef.current) {
             toast.error("Please verify all Address Details are correct.");
