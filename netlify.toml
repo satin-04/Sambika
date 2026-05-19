@@ -1,0 +1,9 @@
+[build]
+  command = "npm run build"
+  publish = "dist"
+
+[build.environment]
+  # Firebase client apiKey (AIza...) is a public identifier by design — not a secret.
+  # Disable heuristic smart detection to suppress this false positive.
+  # Explicit pattern-based secret scanning remains active.
+  SECRETS_SCAN_SMART_DETECTION_ENABLED = "false"
