@@ -656,16 +656,65 @@ function Cart()
                             <div className="col-6">
                                 <input name="email" className="form-input" placeholder="Email (optional)" type="email" />
                             </div>
-                            <div className="col-12 form-payment-alignment">
-                                <span className="mode-of-payment-label">Mode of Payment</span> &nbsp; &nbsp; &nbsp;
-                                <label className="slategray-color">
-                                    <input name="mode-of-payment" type="radio" value="Cash On Delivery" required onChange={(e) => setPaymentMode(e.target.value)} />
-                                    &nbsp;Cash On Delivery &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-                                </label>
-                                <label className="slategray-color">
-                                    <input name="mode-of-payment" type="radio" value="Online Payment" onChange={(e) => setPaymentMode(e.target.value)} />
-                                    &nbsp;Online Payment
-                                </label>
+                            <div className="col-12" style={{padding: '0 10px'}}>
+                                <span className="payment-mode-label">Mode of Payment</span>
+                                {(jointCount + feetCount + hairCount) > 0 && (
+                                    <div className="payment-savings-banner">
+                                        💡 Pay online and <strong>save ₹50 per Kare Oil bottle</strong> — only ₹400 instead of ₹450!
+                                    </div>
+                                )}
+                                <div className="payment-option-cards">
+                                    {/* Online Payment Card */}
+                                    <div
+                                        className={`payment-card${paymentMode === "Online Payment" ? " selected" : ""}`}
+                                        onClick={() => setPaymentMode("Online Payment")}
+                                    >
+                                        <input
+                                            name="mode-of-payment"
+                                            type="radio"
+                                            value="Online Payment"
+                                            checked={paymentMode === "Online Payment"}
+                                            onChange={(e) => setPaymentMode(e.target.value)}
+                                            required={paymentMode === ""}
+                                        />
+                                        <div><span className="payment-card-badge-rec">⭐ Recommended</span></div>
+                                        <div className="payment-card-icon">💳 <span className="upi-badge">UPI</span></div>
+                                        <div className="payment-card-title">Online Payment</div>
+                                        {(jointCount + feetCount + hairCount) > 0 ? (
+                                            <>
+                                                <div className="payment-card-price">
+                                                    ₹400 / Kare Oil
+                                                    <span className="payment-card-strikethrough">₹450</span>
+                                                </div>
+                                                <div><span className="payment-card-badge">Save ₹50!</span></div>
+                                            </>
+                                        ) : (
+                                            <div className="payment-card-price" style={{fontSize: '0.95rem', color: '#555'}}>No extra charge</div>
+                                        )}
+                                    </div>
+
+                                    {/* Cash on Delivery Card */}
+                                    <div
+                                        className={`payment-card${paymentMode === "Cash On Delivery" ? " selected-cod" : ""}`}
+                                        onClick={() => setPaymentMode("Cash On Delivery")}
+                                    >
+                                        <input
+                                            name="mode-of-payment"
+                                            type="radio"
+                                            value="Cash On Delivery"
+                                            checked={paymentMode === "Cash On Delivery"}
+                                            onChange={(e) => setPaymentMode(e.target.value)}
+                                        />
+                                        <div style={{marginBottom: '28px'}}></div>
+                                        <div className="payment-card-icon">📦</div>
+                                        <div className="payment-card-title">Cash on Delivery</div>
+                                        {(jointCount + feetCount + hairCount) > 0 ? (
+                                            <div className="payment-card-price-cod">₹450 / Kare Oil</div>
+                                        ) : (
+                                            <div className="payment-card-price-cod" style={{fontSize: '0.95rem'}}>No extra charge</div>
+                                        )}
+                                    </div>
+                                </div>
                             </div>
                             <div hidden>
                                 <input name="jointCount" className="form-input" value={jointCount} readOnly />
