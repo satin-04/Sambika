@@ -4,7 +4,7 @@ const massageProduct = {
   id: 4,
   name: 'SAMBIKA Massage Oil',
   contentId: 'massage-oil',
-  image: 'massage.png',
+  image: 'massage.webp',
   price: 200,
   mrp: 229,
   title: 'SAMBIKA Massage Oil | Ayurvedic Stamina & Vitality Oil for Men | ₹200',

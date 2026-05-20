@@ -43,7 +43,7 @@ function Footer()
             </div>
             <div className="container" id="ContactUs">
                 <div className="text-center shadow p-3 mb-5 bg-body rounded m-3">
-                    <img src="/assets/family.jpg" className='family_image'></img>
+                    <img src="/assets/family.webp" className='family_image' loading="lazy"></img>
                 </div>
             </div>
             <div className="footer_text">

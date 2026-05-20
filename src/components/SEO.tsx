@@ -13,7 +13,7 @@ const SITE_URL = 'https://sambika-healthcare.netlify.app';
 
 function SEO({ title, description, keywords, image, url, schema }: SEOProps) {
   const canonicalUrl = url ? `${SITE_URL}${url}` : SITE_URL;
-  const ogImage = image ? `${SITE_URL}${image}` : `${SITE_URL}/assets/joints.png`;
+  const ogImage = image ? `${SITE_URL}${image}` : `${SITE_URL}/assets/joints.webp`;
 
   return (
     <Helmet>

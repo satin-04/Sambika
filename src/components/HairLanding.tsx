@@ -4,7 +4,7 @@ const hairProduct = {
   id: 3,
   name: 'SAMBIKA Hair Roots Kare Oil',
   contentId: 'hair-roots-kare-oil',
-  image: 'hair.png',
+  image: 'hair.webp',
   price: 450,
   mrp: 499,
   title: 'SAMBIKA Hair Roots Kare Oil | Ayurvedic Hair Growth & Fall Control | ₹450',

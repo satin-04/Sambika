@@ -4,7 +4,7 @@ const jointsProduct = {
   id: 1,
   name: 'SAMBIKA Joints Kare Oil',
   contentId: 'joints-kare-oil',
-  image: 'joints.png',
+  image: 'joints.webp',
   price: 450,
   mrp: 499,
   title: 'SAMBIKA Joints Kare Oil | Buy Ayurvedic Joint Pain Relief Oil Online | ₹450',

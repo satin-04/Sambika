@@ -16,7 +16,7 @@ function Vision() {
                     </b>
                 </div>
                 <div className='text-center my-3    '>
-                    <img src="/assets/company_vision.png" className='vision_image_size'></img>
+                    <img src="/assets/company_vision.webp" className='vision_image_size' loading="lazy"></img>
                 </div>
             </div>
         </div>

@@ -6,10 +6,10 @@ import { ga4ViewItem, ga4AddToCart } from '../utils/ga4Events';
 import './LandingPage.css';
 
 const allProducts = [
-  { id: 1, name: 'Joints Kare Oil', image: 'joints.png', price: 450, route: '/joints', tagline: 'Joint & Arthritis Pain Relief' },
-  { id: 2, name: 'Feet Kare Oil',   image: 'feet.png',   price: 450, route: '/feet',   tagline: 'Heel Pain & Diabetic Feet' },
-  { id: 3, name: 'Hair Roots Kare Oil', image: 'hair.png', price: 450, route: '/hair', tagline: 'Stop Hair Fall, Grow Stronger Hair' },
-  { id: 4, name: 'Massage Oil',     image: 'massage.png', price: 200, route: '/massage', tagline: "Men's Stamina & Vitality" },
+  { id: 1, name: 'Joints Kare Oil', image: 'joints.webp', price: 450, route: '/joints', tagline: 'Joint & Arthritis Pain Relief' },
+  { id: 2, name: 'Feet Kare Oil',   image: 'feet.webp',   price: 450, route: '/feet',   tagline: 'Heel Pain & Diabetic Feet' },
+  { id: 3, name: 'Hair Roots Kare Oil', image: 'hair.webp', price: 450, route: '/hair', tagline: 'Stop Hair Fall, Grow Stronger Hair' },
+  { id: 4, name: 'Massage Oil',     image: 'massage.webp', price: 200, route: '/massage', tagline: "Men's Stamina & Vitality" },
 ];
 
 interface LandingPageProps {
@@ -114,9 +114,9 @@ function LandingPage({ product }: LandingPageProps) {
         </div>
 
         <div className="lp-certifications">
-          <img src="/assets/ISO_Certified.png" alt="ISO Certified" className="lp-cert-img" />
-          <img src="/assets/GMP_Certified.png" alt="GMP Certified" className="lp-cert-img" />
-          <img src="/assets/Ayurvedic.png" alt="Ayurvedic" className="lp-cert-img" />
+          <img src="/assets/ISO_Certified.webp" alt="ISO Certified" className="lp-cert-img" loading="lazy" />
+          <img src="/assets/GMP_Certified.webp" alt="GMP Certified" className="lp-cert-img" loading="lazy" />
+          <img src="/assets/Ayurvedic.webp" alt="Ayurvedic" className="lp-cert-img" loading="lazy" />
         </div>
 
         <div className="lp-bottom-cta">
@@ -131,7 +131,7 @@ function LandingPage({ product }: LandingPageProps) {
           <div className="lp-crosssell-cards">
             {otherProducts.map(p => (
               <div className="lp-crosssell-card" key={p.id} onClick={() => navigate(p.route)}>
-                <img src={`/assets/${p.image}`} alt={p.name} />
+                <img src={`/assets/${p.image}`} alt={p.name} loading="lazy" />
                 <div className="lp-cs-name">{p.name}</div>
                 <div className="lp-cs-tagline">{p.tagline}</div>
                 <div className="lp-cs-price">{p.price === 450 ? '₹400 Online / ₹450 COD' : `₹${p.price}`}</div>

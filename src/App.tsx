@@ -73,7 +73,7 @@ function App() {
               <meta name="keywords" content="ayurvedic oil india, sambika healthcare, joint pain oil india, heel pain oil, hair fall oil india, ayurvedic healthcare products india, buy ayurvedic oil online india" />
               <meta property="og:title" content="Sambika Healthcare | 100% Ayurvedic Oils — India" />
               <meta property="og:description" content="ISO &amp; GMP certified Ayurvedic oils for joint pain, heel pain, hair fall &amp; men's stamina. Free shipping. COD available." />
-              <meta property="og:image" content="https://sambika-healthcare.netlify.app/assets/joints.png" />
+              <meta property="og:image" content="https://sambika-healthcare.netlify.app/assets/joints.webp" />
               <meta property="og:url" content="https://sambika-healthcare.netlify.app/" />
               <link rel="canonical" href="https://sambika-healthcare.netlify.app/" />
               <script type="application/ld+json">{JSON.stringify(orgSchema)}</script>

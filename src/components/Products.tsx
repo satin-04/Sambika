@@ -34,25 +34,25 @@ function Products() {
                     <div className="product_image_container shadow p-3 mb-5 bg-body rounded m-3">
                         <a href="#Joints">
                             <div><b>SAMBIKA JOINTS KARE OIL</b></div>
-                            <img src="/assets/joints.png" className='product_image_size'></img>
+                            <img src="/assets/joints.webp" className='product_image_size' loading="lazy"></img>
                         </a>
                     </div>
                     <div className="product_image_container shadow p-3 mb-5 bg-body rounded m-3">
                         <a href="#Feet">
                             <div><b>SAMBIKA FEET CARE OIL</b></div>
-                            <img src="/assets/feet.png" className='product_image_size'></img>
+                            <img src="/assets/feet.webp" className='product_image_size' loading="lazy"></img>
                         </a>
                     </div>
                     <div className="product_image_container shadow p-3 mb-5 bg-body rounded m-3">
                         <a href="#Hair">
                             <div><b>SAMBIKA HAIR ROOTS KARE OIL</b></div>
-                            <img src="/assets/hair.png" className='product_image_size'></img>
+                            <img src="/assets/hair.webp" className='product_image_size' loading="lazy"></img>
                         </a>
                     </div>
                     <div className="product_image_container shadow p-3 mb-5 bg-body rounded m-3">
                         <a href="#Massage">
                             <div><b>SAMBIKA MASSAGE OIL</b></div>
-                            <img src="/assets/massage.png" className='product_image_size'></img>
+                            <img src="/assets/massage.webp" className='product_image_size' loading="lazy"></img>
                         </a>
                     </div>
                     {/* <div className="product_image_container shadow p-3 mb-5 bg-body rounded m-3">

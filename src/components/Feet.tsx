@@ -9,7 +9,7 @@ const feetSchema = {
     "@context": "https://schema.org/",
     "@type": "Product",
     "name": "SAMBIKA Feet Kare Oil",
-    "image": "https://sambika-healthcare.netlify.app/assets/feet.png",
+    "image": "https://sambika-healthcare.netlify.app/assets/feet.webp",
     "description": "Ayurvedic oil for heel pain, diabetic foot care, numbness, tingling & cracked feet. Made with Ajwain, Haldi, Til Oil, Rosemary Oil. ISO & GMP certified.",
     "brand": { "@type": "Brand", "name": "Sambika Healthcare" },
     "offers": {
@@ -136,7 +136,7 @@ function Feet()
                     <meta name="keywords" content="heel pain oil india, diabetic foot care oil, ayurvedic feet oil india, feet numbness relief, sambika feet kare oil, heel pain ayurvedic" />
                     <meta property="og:title" content="SAMBIKA Feet Kare Oil | Heel Pain & Diabetic Feet Relief | ₹450" />
                     <meta property="og:description" content="Ayurvedic relief for heel pain, diabetic feet, numbness & cracked skin. Free shipping in India." />
-                    <meta property="og:image" content="https://sambika-healthcare.netlify.app/assets/feet.png" />
+                    <meta property="og:image" content="https://sambika-healthcare.netlify.app/assets/feet.webp" />
                     <meta property="og:url" content="https://sambika-healthcare.netlify.app/feet" />
                     <link rel="canonical" href="https://sambika-healthcare.netlify.app/feet" />
                     <script type="application/ld+json">{JSON.stringify(feetSchema)}</script>
@@ -146,7 +146,7 @@ function Feet()
                 <div className="product_image_container shadow p-3 mb-5 bg-body rounded m-3 text-center">
                     <div className="product_image_sticky">
 
-                        <img src="/assets/feet.png" className='product_detail_image_size'></img>
+                        <img src="/assets/feet.webp" className='product_detail_image_size' loading="lazy"></img>
                         {/* <a href="https://www.1mg.com/otc/sambika-herbal-feet-kare-oil-100ml-each-otc1093114" target="_blank"><div className="buy-btn"><b>Buy Now</b></div></a> */}
                         <div className="buy-btn" onClick={() => handleProductClick(product)}><b>Buy Now</b></div>
                     </div>

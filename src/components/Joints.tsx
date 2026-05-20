@@ -9,7 +9,7 @@ const jointSchema = {
     "@context": "https://schema.org/",
     "@type": "Product",
     "name": "SAMBIKA Joints Kare Oil",
-    "image": "https://sambika-healthcare.netlify.app/assets/joints.png",
+    "image": "https://sambika-healthcare.netlify.app/assets/joints.webp",
     "description": "100% Ayurvedic oil for joint pain relief. Effective for arthritis, sciatica, spine & knee pain. Made with Amba Haldi, Methi, Ajwain. ISO & GMP certified.",
     "brand": { "@type": "Brand", "name": "Sambika Healthcare" },
     "offers": {
@@ -136,7 +136,7 @@ function Joints()
                     <meta name="keywords" content="ayurvedic joint pain oil india, arthritis oil india, knee pain relief oil, sciatica oil india, sambika joints kare oil, buy joint pain oil online india" />
                     <meta property="og:title" content="SAMBIKA Joints Kare Oil | ₹450 | Free Shipping India" />
                     <meta property="og:description" content="100% Ayurvedic relief for arthritis, sciatica & knee pain. ISO & GMP certified. Free shipping across India." />
-                    <meta property="og:image" content="https://sambika-healthcare.netlify.app/assets/joints.png" />
+                    <meta property="og:image" content="https://sambika-healthcare.netlify.app/assets/joints.webp" />
                     <meta property="og:url" content="https://sambika-healthcare.netlify.app/joints" />
                     <link rel="canonical" href="https://sambika-healthcare.netlify.app/joints" />
                     <script type="application/ld+json">{JSON.stringify(jointSchema)}</script>
@@ -150,7 +150,7 @@ function Joints()
             <div className="product_specific_grid" id="Joints">
                 <div className="product_image_container shadow p-3 mb-5 bg-body rounded m-3 text-center">
                     <div className="product_image_sticky">
-                        <img src="/assets/joints.png" className='product_detail_image_size'></img>
+                        <img src="/assets/joints.webp" className='product_detail_image_size' loading="lazy"></img>
                         {/* <a href="https://www.1mg.com/otc/sambika-herbal-joints-kare-oil-otc1093111" target="_blank"><div className="buy-btn"><b>Buy Now</b></div></a> */}
                         <div className="buy-btn" onClick={() => handleProductClick(product)}><b>Buy Now</b></div>
                     </div>

@@ -36,9 +36,10 @@ const OrderSummary = () => {
 
                 {order.JointsKareOil > 0  && (<div className="bg-white p-4 rounded-lg cart-product-grid">
                     <img
-                        src="/assets/joints.png"
+                        src="/assets/joints.webp"
                         alt="Sambika Joints Kare Oil"
                         className="cart_product_img"
+                            loading="lazy"
                     />
                     <div>
                         <h3 className="text-lg font-bold cart-product-header">SAMBIKA Joints Kare Oil</h3>
@@ -54,9 +55,10 @@ const OrderSummary = () => {
 
                 {order.FeetKareOil > 0  && (<div className="bg-white p-4 rounded-lg cart-product-grid">
                     <img
-                        src="/assets/feet.png"
+                        src="/assets/feet.webp"
                         alt="SAMBIKA Feet Kare Oil"
                         className="cart_product_img"
+                            loading="lazy"
                     />
                     <div>
                         <h3 className="text-lg font-bold cart-product-header">SAMBIKA Feet Kare Oil</h3>
@@ -72,9 +74,10 @@ const OrderSummary = () => {
 
                 {order.HairKareOil > 0 && (<div className="bg-white p-4 rounded-lg cart-product-grid">
                     <img
-                        src="/assets/hair.png"
+                        src="/assets/hair.webp"
                         alt="SAMBIKA Hair Roots Kare Oil"
                         className="cart_product_img"
+                            loading="lazy"
                     />
                     <div>
                         <h3 className="text-lg font-bold cart-product-header">SAMBIKA Hair Roots Kare Oil</h3>
@@ -90,9 +93,10 @@ const OrderSummary = () => {
 
                 {order.MassageOil > 0 && (<div className="bg-white p-4 rounded-lg cart-product-grid">
                     <img
-                        src="/assets/massage.png"
+                        src="/assets/massage.webp"
                         alt="SAMBIKA Massage Oil"
                         className="cart_product_img"
+                            loading="lazy"
                     />
                     <div>
                         <h3 className="text-lg font-bold cart-product-header">SAMBIKA Massage Oil</h3>

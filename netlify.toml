@@ -7,3 +7,35 @@
   # Disable heuristic smart detection to suppress this false positive.
   # Explicit pattern-based secret scanning remains active.
   SECRETS_SCAN_SMART_DETECTION_ENABLED = "false"
+
+# Cache hashed JS/CSS bundles forever (Vite fingerprints filenames on build)
+[[headers]]
+  for = "/assets/*.js"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/assets/*.css"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+# Cache public images for 1 week (no content hash, so shorter TTL)
+[[headers]]
+  for = "/assets/*.webp"
+  [headers.values]
+    Cache-Control = "public, max-age=604800, stale-while-revalidate=86400"
+
+[[headers]]
+  for = "/assets/*.png"
+  [headers.values]
+    Cache-Control = "public, max-age=604800, stale-while-revalidate=86400"
+
+[[headers]]
+  for = "/assets/*.jpg"
+  [headers.values]
+    Cache-Control = "public, max-age=604800, stale-while-revalidate=86400"
+
+[[headers]]
+  for = "/assets/*.svg"
+  [headers.values]
+    Cache-Control = "public, max-age=604800, stale-while-revalidate=86400"

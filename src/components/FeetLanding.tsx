@@ -4,7 +4,7 @@ const feetProduct = {
   id: 2,
   name: 'SAMBIKA Feet Kare Oil',
   contentId: 'feet-kare-oil',
-  image: 'feet.png',
+  image: 'feet.webp',
   price: 450,
   mrp: 499,
   title: 'SAMBIKA Feet Kare Oil | Ayurvedic Heel Pain & Diabetic Feet Oil | ₹450',
