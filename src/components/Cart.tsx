@@ -474,125 +474,137 @@ function Cart()
                         <span>Cart</span>
                     </div>
 
-                    <div className="bg-white p-4 rounded-lg cart-product-grid">
-                        <img
-                            src="/assets/joints.webp"
-                            alt="Sambika Joints Kare Oil"
-                            className="cart_product_img"
-                            loading="lazy"
-                        />
-                        <div>
-                            <h3 className="text-lg font-bold cart-product-header">SAMBIKA Joints Kare Oil</h3>
-                            <span className="product_cart_cost"><span>Rs.</span> {unitPrice450}</span>
-                            <div className="flex items-center gap-4 mt-1 py-3">
-                                <button
-                                    className="bg-gray-200 btn-decrement-count"
-                                    onClick={decrementJointCount}
-                                >
-                                    −
-                                </button>
-                                <span className="text-md font-medium p-2">{jointCount}</span>
-                                <button
-                                    className="bg-gray-200 btn-decrement-count"
-                                    onClick={incrementJointCount}
-                                >
-                                    +
-                                </button>
+                    {jointCount > 0 && (
+                        <>
+                        <div className="bg-white p-4 rounded-lg cart-product-grid">
+                            <img
+                                src="/assets/joints.webp"
+                                alt="Sambika Joints Kare Oil"
+                                className="cart_product_img"
+                                loading="lazy"
+                            />
+                            <div>
+                                <h3 className="text-lg font-bold cart-product-header">SAMBIKA Joints Kare Oil</h3>
+                                <span className="product_cart_cost"><span>Rs.</span> {unitPrice450}</span>
+                                <div className="flex items-center gap-4 mt-1 py-3">
+                                    <button
+                                        className="bg-gray-200 btn-decrement-count"
+                                        onClick={decrementJointCount}
+                                    >
+                                        −
+                                    </button>
+                                    <span className="text-md font-medium p-2">{jointCount}</span>
+                                    <button
+                                        className="bg-gray-200 btn-decrement-count"
+                                        onClick={incrementJointCount}
+                                    >
+                                        +
+                                    </button>
+                                </div>
                             </div>
                         </div>
-                    </div>
+                        <div className="cart-title"></div>
+                        </>
+                    )}
 
-                    <div className="cart-title"></div>
-
-                    <div className="bg-white p-4 rounded-lg cart-product-grid">
-                        <img
-                            src="/assets/feet.webp"
-                            alt="SAMBIKA Feet Kare Oil"
-                            className="cart_product_img"
-                            loading="lazy"
-                        />
-                        <div>
-                            <h3 className="text-lg font-bold cart-product-header">SAMBIKA Feet Kare Oil</h3>
-                            <span className="product_cart_cost"><span>Rs.</span> {unitPrice450}</span>
-                            <div className="flex items-center gap-4 mt-1 py-3">
-                                <button
-                                    className="bg-gray-200 btn-decrement-count"
-                                    onClick={decrementFeetCount}
-                                >
-                                    −
-                                </button>
-                                <span className="text-md font-medium p-2">{feetCount}</span>
-                                <button
-                                    className="bg-gray-200 btn-decrement-count"
-                                    onClick={incrementFeetCount}
-                                >
-                                    +
-                                </button>
+                    {feetCount > 0 && (
+                        <>
+                        <div className="bg-white p-4 rounded-lg cart-product-grid">
+                            <img
+                                src="/assets/feet.webp"
+                                alt="SAMBIKA Feet Kare Oil"
+                                className="cart_product_img"
+                                loading="lazy"
+                            />
+                            <div>
+                                <h3 className="text-lg font-bold cart-product-header">SAMBIKA Feet Kare Oil</h3>
+                                <span className="product_cart_cost"><span>Rs.</span> {unitPrice450}</span>
+                                <div className="flex items-center gap-4 mt-1 py-3">
+                                    <button
+                                        className="bg-gray-200 btn-decrement-count"
+                                        onClick={decrementFeetCount}
+                                    >
+                                        −
+                                    </button>
+                                    <span className="text-md font-medium p-2">{feetCount}</span>
+                                    <button
+                                        className="bg-gray-200 btn-decrement-count"
+                                        onClick={incrementFeetCount}
+                                    >
+                                        +
+                                    </button>
+                                </div>
                             </div>
                         </div>
-                    </div>
+                        <div className="cart-title"></div>
+                        </>
+                    )}
 
-                    <div className="cart-title"></div>
-
-                    <div className="bg-white p-4 rounded-lg cart-product-grid">
-                        <img
-                            src="/assets/hair.webp"
-                            alt="SAMBIKA Hair Roots Kare Oil"
-                            className="cart_product_img"
-                            loading="lazy"
-                        />
-                        <div>
-                            <h3 className="text-lg font-bold cart-product-header">SAMBIKA Hair Roots Kare Oil</h3>
-                            <span className="product_cart_cost"><span>Rs.</span> {unitPrice450}</span>
-                            <div className="flex items-center gap-4 mt-1 py-3">
-                                <button
-                                    className="bg-gray-200 btn-decrement-count"
-                                    onClick={decrementHairCount}
-                                >
-                                    −
-                                </button>
-                                <span className="text-md font-medium p-2">{hairCount}</span>
-                                <button
-                                    className="bg-gray-200 btn-decrement-count"
-                                    onClick={incrementHairCount}
-                                >
-                                    +
-                                </button>
+                    {hairCount > 0 && (
+                        <>
+                        <div className="bg-white p-4 rounded-lg cart-product-grid">
+                            <img
+                                src="/assets/hair.webp"
+                                alt="SAMBIKA Hair Roots Kare Oil"
+                                className="cart_product_img"
+                                loading="lazy"
+                            />
+                            <div>
+                                <h3 className="text-lg font-bold cart-product-header">SAMBIKA Hair Roots Kare Oil</h3>
+                                <span className="product_cart_cost"><span>Rs.</span> {unitPrice450}</span>
+                                <div className="flex items-center gap-4 mt-1 py-3">
+                                    <button
+                                        className="bg-gray-200 btn-decrement-count"
+                                        onClick={decrementHairCount}
+                                    >
+                                        −
+                                    </button>
+                                    <span className="text-md font-medium p-2">{hairCount}</span>
+                                    <button
+                                        className="bg-gray-200 btn-decrement-count"
+                                        onClick={incrementHairCount}
+                                    >
+                                        +
+                                    </button>
+                                </div>
                             </div>
                         </div>
-                    </div>
+                        <div className="cart-title"></div>
+                        </>
+                    )}
 
-                    <div className="cart-title"></div>
-
-                    <div className="bg-white p-4 rounded-lg cart-product-grid">
-                        <img
-                            src="/assets/massage.webp"
-                            alt="SAMBIKA Massage Oil"
-                            className="cart_product_img"
-                            loading="lazy"
-                        />
-                        <div>
-                            <h3 className="text-lg font-bold cart-product-header">SAMBIKA Massage Oil</h3>
-                            <span className="product_cart_cost"><span>Rs.</span> 200</span>
-                            <div className="flex items-center gap-4 mt-1 py-3">
-                                <button
-                                    className="bg-gray-200 btn-decrement-count"
-                                    onClick={decrementMassageCount}
-                                >
-                                    −
-                                </button>
-                                <span className="text-md font-medium p-2">{massageCount}</span>
-                                <button
-                                    className="bg-gray-200 btn-decrement-count"
-                                    onClick={incrementMassageCount}
-                                >
-                                    +
-                                </button>
+                    {massageCount > 0 && (
+                        <>
+                        <div className="bg-white p-4 rounded-lg cart-product-grid">
+                            <img
+                                src="/assets/massage.webp"
+                                alt="SAMBIKA Massage Oil"
+                                className="cart_product_img"
+                                loading="lazy"
+                            />
+                            <div>
+                                <h3 className="text-lg font-bold cart-product-header">SAMBIKA Massage Oil</h3>
+                                <span className="product_cart_cost"><span>Rs.</span> 200</span>
+                                <div className="flex items-center gap-4 mt-1 py-3">
+                                    <button
+                                        className="bg-gray-200 btn-decrement-count"
+                                        onClick={decrementMassageCount}
+                                    >
+                                        −
+                                    </button>
+                                    <span className="text-md font-medium p-2">{massageCount}</span>
+                                    <button
+                                        className="bg-gray-200 btn-decrement-count"
+                                        onClick={incrementMassageCount}
+                                    >
+                                        +
+                                    </button>
+                                </div>
                             </div>
                         </div>
-                    </div>
-
-                    <div className="cart-title"></div>
+                        <div className="cart-title"></div>
+                        </>
+                    )}
 
                     {/* Bundle offer banner */}
                     {totalItems > 0 && totalItems < 3 && (
