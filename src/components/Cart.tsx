@@ -664,7 +664,7 @@ function Cart()
                                 <span className="payment-mode-label">Mode of Payment</span>
                                 {(jointCount + feetCount + hairCount) > 0 && (
                                     <div className="payment-savings-banner">
-                                        💡 Pay online and <strong>save ₹50 per Kare Oil bottle</strong> — only ₹400 instead of ₹450!
+                                        💡 Pay online and <strong>save ₹50 per Oil bottle</strong> — only ₹400 instead of ₹450!
                                     </div>
                                 )}
                                 <div className="payment-option-cards">
@@ -687,7 +687,7 @@ function Cart()
                                         {(jointCount + feetCount + hairCount) > 0 ? (
                                             <>
                                                 <div className="payment-card-price">
-                                                    ₹400 / Kare Oil
+                                                    ₹400 / Oil
                                                     <span className="payment-card-strikethrough">₹450</span>
                                                 </div>
                                                 <div><span className="payment-card-badge">Save ₹50!</span></div>
@@ -713,7 +713,7 @@ function Cart()
                                         <div className="payment-card-icon">📦</div>
                                         <div className="payment-card-title">Cash on Delivery</div>
                                         {(jointCount + feetCount + hairCount) > 0 ? (
-                                            <div className="payment-card-price-cod">₹450 / Kare Oil</div>
+                                            <div className="payment-card-price-cod">₹450 / Oil</div>
                                         ) : (
                                             <div className="payment-card-price-cod" style={{fontSize: '0.95rem'}}>No extra charge</div>
                                         )}
