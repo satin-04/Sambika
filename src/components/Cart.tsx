@@ -33,7 +33,15 @@ function Cart()
     const subtotal = (jointCount + feetCount + hairCount) * unitPrice450 + massageCount * 200;
     const totalItems = jointCount + feetCount + hairCount + massageCount;
     const bundleDiscount = totalItems >= 3 ? Math.floor(subtotal * 0.05) : 0;
-    const cartTotal = totalItems > 0 ? subtotal - bundleDiscount : 0;
+
+    // ₹40 delivery charge: only when exactly 1 Massage Oil (no other oils) + COD
+    const massageOnlyOneCOD =
+        massageCount === 1 &&
+        (jointCount + feetCount + hairCount) === 0 &&
+        paymentMode === "Cash On Delivery";
+    const deliveryCharge = massageOnlyOneCOD ? 40 : 0;
+
+    const cartTotal = totalItems > 0 ? subtotal - bundleDiscount + deliveryCharge : 0;
 
     const { Razorpay } = useRazorpay();
     const [isProcessingPayment, setIsProcessingPayment] = useState(false);
@@ -457,6 +465,7 @@ function Cart()
         if(product === 4)
         {
             setMassageCount(massageCount => massageCount + 1);
+            setPaymentMode("Cash On Delivery");
         }
         // Fire InitiateCheckout — value uses base price of the selected product
         const initialValue = product === 4 ? 200 : 450;
@@ -618,6 +627,13 @@ function Cart()
                         </div>
                     )}
 
+                    {/* Delivery charge notice for single Massage Oil */}
+                    {massageCount === 1 && (jointCount + feetCount + hairCount) === 0 && (
+                        <div className="payment-savings-banner" style={{background: '#fff3e0', borderColor: '#e65100', color: '#e65100'}}>
+                            📦 ₹40 delivery charge applies for 1 Massage Oil via COD. <strong>Pay online</strong> or <strong>add another bottle</strong> for free delivery!
+                        </div>
+                    )}
+
                     <div className="cart-product-grid">
                         <div className="font-bold cart-product-amount text-center">Subtotal</div>
                         <span className="product_cart_amount"><span>Rs.</span> {subtotal}</span>
@@ -630,7 +646,11 @@ function Cart()
                     )}
                     <div className="cart-product-grid">
                         <div className="font-bold cart-product-amount text-center">Shipping</div>
-                        <span className="product_cart_amount" style={{color: '#2e7d32'}}>🚚 FREE</span>
+                        {deliveryCharge > 0 ? (
+                            <span className="product_cart_amount" style={{color: '#c0392b'}}>₹{deliveryCharge} Delivery (COD)</span>
+                        ) : (
+                            <span className="product_cart_amount" style={{color: '#2e7d32'}}>🚚 FREE</span>
+                        )}
                     </div>
                     <div className="cart-title"></div>
 
@@ -649,28 +669,28 @@ function Cart()
                     <form className="mt-3" ref={formRef} onSubmit={handleFormSubmit}>
                         <div className="row">
                             <div className="col-12">
-                                <input name="fullName" className="form-input" placeholder="Full Name" required />
+                                <input name="fullName" className="form-input" placeholder="Full Name / पूरा नाम" required />
                             </div>
                             <div className="col-12">
-                                <input name="address1" className="form-input" placeholder="Address Line 1" required />
+                                <input name="address1" className="form-input" placeholder="Address Line 1 / पता पंक्ति 1" required />
                             </div>
                             <div className="col-12">
-                                <input name="address2" className="form-input" placeholder="Address Line 2" />
+                                <input name="address2" className="form-input" placeholder="Address Line 2 / पता पंक्ति 2" />
                             </div>
                             <div className="col-4">
-                                <input name="city" className="form-input" placeholder="City" required />
+                                <input name="city" className="form-input" placeholder="City / शहर" required />
                             </div>
                             <div className="col-4">
-                                <input name="state" className="form-input" placeholder="State" required />
+                                <input name="state" className="form-input" placeholder="State / राज्य" required />
                             </div>
                             <div className="col-4">
-                                <input name="zipcode" className="form-input" placeholder="Zip Code" required inputMode="numeric" pattern="[0-9]{6}" maxLength={6} />
+                                <input name="zipcode" className="form-input" placeholder="Zip Code / पिन कोड" required inputMode="numeric" pattern="[0-9]{6}" maxLength={6} />
                             </div>
                             <div className="col-6">
-                                <input name="phone" className="form-input" placeholder="Phone Number" required inputMode="numeric" pattern="[0-9]{10}" maxLength={10} />
+                                <input name="phone" className="form-input" placeholder="Phone Number / फ़ोन नंबर" required inputMode="numeric" pattern="[0-9]{10}" maxLength={10} />
                             </div>
                             <div className="col-6">
-                                <input name="email" className="form-input" placeholder="Email (optional)" type="email" />
+                                <input name="email" className="form-input" placeholder="Email / ईमेल (optional / वैकल्पिक)" type="email" />
                             </div>
                             <div className="col-12" style={{padding: '0 10px'}}>
                                 <span className="payment-mode-label">Mode of Payment</span>
@@ -704,6 +724,8 @@ function Cart()
                                                 </div>
                                                 <div><span className="payment-card-badge">Save ₹50!</span></div>
                                             </>
+                                        ) : massageCount === 1 ? (
+                                            <div className="payment-card-price" style={{fontSize: '0.9rem', color: '#2e7d32'}}>🚚 Free Delivery</div>
                                         ) : (
                                             <div className="payment-card-price" style={{fontSize: '0.95rem', color: '#555'}}>No extra charge</div>
                                         )}
@@ -726,6 +748,8 @@ function Cart()
                                         <div className="payment-card-title">Cash on Delivery</div>
                                         {(jointCount + feetCount + hairCount) > 0 ? (
                                             <div className="payment-card-price-cod">₹450 / Oil</div>
+                                        ) : massageCount === 1 ? (
+                                            <div className="payment-card-price-cod" style={{fontSize: '0.9rem', color: '#c0392b'}}>+₹40 Delivery</div>
                                         ) : (
                                             <div className="payment-card-price-cod" style={{fontSize: '0.95rem'}}>No extra charge</div>
                                         )}
