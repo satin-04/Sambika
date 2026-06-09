@@ -29,19 +29,15 @@ function Cart()
     // ₹450 products cost ₹400 when paying online
     const unitPrice450 = paymentMode === "Online Payment" ? 400 : 450;
 
+    // Massage Oil: ₹200 online, ₹220 COD
+    const massageUnitPrice = paymentMode === "Cash On Delivery" ? 220 : 200;
+
     // Bundle discount: 5% off when buying 3 or more items
-    const subtotal = (jointCount + feetCount + hairCount) * unitPrice450 + massageCount * 200;
+    const subtotal = (jointCount + feetCount + hairCount) * unitPrice450 + massageCount * massageUnitPrice;
     const totalItems = jointCount + feetCount + hairCount + massageCount;
     const bundleDiscount = totalItems >= 3 ? Math.floor(subtotal * 0.05) : 0;
 
-    // ₹40 delivery charge: only when exactly 1 Massage Oil (no other oils) + COD
-    const massageOnlyOneCOD =
-        massageCount === 1 &&
-        (jointCount + feetCount + hairCount) === 0 &&
-        paymentMode === "Cash On Delivery";
-    const deliveryCharge = massageOnlyOneCOD ? 40 : 0;
-
-    const cartTotal = totalItems > 0 ? subtotal - bundleDiscount + deliveryCharge : 0;
+    const cartTotal = totalItems > 0 ? subtotal - bundleDiscount : 0;
 
     const { Razorpay } = useRazorpay();
     const [isProcessingPayment, setIsProcessingPayment] = useState(false);
@@ -465,7 +461,7 @@ function Cart()
         if(product === 4)
         {
             setMassageCount(massageCount => massageCount + 1);
-            setPaymentMode("Cash On Delivery");
+            setPaymentMode("Online Payment");
         }
         // Fire InitiateCheckout — value uses base price of the selected product
         const initialValue = product === 4 ? 200 : 450;
@@ -627,12 +623,12 @@ function Cart()
                         </div>
                     )}
 
-                    {/* Delivery charge notice for single Massage Oil */}
-                    {massageCount === 1 && (jointCount + feetCount + hairCount) === 0 && (
+                    {/* COD pricing notice for single Massage Oil */}
+                    {/* {massageCount === 1 && (jointCount + feetCount + hairCount) === 0 && (
                         <div className="payment-savings-banner" style={{background: '#fff3e0', borderColor: '#e65100', color: '#e65100'}}>
-                            📦 ₹40 delivery charge applies for 1 Massage Oil via COD. <strong>Pay online</strong> or <strong>add another bottle</strong> for free delivery!
+                            💡 COD price: <strong>₹220</strong>. <strong>Pay online</strong> for just ₹200 and save ₹20!
                         </div>
-                    )}
+                    )} */}
 
                     <div className="cart-product-grid">
                         <div className="font-bold cart-product-amount text-center">Subtotal</div>
@@ -646,11 +642,7 @@ function Cart()
                     )}
                     <div className="cart-product-grid">
                         <div className="font-bold cart-product-amount text-center">Shipping</div>
-                        {deliveryCharge > 0 ? (
-                            <span className="product_cart_amount" style={{color: '#c0392b'}}>₹{deliveryCharge} Delivery (COD)</span>
-                        ) : (
-                            <span className="product_cart_amount" style={{color: '#2e7d32'}}>🚚 FREE</span>
-                        )}
+                        <span className="product_cart_amount" style={{color: '#2e7d32'}}>🚚 FREE</span>
                     </div>
                     <div className="cart-title"></div>
 
@@ -749,7 +741,7 @@ function Cart()
                                         {(jointCount + feetCount + hairCount) > 0 ? (
                                             <div className="payment-card-price-cod">₹450 / Oil</div>
                                         ) : massageCount === 1 ? (
-                                            <div className="payment-card-price-cod" style={{fontSize: '0.9rem', color: '#c0392b'}}>+₹40 Delivery</div>
+                                            <div className="payment-card-price-cod" style={{fontSize: '0.9rem'}}>₹220 (COD)</div>
                                         ) : (
                                             <div className="payment-card-price-cod" style={{fontSize: '0.95rem'}}>No extra charge</div>
                                         )}
