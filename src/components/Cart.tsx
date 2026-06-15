@@ -4,7 +4,6 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
 import { useRef } from 'react';
 import { useRazorpay, RazorpayOrderOptions } from "react-razorpay";
-import emailjs from 'emailjs-com';
 import { Bounce, ToastContainer, toast } from 'react-toastify';
 import Loader from './Loader';
 import { collection, addDoc } from "firebase/firestore";
@@ -12,6 +11,8 @@ import {db} from '../firebase';
 import { getUtmData } from '../utils/utmTracker';
 import { fbInitiateCheckout, fbPurchase } from '../utils/fbPixel';
 import { ga4BeginCheckout, ga4Purchase } from '../utils/ga4Events';
+
+const EMAIL_API_URL = import.meta.env.VITE_KOYEB_API_URL.replace(/\/order$/, "/send-email");
 
 function Cart()
 {
@@ -50,9 +51,6 @@ function Cart()
         e.preventDefault();
 
         console.log("form submit clicked");
-        const serviceID = import.meta.env.VITE_EMAILJS_SERVICE_ID;
-        const templateID = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
-        const userID = import.meta.env.VITE_EMAILJS_USER_ID;
 
         if (!formRef.current) {
             toast.error("Please verify all Address Details are correct.");
@@ -268,8 +266,19 @@ function Cart()
                 CreatedAt: indiaTime
             };
 
-            emailjs.sendForm(serviceID, templateID, formRef.current, userID)
-                .then(() => {
+            fetch(EMAIL_API_URL, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    fullName: name,
+                    address1, address2, city, state, zipcode,
+                    phone, email, modeOfPayment: paymentMode,
+                    jointCount, feetCount, hairCount, massageCount,
+                    total
+                })
+            })
+                .then(async (response) => {
+                    if (!response.ok) throw new Error("Email API error");
                     const form = formRef.current;
                     if(form) 
                     {
@@ -318,10 +327,6 @@ function Cart()
     };
 
     const SendConfirmationEmail = async () => {
-        const serviceID = import.meta.env.VITE_EMAILJS_SERVICE_ID;
-        const templateID = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
-        const userID = import.meta.env.VITE_EMAILJS_USER_ID;
-
         if (!formRef.current) {
             toast.error("Please verify all Address Details are correct.");
             return;
@@ -391,8 +396,19 @@ function Cart()
             CreatedAt: indiaTime
         };
 
-        emailjs.sendForm(serviceID, templateID, formRef.current, userID)
-        .then(() => {
+        fetch(EMAIL_API_URL, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                fullName: name,
+                address1, address2, city, state, zipcode,
+                phone, email, modeOfPayment: paymentMode,
+                jointCount, feetCount, hairCount, massageCount,
+                total
+            })
+        })
+        .then(async (response) => {
+            if (!response.ok) throw new Error("Email API error");
             const form = formRef.current;
             if(form) 
             {
