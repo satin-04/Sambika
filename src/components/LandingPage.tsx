@@ -6,9 +6,9 @@ import { ga4ViewItem, ga4AddToCart } from '../utils/ga4Events';
 import './LandingPage.css';
 
 const allProducts = [
-  { id: 1, name: 'Joints Kare Oil', image: 'joints.webp', price: 450, route: '/joints', tagline: 'Joint & Arthritis Pain Relief' },
-  { id: 2, name: 'Feet Kare Oil',   image: 'feet.webp',   price: 450, route: '/feet',   tagline: 'Heel Pain & Diabetic Feet' },
-  { id: 3, name: 'Hair Roots Kare Oil', image: 'hair.webp', price: 450, route: '/hair', tagline: 'Stop Hair Fall, Grow Stronger Hair' },
+  { id: 1, name: 'Joints Kare Oil', image: 'joints.webp', price: 500, onlinePrice: 450, route: '/joints', tagline: 'Joint & Arthritis Pain Relief' },
+  { id: 2, name: 'Feet Kare Oil',   image: 'feet.webp',   price: 450, onlinePrice: 400, route: '/feet',   tagline: 'Heel Pain & Diabetic Feet' },
+  { id: 3, name: 'Hair Roots Kare Oil', image: 'hair.webp', price: 450, onlinePrice: 400, route: '/hair', tagline: 'Stop Hair Fall, Grow Stronger Hair' },
   { id: 4, name: 'Massage Oil',     image: 'massage.webp', price: 200, route: '/massage', tagline: "Men's Stamina & Vitality" },
 ];
 
@@ -19,6 +19,7 @@ interface LandingPageProps {
     contentId: string;
     image: string;
     price: number;
+    onlinePrice?: number;
     mrp: number;
     title: string;
     metaDescription: string;
@@ -67,16 +68,16 @@ function LandingPage({ product }: LandingPageProps) {
 
           <div className="lp-price-row">
             <span className="lp-price-mrp">Rs. {product.mrp}</span>
-            <span className="lp-price-actual">Rs. {product.price === 450 ? 400 : product.price}</span>
-            {product.price === 450 ? (
+            <span className="lp-price-actual">Rs. {product.onlinePrice ?? product.price}</span>
+            {product.onlinePrice !== undefined && product.onlinePrice < product.price ? (
               <span className="lp-price-badge">₹50 OFF Online</span>
             ) : (
               <span className="lp-price-badge">10% OFF</span>
             )}
           </div>
-          {product.price === 450 && (
+          {product.onlinePrice !== undefined && product.onlinePrice < product.price && (
             <div style={{ fontSize: '0.82rem', color: '#666', marginBottom: '6px' }}>
-              💳 <strong>₹400</strong> via Online Payment &nbsp;|&nbsp; 💵 <strong>₹450</strong> via Cash on Delivery
+              💳 <strong>₹{product.onlinePrice}</strong> via Online Payment &nbsp;|&nbsp; 💵 <strong>₹{product.price}</strong> via Cash on Delivery
             </div>
           )}
 
@@ -89,7 +90,7 @@ function LandingPage({ product }: LandingPageProps) {
           </div>
 
           <button className="lp-cta" onClick={handleBuyNow}>
-            🛒 ORDER NOW — Rs. {product.price === 450 ? '400 (Online) / Rs. 450 (COD)' : product.price}
+            🛒 ORDER NOW — Rs. {product.onlinePrice !== undefined && product.onlinePrice < product.price ? `${product.onlinePrice} (Online) / Rs. ${product.price} (COD)` : product.price}
           </button>
           <p className="lp-trust">✅ Free shipping · Cash on Delivery · Delivered in 5–7 days</p>
         </div>
@@ -121,7 +122,7 @@ function LandingPage({ product }: LandingPageProps) {
 
         <div className="lp-bottom-cta">
           <button className="lp-cta" onClick={handleBuyNow}>
-            🛒 ORDER NOW — Rs. {product.price === 450 ? '400 (Online) / Rs. 450 (COD)' : product.price}
+            🛒 ORDER NOW — Rs. {product.onlinePrice !== undefined && product.onlinePrice < product.price ? `${product.onlinePrice} (Online) / Rs. ${product.price} (COD)` : product.price}
           </button>
           <p className="lp-trust">✅ Free shipping · Cash on Delivery · Delivered in 5–7 days</p>
         </div>
@@ -134,7 +135,7 @@ function LandingPage({ product }: LandingPageProps) {
                 <img src={`/assets/${p.image}`} alt={p.name} loading="lazy" />
                 <div className="lp-cs-name">{p.name}</div>
                 <div className="lp-cs-tagline">{p.tagline}</div>
-                <div className="lp-cs-price">{p.price === 450 ? '₹400 Online / ₹450 COD' : `₹${p.price}`}</div>
+                <div className="lp-cs-price">{p.onlinePrice !== undefined && p.onlinePrice < p.price ? `₹${p.onlinePrice} Online / ₹${p.price} COD` : `₹${p.price}`}</div>
                 <button className="lp-cs-btn">View Product →</button>
               </div>
             ))}

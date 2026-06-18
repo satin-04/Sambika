@@ -27,14 +27,17 @@ function Cart()
 
     const [paymentMode, setPaymentMode] = useState<string>("");
 
-    // ₹450 products cost ₹400 when paying online
+    // ₹450 products cost ₹400 when paying online (Feet & Hair Kare Oil)
     const unitPrice450 = paymentMode === "Online Payment" ? 400 : 450;
+
+    // Joints Kare Oil: ₹450 online, ₹500 COD
+    const jointUnitPrice = paymentMode === "Online Payment" ? 450 : 500;
 
     // Massage Oil: ₹200 online, ₹220 COD
     const massageUnitPrice = paymentMode === "Cash On Delivery" ? 220 : 200;
 
     // Bundle discount: 5% off when buying 3 or more items
-    const subtotal = (jointCount + feetCount + hairCount) * unitPrice450 + massageCount * massageUnitPrice;
+    const subtotal = jointCount * jointUnitPrice + (feetCount + hairCount) * unitPrice450 + massageCount * massageUnitPrice;
     const totalItems = jointCount + feetCount + hairCount + massageCount;
     const bundleDiscount = totalItems >= 3 ? Math.floor(subtotal * 0.05) : 0;
 
@@ -480,7 +483,7 @@ function Cart()
             setPaymentMode("Online Payment");
         }
         // Fire InitiateCheckout — value uses base price of the selected product
-        const initialValue = product === 4 ? 200 : 450;
+        const initialValue = product === 4 ? 200 : product === 1 ? 500 : 450;
         fbInitiateCheckout(initialValue, 1);
         ga4BeginCheckout(initialValue);
     }, [product, navigate]);
@@ -506,7 +509,7 @@ function Cart()
                             />
                             <div>
                                 <h3 className="text-lg font-bold cart-product-header">SAMBIKA Joints Kare Oil</h3>
-                                <span className="product_cart_cost"><span>Rs.</span> {unitPrice450}</span>
+                                <span className="product_cart_cost"><span>Rs.</span> {jointUnitPrice}</span>
                                 <div className="flex items-center gap-4 mt-1 py-3">
                                     <button
                                         className="bg-gray-200 btn-decrement-count"
@@ -704,7 +707,12 @@ function Cart()
                                 <span className="payment-mode-label">Mode of Payment</span>
                                 {(jointCount + feetCount + hairCount) > 0 && (
                                     <div className="payment-savings-banner">
-                                        💡 Pay online and <strong>save ₹50 per Oil bottle</strong> — only ₹400 instead of ₹450!
+                                        {jointCount > 0 && (feetCount + hairCount) === 0
+                                            ? <>💡 Pay online and <strong>save ₹50 per bottle</strong> — only ₹450 instead of ₹500!</>
+                                            : jointCount === 0 && (feetCount + hairCount) > 0
+                                            ? <>💡 Pay online and <strong>save ₹50 per Oil bottle</strong> — only ₹400 instead of ₹450!</>
+                                            : <>💡 Pay online and <strong>save ₹50 per bottle!</strong></>
+                                        }
                                     </div>
                                 )}
                                 <div className="payment-option-cards">
@@ -727,8 +735,12 @@ function Cart()
                                         {(jointCount + feetCount + hairCount) > 0 ? (
                                             <>
                                                 <div className="payment-card-price">
-                                                    ₹400 / Oil
-                                                    <span className="payment-card-strikethrough">₹450</span>
+                                                    {jointCount > 0 && (feetCount + hairCount) === 0
+                                                        ? <>₹450 / Oil<span className="payment-card-strikethrough">₹500</span></>
+                                                        : jointCount === 0
+                                                        ? <>₹400 / Oil<span className="payment-card-strikethrough">₹450</span></>
+                                                        : <>Save ₹50 / Oil</>
+                                                    }
                                                 </div>
                                                 <div><span className="payment-card-badge">Save ₹50!</span></div>
                                             </>
@@ -755,7 +767,14 @@ function Cart()
                                         <div className="payment-card-icon">📦</div>
                                         <div className="payment-card-title">Cash on Delivery</div>
                                         {(jointCount + feetCount + hairCount) > 0 ? (
-                                            <div className="payment-card-price-cod">₹450 / Oil</div>
+                                            <div className="payment-card-price-cod">
+                                                {jointCount > 0 && (feetCount + hairCount) === 0
+                                                    ? '₹500 / Oil'
+                                                    : jointCount === 0
+                                                    ? '₹450 / Oil'
+                                                    : 'COD Available'
+                                                }
+                                            </div>
                                         ) : massageCount === 1 ? (
                                             <div className="payment-card-price-cod" style={{fontSize: '0.9rem'}}>₹220 (COD)</div>
                                         ) : (

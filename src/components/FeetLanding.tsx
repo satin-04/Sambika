@@ -6,6 +6,7 @@ const feetProduct = {
   contentId: 'feet-kare-oil',
   image: 'feet.webp',
   price: 450,
+  onlinePrice: 400,
   mrp: 499,
   title: 'SAMBIKA Feet Kare Oil | Ayurvedic Heel Pain & Diabetic Feet Oil | ₹450',
   metaDescription: 'Ayurvedic oil for heel pain, diabetic feet, numbness & tingling. Free shipping. COD available.',

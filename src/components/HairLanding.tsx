@@ -6,6 +6,7 @@ const hairProduct = {
   contentId: 'hair-roots-kare-oil',
   image: 'hair.webp',
   price: 450,
+  onlinePrice: 400,
   mrp: 499,
   title: 'SAMBIKA Hair Roots Kare Oil | Ayurvedic Hair Growth & Fall Control | ₹450',
   metaDescription: 'Natural Ayurvedic hair oil for hair fall, dandruff & bald patches. Bhringraj, Amla, Coconut Oil. Free shipping across India. COD available.',

@@ -24,6 +24,7 @@ const OrderSummary = () => {
   }
 
   const unitPrice450 = order.ModeOfPayment === "Online Payment" ? 400 : 450;
+  const jointUnitPrice = order.ModeOfPayment === "Online Payment" ? 450 : 500;
 
   return (
     <div className="summary-container">
@@ -43,7 +44,7 @@ const OrderSummary = () => {
                     />
                     <div>
                         <h3 className="text-lg font-bold cart-product-header">SAMBIKA Joints Kare Oil</h3>
-                        <span className="product_cart_cost"><span>Rs.</span> {order.JointsKareOil*unitPrice450}</span>
+                        <span className="product_cart_cost"><span>Rs.</span> {order.JointsKareOil*jointUnitPrice}</span>
                         <div className="flex items-center gap-4 mt-1 py-3">
                             <span className="order-summary-quantity">Quantity: {order.JointsKareOil}</span>
                         </div>
