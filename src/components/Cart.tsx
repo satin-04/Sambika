@@ -43,6 +43,9 @@ function Cart()
 
     const cartTotal = totalItems > 0 ? subtotal - bundleDiscount : 0;
 
+    // COD is not available when only Massage Oil is in the cart
+    const isMassageOnly = massageCount > 0 && (jointCount + feetCount + hairCount) === 0;
+
     const { Razorpay } = useRazorpay();
     const [isProcessingPayment, setIsProcessingPayment] = useState(false);
     const [shouldSendEmail, setShouldSendEmail] = useState(false);
@@ -488,6 +491,13 @@ function Cart()
         ga4BeginCheckout(initialValue);
     }, [product, navigate]);
 
+    // Reset to Online Payment if COD is selected while only Massage Oil is in cart
+    useEffect(() => {
+        if (isMassageOnly && paymentMode === "Cash On Delivery") {
+            setPaymentMode("Online Payment");
+        }
+    }, [isMassageOnly, paymentMode]);
+
     return (
         <div>
             {isProcessingPayment && <Loader />}
@@ -751,7 +761,8 @@ function Cart()
                                         )}
                                     </div>
 
-                                    {/* Cash on Delivery Card */}
+                                    {/* Cash on Delivery Card — hidden when only Massage Oil is in cart */}
+                                    {!isMassageOnly && (
                                     <div
                                         className={`payment-card${paymentMode === "Cash On Delivery" ? " selected-cod" : ""}`}
                                         onClick={() => setPaymentMode("Cash On Delivery")}
@@ -781,7 +792,13 @@ function Cart()
                                             <div className="payment-card-price-cod" style={{fontSize: '0.95rem'}}>No extra charge</div>
                                         )}
                                     </div>
+                                    )}
                                 </div>
+                                {isMassageOnly && (
+                                    <div className="payment-savings-banner" style={{background: '#fff8e1', borderColor: '#f9a825', color: '#795548', marginTop: '10px'}}>
+                                        ⚠️ <strong>COD is not available for Massage Oil.</strong> Please use Online Payment to complete your order.
+                                    </div>
+                                )}
                             </div>
                             <div hidden>
                                 <input name="jointCount" className="form-input" value={jointCount} readOnly />

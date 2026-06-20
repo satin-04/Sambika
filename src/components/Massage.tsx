@@ -132,7 +132,7 @@ function Massage()
             {isProductRoute && (
                 <Helmet>
                     <title>SAMBIKA Massage Oil | Ayurvedic Men's Stamina &amp; Vitality Oil | ₹200 | India</title>
-                    <meta name="description" content="Ayurvedic massage oil for men's stamina, strength & vitality. Made with Safed Musli, Shilajit, Ashwagandha. 100% herbal, no side effects. Free shipping in India. COD available." />
+                    <meta name="description" content="Ayurvedic massage oil for men's stamina, strength & vitality. Made with Safed Musli, Shilajit, Ashwagandha. 100% herbal, no side effects. Free shipping in India." />
                     <meta name="keywords" content="ayurvedic massage oil men india, safed musli oil india, ashwagandha massage oil, men stamina oil india, shilajit oil india, sambika massage oil" />
                     <meta property="og:title" content="SAMBIKA Massage Oil | ₹200 | Ayurvedic Men's Stamina Oil" />
                     <meta property="og:description" content="Ayurvedic massage oil for men's stamina & vitality. Made with Safed Musli, Shilajit, Ashwagandha. Free shipping in India." />
