@@ -101,7 +101,7 @@ const OrderSummary = () => {
                     />
                     <div>
                         <h3 className="text-lg font-bold cart-product-header">SAMBIKA Massage Oil</h3>
-                        <span className="product_cart_cost"><span>Rs.</span> {order.MassageOil*200}</span>
+                        <span className="product_cart_cost"><span>Rs.</span> {order.MassageOil*unitPrice450}</span>
                         <div className="flex items-center gap-4 mt-1 py-3">
                             <span className="order-summary-quantity">Quantity: {order.MassageOil}</span>
                         </div>

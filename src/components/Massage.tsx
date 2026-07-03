@@ -16,7 +16,7 @@ const massageSchema = {
         "@type": "Offer",
         "url": "https://sambika-healthcare.netlify.app/massage",
         "priceCurrency": "INR",
-        "price": "200",
+        "price": "450",
         "priceValidUntil": "2026-12-31",
         "itemCondition": "https://schema.org/NewCondition",
         "availability": "https://schema.org/InStock"
@@ -39,14 +39,14 @@ function Massage()
 
     useEffect(() => {
         if (isProductRoute) {
-            fbViewContent('SAMBIKA Massage Oil', 'massage-oil', 200);
-            ga4ViewItem('SAMBIKA Massage Oil', 'massage-oil', 200);
+            fbViewContent('SAMBIKA Massage Oil', 'massage-oil', 450);
+            ga4ViewItem('SAMBIKA Massage Oil', 'massage-oil', 450);
         }
     }, [isProductRoute]);
 
     const handleProductClick = (product: number) => {
-        fbAddToCart('SAMBIKA Massage Oil', 'massage-oil', 200);
-        ga4AddToCart('SAMBIKA Massage Oil', 'massage-oil', 200);
+        fbAddToCart('SAMBIKA Massage Oil', 'massage-oil', 450);
+        ga4AddToCart('SAMBIKA Massage Oil', 'massage-oil', 450);
         navigate('/cart', { state: { product } });
     };
     
@@ -131,10 +131,10 @@ function Massage()
         <div>
             {isProductRoute && (
                 <Helmet>
-                    <title>SAMBIKA Massage Oil | Ayurvedic Men's Stamina &amp; Vitality Oil | ₹200 | India</title>
+                    <title>SAMBIKA Massage Oil | Ayurvedic Men's Stamina &amp; Vitality Oil | ₹450 | India</title>
                     <meta name="description" content="Ayurvedic massage oil for men's stamina, strength & vitality. Made with Safed Musli, Shilajit, Ashwagandha. 100% herbal, no side effects. Free shipping in India." />
                     <meta name="keywords" content="ayurvedic massage oil men india, safed musli oil india, ashwagandha massage oil, men stamina oil india, shilajit oil india, sambika massage oil" />
-                    <meta property="og:title" content="SAMBIKA Massage Oil | ₹200 | Ayurvedic Men's Stamina Oil" />
+                    <meta property="og:title" content="SAMBIKA Massage Oil | ₹450 | Ayurvedic Men's Stamina Oil" />
                     <meta property="og:description" content="Ayurvedic massage oil for men's stamina & vitality. Made with Safed Musli, Shilajit, Ashwagandha. Free shipping in India." />
                     <meta property="og:image" content="https://sambika-healthcare.netlify.app/assets/massage.webp" />
                     <meta property="og:url" content="https://sambika-healthcare.netlify.app/massage" />
@@ -158,9 +158,12 @@ function Massage()
                 <div className="product_description m-3 mt-4">
                     <h3 className="product_heading"><b>SAMBIKA Massage Oil</b></h3>
                     <div className="product_cost px-2">
-                        <span><s><span>Rs.</span> 229</s></span>
-                        <span className="product_actual_cost ms-2"><span>Rs.</span> 200</span>
-                        <span className="product_discount ms-2">-10.00%</span>
+                        <span><s><span>Rs.</span> 450</s></span>
+                        <span className="product_actual_cost ms-2"><span>Rs.</span> 400</span>
+                        <span className="product_discount ms-2">-11.00%</span>
+                        <div style={{ fontSize: '0.8rem', color: '#555', marginTop: '4px' }}>
+                            💳 <strong>₹400</strong> Online &nbsp;|&nbsp; 💵 <strong>₹450</strong> COD
+                        </div>
                         <div className="product_cost_footer">
                             Tax included. Shipping calculated at checkout.
                         </div>

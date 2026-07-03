@@ -9,7 +9,7 @@ const allProducts = [
   { id: 1, name: 'Joints Kare Oil', image: 'joints.webp', price: 500, onlinePrice: 450, route: '/joints', tagline: 'Joint & Arthritis Pain Relief' },
   { id: 2, name: 'Feet Kare Oil',   image: 'feet.webp',   price: 450, onlinePrice: 400, route: '/feet',   tagline: 'Heel Pain & Diabetic Feet' },
   { id: 3, name: 'Hair Roots Kare Oil', image: 'hair.webp', price: 450, onlinePrice: 400, route: '/hair', tagline: 'Stop Hair Fall, Grow Stronger Hair' },
-  { id: 4, name: 'Massage Oil',     image: 'massage.webp', price: 200, route: '/massage', tagline: "Men's Stamina & Vitality" },
+  { id: 4, name: 'Massage Oil',     image: 'massage.webp', price: 450, onlinePrice: 400, route: '/massage', tagline: "Men's Stamina & Vitality" },
 ];
 
 interface LandingPageProps {
