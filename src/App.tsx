@@ -12,7 +12,7 @@ import Massage from './components/Massage.tsx';
 import Certifications from './components/Certifications.tsx';
 import Footer from './components/Footer.tsx';
 import Cart from './components/Cart.tsx';
-import OrderSummary from './components/OrderSummary.tsx';
+import ShiprocketOrderSummary from './components/ShiprocketOrderSummary.tsx';
 import RouteChangeTracker from './components/RouteChangeTracker.tsx';
 import Testimonials from './components/Testimonials.tsx';
 import Policy from './components/Policy.tsx';
@@ -126,10 +126,10 @@ function App() {
             <Footer />
           </>
         } />
-        <Route path="/order-summary" element={
+        <Route path="/shiprocket-order-summary" element={
           <>
             <Navbar />
-            <OrderSummary />
+            <ShiprocketOrderSummary />
           </>
         } />
         <Route path="/policy" element={
