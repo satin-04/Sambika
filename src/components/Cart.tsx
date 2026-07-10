@@ -1,27 +1,41 @@
+﻿// ---------------------------------------------------------------------------
+// TEMPORARY ROLLBACK (do not remove this notice until Shiprocket is fixed):
+// This is the legacy form + Razorpay/COD checkout, restored from commit
+// f9cd97c as a stopgap because the Shiprocket Checkout API is currently
+// unreachable from the backend (UND_ERR_CONNECT_TIMEOUT — likely an
+// IP-whitelisting issue, pending Shiprocket support's response). It does not
+// depend on Shiprocket at all: Online Payment uses Razorpay directly via the
+// backend's /order endpoint, and COD orders are written straight to
+// Firestore + emailed via /send-email — both endpoints are untouched and
+// still live on the backend.
+//
+// The Shiprocket-integrated version of this file (and the matching backend
+// state) is preserved at git tag `shiprocket-checkout-before-fallback`
+// (frontend) / `shiprocket-checkout-live` (backend). Once Shiprocket
+// whitelists the Koyeb IP and checkout is confirmed working again, revert
+// this file (and the /order-summary route in App.tsx) back to the Shiprocket
+// version from that tag.
+// ---------------------------------------------------------------------------
 import { useState } from "react";
 import "./Cart.css"
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
+import { useRef } from 'react';
+import { useRazorpay, RazorpayOrderOptions } from "react-razorpay";
 import { Bounce, ToastContainer, toast } from 'react-toastify';
 import Loader from './Loader';
-import { fbInitiateCheckout } from '../utils/fbPixel';
-import { ga4BeginCheckout } from '../utils/ga4Events';
+import { collection, addDoc } from "firebase/firestore";
+import {db} from '../firebase';
+import { getUtmData } from '../utils/utmTracker';
+import { fbInitiateCheckout, fbPurchase } from '../utils/fbPixel';
+import { ga4BeginCheckout, ga4Purchase } from '../utils/ga4Events';
 
-const SHIPROCKET_CHECKOUT_API_URL = import.meta.env.VITE_KOYEB_API_URL.replace(/\/order$/, "/shiprocket-checkout");
-
-// Shiprocket variant IDs (must match server/products.js onlineVariantId).
-// Shiprocket's own hosted checkout handles both Online Payment and Cash On
-// Delivery pricing/selection for whichever variant is sent here.
-const SHIPROCKET_VARIANT_IDS = {
-    joints: "2000000000001",
-    feet: "2000000000003",
-    hair: "2000000000005",
-    massage: "2000000000007",
-};
+const EMAIL_API_URL = import.meta.env.VITE_KOYEB_API_URL.replace(/\/order$/, "/send-email");
 
 function Cart()
 {
     const location = useLocation();
+    const navigate = useNavigate();
 
     const product = location.state?.product;
     const [jointCount, setJointCount] = useState(0);
@@ -29,79 +43,409 @@ function Cart()
     const [hairCount, setHairCount] = useState(0);
     const [massageCount, setMassageCount] = useState(0);
 
-    // Reference prices shown on this page — Cash on Delivery (COD) prices,
-    // matching the advertised price shown on the product pages. Matches the
-    // variant IDs sent to Shiprocket below. The authoritative charged amount
-    // is whatever Shiprocket's checkout/Order Details ultimately returns.
-    const otherCodPrice = 450;
-    const jointCodPrice = 500;
+    const [paymentMode, setPaymentMode] = useState<string>("");
+
+    // ₹450 products cost ₹400 when paying online (Feet, Hair & Massage Kare Oil)
+    const unitPrice450 = paymentMode === "Online Payment" ? 400 : 450;
+
+    // Joints Kare Oil: ₹450 online, ₹500 COD
+    const jointUnitPrice = paymentMode === "Online Payment" ? 450 : 500;
 
     // Bundle discount: 5% off when buying 3 or more items
-    const subtotal = jointCount * jointCodPrice + (feetCount + hairCount + massageCount) * otherCodPrice;
+    const subtotal = jointCount * jointUnitPrice + (feetCount + hairCount + massageCount) * unitPrice450;
     const totalItems = jointCount + feetCount + hairCount + massageCount;
     const bundleDiscount = totalItems >= 3 ? Math.floor(subtotal * 0.05) : 0;
 
     const cartTotal = totalItems > 0 ? subtotal - bundleDiscount : 0;
 
-    const [isProcessingShiprocket, setIsProcessingShiprocket] = useState(false);
+    const { Razorpay } = useRazorpay();
+    const [isProcessingPayment, setIsProcessingPayment] = useState(false);
+    const [shouldSendEmail, setShouldSendEmail] = useState(false);
+    const [isSubmitting, setIsSubmitting] = useState(false);
 
-    // ---------------------------------------------------------------------
-    // Shiprocket Checkout — the sole checkout path. Generates a Shiprocket
-    // checkout access token via the backend, then hands off to Shiprocket's
-    // HeadlessCheckout SDK (loaded in index.html), which collects the
-    // address and lets the customer choose Online Payment or Cash On
-    // Delivery on Shiprocket's own hosted UI.
-    // ---------------------------------------------------------------------
-    const handlePlaceOrder = async (e: React.MouseEvent<HTMLButtonElement>) => {
-        const items = [
-            jointCount > 0 && { variantId: SHIPROCKET_VARIANT_IDS.joints, quantity: jointCount },
-            feetCount > 0 && { variantId: SHIPROCKET_VARIANT_IDS.feet, quantity: feetCount },
-            hairCount > 0 && { variantId: SHIPROCKET_VARIANT_IDS.hair, quantity: hairCount },
-            massageCount > 0 && { variantId: SHIPROCKET_VARIANT_IDS.massage, quantity: massageCount },
-        ].filter(Boolean) as { variantId: string; quantity: number }[];
+    const formRef = useRef<HTMLFormElement>(null);
 
-        if (items.length === 0) {
+    const handleFormSubmit = async (e: { preventDefault: () => void; }) => {
+        e.preventDefault();
+
+        console.log("form submit clicked");
+
+        if (!formRef.current) {
+            toast.error("Please verify all Address Details are correct.");
+            return;
+        }
+
+        setIsSubmitting(true);
+
+        const indiaTime = new Date().toLocaleString("en-IN", {
+            timeZone: "Asia/Kolkata",
+            dateStyle: "full",
+            timeStyle: "medium",
+            hour12: true,
+        });
+
+        const formData = formRef.current;
+        var total = (formData.elements.namedItem('total') as HTMLInputElement | null)?.value ?? "";
+        const name = (formData.elements.namedItem('fullName') as HTMLInputElement | null)?.value ?? "";
+        const email = (formData.elements.namedItem('email') as HTMLInputElement | null)?.value ?? "";
+        const phone = (formData.elements.namedItem('phone') as HTMLInputElement | null)?.value ?? "";
+        const address1 = (formData.elements.namedItem('address1') as HTMLInputElement | null)?.value ?? "";
+        const address2 = (formData.elements.namedItem('address2') as HTMLInputElement | null)?.value ?? "";
+        const city = (formData.elements.namedItem('city') as HTMLInputElement | null)?.value ?? "";
+        const state = (formData.elements.namedItem('state') as HTMLInputElement | null)?.value ?? "";
+        const zipcode = (formData.elements.namedItem('zipcode') as HTMLInputElement | null)?.value ?? "";
+        const paymentMode = (formData.elements.namedItem('mode-of-payment') as HTMLInputElement | null)?.value ?? "";
+        const currency = "INR";
+        const receiptId = "qwsap1";
+        const amount = Number(total)*100;
+
+        if(amount == 0)
+        {
+            setIsSubmitting(false);
             toast.error("Please select at least 1 product to order.");
             return;
         }
 
-        setIsProcessingShiprocket(true);
+        if(!/^[0-9]{6}$/.test(zipcode))
+        {
+            setIsSubmitting(false);
+            toast.error("Zip Code must be exactly 6 digits.");
+            return;
+        }
 
-        try {
-            const response = await fetch(SHIPROCKET_CHECKOUT_API_URL, {
+        if(!/^[0-9]{10}$/.test(phone))
+        {
+            setIsSubmitting(false);
+            toast.error("Phone number must be exactly 10 digits.");
+            return;
+        }
+
+        const utmData = getUtmData();
+
+        try
+        {
+            await addDoc(collection(db, "order-draft"), {
+                Customer: name,
+                Address1: address1,
+                Address2: address2,
+                City: city,
+                State: state,
+                ZipCode: zipcode,
+                Phone: phone,
+                Email: email,
+                ModeOfPayment: paymentMode,
+                JointsKareOil: jointCount,
+                FeetKareOil: feetCount,
+                HairKareOil: hairCount,
+                MassageOil: massageCount,
+                Amount: total,
+                CreatedAt: indiaTime,
+                TimestampMs: Date.now(),
+                ...utmData
+            });
+        }
+        catch (err) {
+            console.error("Error sending data to db:", err);
+        }
+
+        if(paymentMode === "Online Payment")
+        {
+            setIsProcessingPayment(true);
+    
+            try 
+            {
+                const response = await fetch("https://exciting-aggie-sambika-8d12e213.koyeb.app/order", {
+                    method: "POST",
+                    body: JSON.stringify({
+                        "amount": amount,
+                        "currency": currency,
+                        "receipt": receiptId
+                    }),
+                    headers: {
+                        "Content-Type": "application/json"
+                    }
+                });
+    
+                const order = await response.json();
+    
+                
+                var options: RazorpayOrderOptions = {
+                    "key": import.meta.env.VITE_RAZORPAY_KEY,
+                    "amount": amount, // Amount is in currency subunits.
+                    "currency": "INR",
+                    "name": "Sambika Healthcare", //your business name
+                    "description": "Sambika Healthcare",
+                    "image": "",
+                    "order_id": order.id, //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
+                    "handler": function (){
+                        fbPurchase(amount / 100);
+                        ga4Purchase(amount / 100, `rzp-${Date.now()}`);
+                        SendConfirmationEmail();
+                        setIsSubmitting(false);
+                    },
+                    "prefill": { //We recommend using the prefill parameter to auto-fill customer's contact information, especially their phone number
+                        "name": name, //your customer's name
+                        "email": email, 
+                        "contact": phone  //Provide the customer's phone number for better conversion rates 
+                    },
+                    "theme": {
+                        "color": "#3399cc"
+                    }
+                };
+    
+                const razorpayInstance = new Razorpay(options);
+    
+                razorpayInstance.open();
+                e.preventDefault();
+                setIsProcessingPayment(false);
+                setIsSubmitting(false);
+                
+                if(shouldSendEmail)
+                {
+                    console.log("inside should send email?");
+                    // emailjs.sendForm(serviceID, templateID, formRef.current, userID)
+                    // .then(() => {
+                    //     const form = formRef.current;
+                    //     if(form) 
+                    //     {
+                    //         const elements = form.elements as HTMLFormControlsCollection & {
+                    //             [name: string]: HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement;
+                    //         };
+                    //         const modeOfPayment = elements["mode-of-payment"].value;
+                    //         // var modeOfPayment = formRef.current?.elements["mode-of-payment"].value;
+                    //         if(modeOfPayment === "Online Payment")
+                    //         {
+                    //             toast.success(<>Thank you for your order!<br/><br/>You will receive our QR code within the next 24 hours on your WhatsApp.</>);
+                    //         }
+                    //         else
+                    //         {
+                    //             toast.success("The order was placed!");
+                    //         }
+                    //         // navigate('/');
+                    //         setShouldSendEmail(false);
+                    //         setTimeout(() => {
+                    //             navigate('/', { replace: true });
+                    //         }, 10000);
+                    //     }
+                    // })
+                    // .catch(err => {
+                    //     toast.error("Failed to submit order.");
+                    //     console.error('Email error:', err);
+                    // });
+                }
+            } catch (err) {
+                console.error("Error opening Razorpay:", err);
+                setIsProcessingPayment(false); // Hide the spinner if an error occurs
+                setIsSubmitting(false);
+            }
+        }
+        else
+        {
+            setShouldSendEmail(true);
+            try
+            {
+                await addDoc(collection(db, "order"), {
+                    Customer: name,
+                    Address1: address1,
+                    Address2: address2,
+                    City: city,
+                    State: state,
+                    ZipCode: zipcode,
+                    Phone: phone,
+                    Email: email,
+                    ModeOfPayment: paymentMode,
+                    JointsKareOil: jointCount,
+                    FeetKareOil: feetCount,
+                    HairKareOil: hairCount,
+                    MassageOil: massageCount,
+                    Amount: total,
+                    CreatedAt: indiaTime,
+                    ...utmData
+                });
+            }
+            catch (err) {
+                console.error("Error sending data to db:", err);
+            }
+
+            const orderData = {
+                Customer: name,
+                Address1: address1,
+                Address2: address2,
+                City: city,
+                State: state,
+                ZipCode: zipcode,
+                Phone: phone,
+                Email: email,
+                ModeOfPayment: paymentMode,
+                JointsKareOil: jointCount,
+                FeetKareOil: feetCount,
+                HairKareOil: hairCount,
+                MassageOil: massageCount,
+                Amount: total,
+                CreatedAt: indiaTime
+            };
+
+            fetch(EMAIL_API_URL, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
-                    items,
-                    productName: "Sambika Healthcare Order",
-                    paymentMode: "Online Payment",
-                    redirectUrl: `${window.location.origin}/shiprocket-order-summary`,
-                }),
-            });
-
-            const data = await response.json();
-
-            if (!response.ok || !data.success || !data.result?.token) {
-                console.error("Shiprocket checkout error:", data);
-                toast.error("Unable to start Shiprocket checkout. Please try again.");
-                return;
-            }
-
-            if (!window.HeadlessCheckout) {
-                toast.error("Checkout is still loading. Please try again in a moment.");
-                return;
-            }
-
-            window.HeadlessCheckout.addToCart(e.nativeEvent, data.result.token, {
-                fallbackUrl: `${window.location.origin}/cart`,
-            });
-        } catch (err) {
-            console.error("Error starting Shiprocket checkout:", err);
-            toast.error("Unable to start Shiprocket checkout. Please try again.");
-        } finally {
-            setIsProcessingShiprocket(false);
+                    fullName: name,
+                    address1, address2, city, state, zipcode,
+                    phone, email, modeOfPayment: paymentMode,
+                    jointCount, feetCount, hairCount, massageCount,
+                    total
+                })
+            })
+                .then(async (response) => {
+                    if (!response.ok) throw new Error("Email API error");
+                    const form = formRef.current;
+                    if(form) 
+                    {
+                        fbPurchase(Number(total));
+                        ga4Purchase(Number(total), `cod-${Date.now()}`);
+                        setIsSubmitting(false);
+                        navigate('/order-summary', { 
+                            state: { 
+                                order: orderData,
+                                authorized: true
+                            }
+                        });
+                        // var modeOfPayment = formRef.current?.elements["mode-of-payment"].value;
+                        // if(modeOfPayment === "Online Payment")
+                        // {
+                        //     navigate('/', { 
+                        //         state: { 
+                        //             showToast: true, 
+                        //             message: "<>Your order has been placed!<br/><br/>You will receive the confirmation within the next 24 hours on your WhatsApp/SMS.</>" 
+                        //         } 
+                        //     });
+                        // }
+                        // else
+                        // {
+                        //     navigate('/', { 
+                        //         state: { 
+                        //             showToast: true, 
+                        //             message: "The order was placed!" 
+                        //         }
+                        //     });
+                        // }
+                        // navigate('/');
+                        // setTimeout(() => {
+                        //     navigate('/', { replace: true });
+                        // }, 10000);
+                    }
+                })
+                .catch(err => {
+                    toast.error("Failed to submit order.");
+                    console.error('Email error:', err);
+                });
+            setShouldSendEmail(false);
+            setIsSubmitting(false);
         }
+
     };
+
+    const SendConfirmationEmail = async () => {
+        if (!formRef.current) {
+            toast.error("Please verify all Address Details are correct.");
+            return;
+        }
+        setShouldSendEmail(true);
+
+        const indiaTime = new Date().toLocaleString("en-IN", {
+            timeZone: "Asia/Kolkata",
+            dateStyle: "full",
+            timeStyle: "medium",
+            hour12: true,
+        });
+
+        const formData = formRef.current;
+        var total = (formData.elements.namedItem('total') as HTMLInputElement | null)?.value ?? "";
+        const name = (formData.elements.namedItem('fullName') as HTMLInputElement | null)?.value ?? "";
+        const email = (formData.elements.namedItem('email') as HTMLInputElement | null)?.value ?? "";
+        const phone = (formData.elements.namedItem('phone') as HTMLInputElement | null)?.value ?? "";
+        const address1 = (formData.elements.namedItem('address1') as HTMLInputElement | null)?.value ?? "";
+        const address2 = (formData.elements.namedItem('address2') as HTMLInputElement | null)?.value ?? "";
+        const city = (formData.elements.namedItem('city') as HTMLInputElement | null)?.value ?? "";
+        const state = (formData.elements.namedItem('state') as HTMLInputElement | null)?.value ?? "";
+        const zipcode = (formData.elements.namedItem('zipcode') as HTMLInputElement | null)?.value ?? "";
+        const paymentMode = (formData.elements.namedItem('mode-of-payment') as HTMLInputElement | null)?.value ?? "";
+
+        const utmData = getUtmData();
+        try
+        {
+            await addDoc(collection(db, "order"), {
+                Customer: name,
+                Address1: address1,
+                Address2: address2,
+                City: city,
+                State: state,
+                ZipCode: zipcode,
+                Phone: phone,
+                Email: email,
+                ModeOfPayment: paymentMode,
+                JointsKareOil: jointCount,
+                FeetKareOil: feetCount,
+                HairKareOil: hairCount,
+                MassageOil: massageCount,
+                Amount: total,
+                CreatedAt: indiaTime,
+                ...utmData
+            });
+        }
+        catch (err) {
+            console.error("Error sending data to db:", err);
+        }
+
+        const orderData = {
+            Customer: name,
+            Address1: address1,
+            Address2: address2,
+            City: city,
+            State: state,
+            ZipCode: zipcode,
+            Phone: phone,
+            Email: email,
+            ModeOfPayment: paymentMode,
+            JointsKareOil: jointCount,
+            FeetKareOil: feetCount,
+            HairKareOil: hairCount,
+            MassageOil: massageCount,
+            Amount: total,
+            CreatedAt: indiaTime
+        };
+
+        fetch(EMAIL_API_URL, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                fullName: name,
+                address1, address2, city, state, zipcode,
+                phone, email, modeOfPayment: paymentMode,
+                jointCount, feetCount, hairCount, massageCount,
+                total
+            })
+        })
+        .then(async (response) => {
+            if (!response.ok) throw new Error("Email API error");
+            const form = formRef.current;
+            if(form) 
+            {
+                setIsSubmitting(false);
+                navigate('/order-summary', { 
+                    state: { 
+                        order: orderData,
+                        authorized: true
+                    }
+                });
+            }
+        })
+        .catch(err => {
+            toast.error("Failed to submit order.");
+            console.error('Email error:', err);
+            setIsSubmitting(false);
+        });
+    }
 
     const incrementJointCount = () => {
         setJointCount(jointCount => jointCount + 1);
@@ -157,11 +501,11 @@ function Cart()
         const initialValue = product === 1 ? 500 : 450;
         fbInitiateCheckout(initialValue, 1);
         ga4BeginCheckout(initialValue);
-    }, [product]);
+    }, [product, navigate]);
 
     return (
         <div>
-            {isProcessingShiprocket && <Loader />}
+            {isProcessingPayment && <Loader />}
         
             <div className="container mt-3">
                 <div className="border rounded-lg p-4 shadow-md">
@@ -180,7 +524,7 @@ function Cart()
                             />
                             <div>
                                 <h3 className="text-lg font-bold cart-product-header">SAMBIKA Joints Kare Oil</h3>
-                                <span className="product_cart_cost"><span>Rs.</span> {jointCodPrice}</span>
+                                <span className="product_cart_cost"><span>Rs.</span> {jointUnitPrice}</span>
                                 <div className="flex items-center gap-4 mt-1 py-3">
                                     <button
                                         className="bg-gray-200 btn-decrement-count"
@@ -213,7 +557,7 @@ function Cart()
                             />
                             <div>
                                 <h3 className="text-lg font-bold cart-product-header">SAMBIKA Feet Kare Oil</h3>
-                                <span className="product_cart_cost"><span>Rs.</span> {otherCodPrice}</span>
+                                <span className="product_cart_cost"><span>Rs.</span> {unitPrice450}</span>
                                 <div className="flex items-center gap-4 mt-1 py-3">
                                     <button
                                         className="bg-gray-200 btn-decrement-count"
@@ -246,7 +590,7 @@ function Cart()
                             />
                             <div>
                                 <h3 className="text-lg font-bold cart-product-header">SAMBIKA Hair Roots Kare Oil</h3>
-                                <span className="product_cart_cost"><span>Rs.</span> {otherCodPrice}</span>
+                                <span className="product_cart_cost"><span>Rs.</span> {unitPrice450}</span>
                                 <div className="flex items-center gap-4 mt-1 py-3">
                                     <button
                                         className="bg-gray-200 btn-decrement-count"
@@ -279,7 +623,7 @@ function Cart()
                             />
                             <div>
                                 <h3 className="text-lg font-bold cart-product-header">SAMBIKA Massage Oil</h3>
-                                <span className="product_cart_cost"><span>Rs.</span> {otherCodPrice}</span>
+                                <span className="product_cart_cost"><span>Rs.</span> {unitPrice450}</span>
                                 <div className="flex items-center gap-4 mt-1 py-3">
                                     <button
                                         className="bg-gray-200 btn-decrement-count"
@@ -341,16 +685,119 @@ function Cart()
                         <span>Place Order</span>
                     </div>
 
-                    <div className="mt-3">
+                    <form className="mt-3" ref={formRef} onSubmit={handleFormSubmit}>
+                        <div className="row">
+                            <div className="col-12">
+                                <input name="fullName" className="form-input" placeholder="Full Name / पूरा नाम" required />
+                            </div>
+                            <div className="col-12">
+                                <input name="address1" className="form-input" placeholder="Address Line 1 / पता पंक्ति 1" required />
+                            </div>
+                            <div className="col-12">
+                                <input name="address2" className="form-input" placeholder="Address Line 2 / पता पंक्ति 2" />
+                            </div>
+                            <div className="col-4">
+                                <input name="city" className="form-input" placeholder="City / शहर" required />
+                            </div>
+                            <div className="col-4">
+                                <input name="state" className="form-input" placeholder="State / राज्य" required />
+                            </div>
+                            <div className="col-4">
+                                <input name="zipcode" className="form-input" placeholder="Zip Code / पिन कोड" required inputMode="numeric" pattern="[0-9]{6}" maxLength={6} />
+                            </div>
+                            <div className="col-6">
+                                <input name="phone" className="form-input" placeholder="Phone Number / फ़ोन नंबर" required inputMode="numeric" pattern="[0-9]{10}" maxLength={10} />
+                            </div>
+                            <div className="col-6">
+                                <input name="email" className="form-input" placeholder="Email / ईमेल (optional / वैकल्पिक)" type="email" />
+                            </div>
+                            <div className="col-12" style={{padding: '0 10px'}}>
+                                <span className="payment-mode-label">Mode of Payment</span>
+                                {(jointCount + feetCount + hairCount + massageCount) > 0 && (
+                                    <div className="payment-savings-banner">
+                                        {jointCount > 0 && (feetCount + hairCount + massageCount) === 0
+                                            ? <>💡 Pay online and <strong>save ₹50 per bottle</strong> — only ₹450 instead of ₹500!</>
+                                            : jointCount === 0 && (feetCount + hairCount + massageCount) > 0
+                                            ? <>💡 Pay online and <strong>save ₹50 per Oil bottle</strong> — only ₹400 instead of ₹450!</>
+                                            : <>💡 Pay online and <strong>save ₹50 per bottle!</strong></>
+                                        }
+                                    </div>
+                                )}
+                                <div className="payment-option-cards">
+                                    {/* Online Payment Card */}
+                                    <div
+                                        className={`payment-card${paymentMode === "Online Payment" ? " selected" : ""}`}
+                                        onClick={() => setPaymentMode("Online Payment")}
+                                    >
+                                        <input
+                                            name="mode-of-payment"
+                                            type="radio"
+                                            value="Online Payment"
+                                            checked={paymentMode === "Online Payment"}
+                                            onChange={(e) => setPaymentMode(e.target.value)}
+                                            required={paymentMode === ""}
+                                        />
+                                        <div><span className="payment-card-badge-rec">⭐ Recommended</span></div>
+                                        <div className="payment-card-icon">💳 <span className="upi-badge">UPI</span></div>
+                                        <div className="payment-card-title">Online Payment</div>
+                                        {(jointCount + feetCount + hairCount + massageCount) > 0 ? (
+                                            <>
+                                                <div className="payment-card-price">
+                                                    {jointCount > 0 && (feetCount + hairCount + massageCount) === 0
+                                                        ? <>₹450 / Oil<span className="payment-card-strikethrough">₹500</span></>
+                                                        : jointCount === 0
+                                                        ? <>₹400 / Oil<span className="payment-card-strikethrough">₹450</span></>
+                                                        : <>Save ₹50 / Oil</>
+                                                    }
+                                                </div>
+                                                <div><span className="payment-card-badge">Save ₹50!</span></div>
+                                            </>
+                                        ) : (
+                                            <div className="payment-card-price" style={{fontSize: '0.95rem', color: '#555'}}>No extra charge</div>
+                                        )}
+                                    </div>
+
+                                    {/* Cash on Delivery Card */}
+                                    <div
+                                        className={`payment-card${paymentMode === "Cash On Delivery" ? " selected-cod" : ""}`}
+                                        onClick={() => setPaymentMode("Cash On Delivery")}
+                                    >
+                                        <input
+                                            name="mode-of-payment"
+                                            type="radio"
+                                            value="Cash On Delivery"
+                                            checked={paymentMode === "Cash On Delivery"}
+                                            onChange={(e) => setPaymentMode(e.target.value)}
+                                        />
+                                        <div style={{marginBottom: '28px'}}></div>
+                                        <div className="payment-card-icon">📦</div>
+                                        <div className="payment-card-title">Cash on Delivery</div>
+                                        {(jointCount + feetCount + hairCount + massageCount) > 0 ? (
+                                            <div className="payment-card-price-cod">
+                                                {jointCount > 0 && (feetCount + hairCount + massageCount) === 0
+                                                    ? '₹500 / Oil'
+                                                    : jointCount === 0
+                                                    ? '₹450 / Oil'
+                                                    : 'COD Available'
+                                                }
+                                            </div>
+                                        ) : (
+                                            <div className="payment-card-price-cod" style={{fontSize: '0.95rem'}}>No extra charge</div>
+                                        )}
+                                    </div>
+                                </div>
+                            </div>
+                            <div hidden>
+                                <input name="jointCount" className="form-input" value={jointCount} readOnly />
+                                <input name="feetCount" className="form-input" value={feetCount} readOnly />
+                                <input name="hairCount" className="form-input" value={hairCount} readOnly />
+                                <input name="massageCount" className="form-input" value={massageCount} readOnly />
+                                <input name="total" className="form-input" value={cartTotal} readOnly />
+                            </div>
+                        </div>
                         <div className="submit-order-btn">
-                            <button
-                                type="button"
-                                disabled={isProcessingShiprocket || totalItems === 0}
-                                className="submit-btn"
-                                onClick={handlePlaceOrder}
-                            >
-                                {isProcessingShiprocket ? 'Processing...' : 'PLACE ORDER'}
-                            </button>
+                            <button type="submit" disabled={isSubmitting} className="submit-btn">{isSubmitting ? 'Processing...' : 'SUBMIT ORDER'}</button>
+                            
                             <ToastContainer
                                 position="bottom-right"
                                 autoClose={10000}
@@ -364,8 +811,9 @@ function Cart()
                                 theme="light"
                                 transition={Bounce}
                             />
+                            
                         </div>
-                    </div>
+                    </form>
                 </div>
             </div>
         </div>
