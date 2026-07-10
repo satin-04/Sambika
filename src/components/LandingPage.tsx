@@ -68,11 +68,11 @@ function LandingPage({ product }: LandingPageProps) {
 
           <div className="lp-price-row">
             <span className="lp-price-mrp">Rs. {product.mrp}</span>
-            <span className="lp-price-actual">Rs. {product.onlinePrice ?? product.price}</span>
-            {product.onlinePrice !== undefined && product.onlinePrice < product.price ? (
-              <span className="lp-price-badge">₹50 OFF Online</span>
+            <span className="lp-price-actual">Rs. {product.price}</span>
+            {product.mrp > product.price ? (
+              <span className="lp-price-badge">{(((product.mrp - product.price) / product.mrp) * 100).toFixed(2)}% OFF</span>
             ) : (
-              <span className="lp-price-badge">10% OFF</span>
+              <span className="lp-price-badge">0% OFF</span>
             )}
           </div>
           {product.onlinePrice !== undefined && product.onlinePrice < product.price && (

@@ -155,8 +155,8 @@ function Feet()
                     <h3 className="product_heading"><b>SAMBIKA Feet Kare Oil</b></h3>
                     <div className="product_cost px-2">
                         <span><s><span>Rs.</span> 499</s></span>
-                        <span className="product_actual_cost ms-2"><span>Rs.</span> 400</span>
-                        <span className="product_discount ms-2">-20.00%</span>
+                        <span className="product_actual_cost ms-2"><span>Rs.</span> 450</span>
+                        <span className="product_discount ms-2">-9.82%</span>
                         <div style={{ fontSize: '0.8rem', color: '#555', marginTop: '4px' }}>
                             💳 <strong>₹400</strong> Online &nbsp;|&nbsp; 💵 <strong>₹450</strong> COD
                         </div>

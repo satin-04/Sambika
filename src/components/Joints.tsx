@@ -159,8 +159,8 @@ function Joints()
                     <h3 className="product_heading"><b>SAMBIKA Joints Kare Oil</b></h3>
                     <div className="product_cost px-2">
                         <span><s><span>Rs.</span> 549</s></span>
-                        <span className="product_actual_cost ms-2"><span>Rs.</span> 450</span>
-                        <span className="product_discount ms-2">-18.00%</span>
+                        <span className="product_actual_cost ms-2"><span>Rs.</span> 500</span>
+                        <span className="product_discount ms-2">-8.93%</span>
                         <div style={{ fontSize: '0.8rem', color: '#555', marginTop: '4px' }}>
                             💳 <strong>₹450</strong> Online &nbsp;|&nbsp; 💵 <strong>₹500</strong> COD
                         </div>
