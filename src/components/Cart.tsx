@@ -43,7 +43,9 @@ function Cart()
     const [hairCount, setHairCount] = useState(0);
     const [massageCount, setMassageCount] = useState(0);
 
-    const [paymentMode, setPaymentMode] = useState<string>("");
+    // Defaults to Cash On Delivery since Online Payment is temporarily disabled
+    // (see header comment above).
+    const [paymentMode, setPaymentMode] = useState<string>("Cash On Delivery");
 
     // ₹450 products cost ₹400 when paying online (Feet, Hair & Massage Kare Oil)
     const unitPrice450 = paymentMode === "Online Payment" ? 400 : 450;
@@ -713,48 +715,27 @@ function Cart()
                             </div>
                             <div className="col-12" style={{padding: '0 10px'}}>
                                 <span className="payment-mode-label">Mode of Payment</span>
-                                {(jointCount + feetCount + hairCount + massageCount) > 0 && (
-                                    <div className="payment-savings-banner">
-                                        {jointCount > 0 && (feetCount + hairCount + massageCount) === 0
-                                            ? <>💡 Pay online and <strong>save ₹50 per bottle</strong> — only ₹450 instead of ₹500!</>
-                                            : jointCount === 0 && (feetCount + hairCount + massageCount) > 0
-                                            ? <>💡 Pay online and <strong>save ₹50 per Oil bottle</strong> — only ₹400 instead of ₹450!</>
-                                            : <>💡 Pay online and <strong>save ₹50 per bottle!</strong></>
-                                        }
-                                    </div>
-                                )}
+                                <div className="payment-savings-banner" style={{background: '#fff3cd', color: '#856404'}}>
+                                    ⚠️ Online Payment is temporarily unavailable. Please select Cash on Delivery to place your order.
+                                </div>
                                 <div className="payment-option-cards">
-                                    {/* Online Payment Card */}
+                                    {/* Online Payment Card — TEMPORARILY DISABLED (see Cart.tsx header comment) */}
                                     <div
-                                        className={`payment-card${paymentMode === "Online Payment" ? " selected" : ""}`}
-                                        onClick={() => setPaymentMode("Online Payment")}
+                                        className="payment-card payment-card-disabled"
+                                        aria-disabled="true"
+                                        style={{ opacity: 0.5, cursor: 'not-allowed', pointerEvents: 'none' }}
                                     >
                                         <input
-                                            name="mode-of-payment"
                                             type="radio"
                                             value="Online Payment"
-                                            checked={paymentMode === "Online Payment"}
-                                            onChange={(e) => setPaymentMode(e.target.value)}
-                                            required={paymentMode === ""}
+                                            checked={false}
+                                            disabled
+                                            readOnly
                                         />
-                                        <div><span className="payment-card-badge-rec">⭐ Recommended</span></div>
+                                        <div><span className="payment-card-badge-rec">Temporarily Unavailable</span></div>
                                         <div className="payment-card-icon">💳 <span className="upi-badge">UPI</span></div>
                                         <div className="payment-card-title">Online Payment</div>
-                                        {(jointCount + feetCount + hairCount + massageCount) > 0 ? (
-                                            <>
-                                                <div className="payment-card-price">
-                                                    {jointCount > 0 && (feetCount + hairCount + massageCount) === 0
-                                                        ? <>₹450 / Oil<span className="payment-card-strikethrough">₹500</span></>
-                                                        : jointCount === 0
-                                                        ? <>₹400 / Oil<span className="payment-card-strikethrough">₹450</span></>
-                                                        : <>Save ₹50 / Oil</>
-                                                    }
-                                                </div>
-                                                <div><span className="payment-card-badge">Save ₹50!</span></div>
-                                            </>
-                                        ) : (
-                                            <div className="payment-card-price" style={{fontSize: '0.95rem', color: '#555'}}>No extra charge</div>
-                                        )}
+                                        <div className="payment-card-price" style={{fontSize: '0.95rem', color: '#555'}}>Unavailable right now</div>
                                     </div>
 
                                     {/* Cash on Delivery Card */}
@@ -768,6 +749,7 @@ function Cart()
                                             value="Cash On Delivery"
                                             checked={paymentMode === "Cash On Delivery"}
                                             onChange={(e) => setPaymentMode(e.target.value)}
+                                            required
                                         />
                                         <div style={{marginBottom: '28px'}}></div>
                                         <div className="payment-card-icon">📦</div>
