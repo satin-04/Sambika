@@ -13,7 +13,6 @@ import Certifications from './components/Certifications.tsx';
 import Footer from './components/Footer.tsx';
 import Cart from './components/Cart.tsx';
 import ShiprocketOrderSummary from './components/ShiprocketOrderSummary.tsx';
-import OrderSummary from './components/OrderSummary.tsx';
 import RouteChangeTracker from './components/RouteChangeTracker.tsx';
 import Testimonials from './components/Testimonials.tsx';
 import Policy from './components/Policy.tsx';
@@ -131,15 +130,6 @@ function App() {
           <>
             <Navbar />
             <ShiprocketOrderSummary />
-          </>
-        } />
-        {/* TEMPORARY: legacy form+Razorpay checkout's order confirmation page,
-            restored as a fallback while Shiprocket Checkout API connectivity
-            (UND_ERR_CONNECT_TIMEOUT / IP whitelisting) is being resolved. */}
-        <Route path="/order-summary" element={
-          <>
-            <Navbar />
-            <OrderSummary />
           </>
         } />
         <Route path="/policy" element={
