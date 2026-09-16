@@ -16,7 +16,7 @@ const feetSchema = {
         "@type": "Offer",
         "url": "https://sambika-healthcare.netlify.app/feet",
         "priceCurrency": "INR",
-        "price": "450",
+        "price": "500",
         "priceValidUntil": "2026-12-31",
         "itemCondition": "https://schema.org/NewCondition",
         "availability": "https://schema.org/InStock"
@@ -41,6 +41,7 @@ function Feet()
         if (isProductRoute) {
             fbViewContent('SAMBIKA Feet Kare Oil', 'feet-kare-oil', 450);
             ga4ViewItem('SAMBIKA Feet Kare Oil', 'feet-kare-oil', 450);
+            // NOTE: 450 is the new online price (matches Joints Kare Oil pricing).
         }
     }, [isProductRoute]);
 
@@ -131,10 +132,10 @@ function Feet()
         <div>
             {isProductRoute && (
                 <Helmet>
-                    <title>SAMBIKA Feet Kare Oil | Heel Pain &amp; Diabetic Feet Relief | ₹450 | Buy Online India</title>
+                    <title>SAMBIKA Feet Kare Oil | Heel Pain &amp; Diabetic Feet Relief | ₹500 | Buy Online India</title>
                     <meta name="description" content="Ayurvedic oil for heel pain, diabetic foot care, numbness, tingling & cracked feet. Made with Ajwain, Haldi, Rosemary. Free shipping across India. COD available." />
                     <meta name="keywords" content="heel pain oil india, diabetic foot care oil, ayurvedic feet oil india, feet numbness relief, sambika feet kare oil, heel pain ayurvedic" />
-                    <meta property="og:title" content="SAMBIKA Feet Kare Oil | Heel Pain & Diabetic Feet Relief | ₹450" />
+                    <meta property="og:title" content="SAMBIKA Feet Kare Oil | Heel Pain & Diabetic Feet Relief | ₹500" />
                     <meta property="og:description" content="Ayurvedic relief for heel pain, diabetic feet, numbness & cracked skin. Free shipping in India." />
                     <meta property="og:image" content="https://sambika-healthcare.netlify.app/assets/feet.webp" />
                     <meta property="og:url" content="https://sambika-healthcare.netlify.app/feet" />
@@ -154,11 +155,11 @@ function Feet()
                 <div className="product_description m-3 mt-4">
                     <h3 className="product_heading"><b>SAMBIKA Feet Kare Oil</b></h3>
                     <div className="product_cost px-2">
-                        <span><s><span>Rs.</span> 499</s></span>
-                        <span className="product_actual_cost ms-2"><span>Rs.</span> 450</span>
-                        <span className="product_discount ms-2">-9.82%</span>
+                        <span><s><span>Rs.</span> 549</s></span>
+                        <span className="product_actual_cost ms-2"><span>Rs.</span> 500</span>
+                        <span className="product_discount ms-2">-8.93%</span>
                         <div style={{ fontSize: '0.8rem', color: '#555', marginTop: '4px' }}>
-                            💳 <strong>₹400</strong> Online &nbsp;|&nbsp; 💵 <strong>₹450</strong> COD
+                            💳 <strong>₹450</strong> Online &nbsp;|&nbsp; 💵 <strong>₹500</strong> COD
                         </div>
                         <div className="product_cost_footer">
                             Tax included. Shipping calculated at checkout.

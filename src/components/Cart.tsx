@@ -33,11 +33,12 @@ function Cart()
     // matching the advertised price shown on the product pages. Matches the
     // variant IDs sent to Shiprocket below. The authoritative charged amount
     // is whatever Shiprocket's checkout/Order Details ultimately returns.
-    const otherCodPrice = 450;
     const jointCodPrice = 500;
+    const feetCodPrice = 500; // Matches Joints Kare Oil pricing.
+    const hairMassageCodPrice = 450;
 
     // Bundle discount: 5% off when buying 3 or more items
-    const subtotal = jointCount * jointCodPrice + (feetCount + hairCount + massageCount) * otherCodPrice;
+    const subtotal = (jointCount * jointCodPrice) + (feetCount * feetCodPrice) + ((hairCount + massageCount) * hairMassageCodPrice);
     const totalItems = jointCount + feetCount + hairCount + massageCount;
     const bundleDiscount = totalItems >= 3 ? Math.floor(subtotal * 0.05) : 0;
 
@@ -154,7 +155,7 @@ function Cart()
             setMassageCount(massageCount => massageCount + 1);
         }
         // Fire InitiateCheckout — value uses base price of the selected product
-        const initialValue = product === 1 ? 500 : 450;
+        const initialValue = product === 1 || product === 2 ? 500 : 450;
         fbInitiateCheckout(initialValue, 1);
         ga4BeginCheckout(initialValue);
     }, [product]);
@@ -213,7 +214,7 @@ function Cart()
                             />
                             <div>
                                 <h3 className="text-lg font-bold cart-product-header">SAMBIKA Feet Kare Oil</h3>
-                                <span className="product_cart_cost"><span>Rs.</span> {otherCodPrice}</span>
+                                <span className="product_cart_cost"><span>Rs.</span> {feetCodPrice}</span>
                                 <div className="flex items-center gap-4 mt-1 py-3">
                                     <button
                                         className="bg-gray-200 btn-decrement-count"
@@ -246,7 +247,7 @@ function Cart()
                             />
                             <div>
                                 <h3 className="text-lg font-bold cart-product-header">SAMBIKA Hair Roots Kare Oil</h3>
-                                <span className="product_cart_cost"><span>Rs.</span> {otherCodPrice}</span>
+                                <span className="product_cart_cost"><span>Rs.</span> {hairMassageCodPrice}</span>
                                 <div className="flex items-center gap-4 mt-1 py-3">
                                     <button
                                         className="bg-gray-200 btn-decrement-count"
@@ -279,7 +280,7 @@ function Cart()
                             />
                             <div>
                                 <h3 className="text-lg font-bold cart-product-header">SAMBIKA Massage Oil</h3>
-                                <span className="product_cart_cost"><span>Rs.</span> {otherCodPrice}</span>
+                                <span className="product_cart_cost"><span>Rs.</span> {hairMassageCodPrice}</span>
                                 <div className="flex items-center gap-4 mt-1 py-3">
                                     <button
                                         className="bg-gray-200 btn-decrement-count"
