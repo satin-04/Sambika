@@ -176,18 +176,15 @@ function Massage()
                     </div>
                     <div className="product_details">
                         <p className="mt-2 px-2">
-                            Sambika Massage oil is a powerful formulation that enhances stamina, muscle power, blood circulation, diabetic related low stamina, and overall energy levels for Men.
+                            Sambika Massage oil is a powerful formulation that enhances stamina, muscle power, blood circulation and overall energy levels.
                         </p>
                         <div className="mb-3 ms-2">
-                            <b><i>Indications: </i></b>
-                            <span className="badge text-bg-danger me-2">Low Stamina</span>
-                            <span className="badge text-bg-danger me-2">Weak Erection</span>
-                            <span className="badge text-bg-danger me-2">Less Power & Performance</span>
-                            <span className="badge text-bg-danger me-2">Low Sperm Count</span>
-                            <span className="badge text-bg-danger me-2">Early Ejaculation</span>
-                            <span className="badge text-bg-danger me-2">White discharge in Urine</span>
-                            <span className="badge text-bg-danger me-2">Stress related weakness</span>
-                            <span className="badge text-bg-danger me-2">Useful for Diabetic people</span>
+                            <b><i>BENEFITS: </i></b>
+                            <span className="badge text-bg-danger me-2">Power Revitalization</span>
+                            <span className="badge text-bg-danger me-2">Muscle Recovery</span>
+                            <span className="badge text-bg-danger me-2">Stamina Enhancement</span>
+                            <span className="badge text-bg-danger me-2">Increased Power & Performance</span>
+                            <span className="badge text-bg-danger me-2">Fatigue Reduction</span>
                         </div>
                         <div className="product_description_border  p-3 py-4">
                             <div className="description_header" onClick={handleFirstContentClick}>
@@ -196,10 +193,10 @@ function Massage()
                             </div>
                             <div className={firstContentClassName}>
                                 <div>
-                                    Sambika Massage Oil is an Ayurvedic herbal formulation specially designed to support men’s stamina, strength, and overall vitality.
+                                    Sambika Massage Oil is an Ayurvedic herbal formulation specially designed to support stamina, strength, and overall vitality.
                                 </div>
                                 <div>
-                                    It is crafted to help improve blood circulation, muscle power, and energy levels, especially in men experiencing low stamina, performance issues, stress-related weakness, or reduced physical strength.
+                                    It is crafted to help improve blood circulation, muscle power, and energy levels, especially in people experiencing low stamina, performance issues, stress-related weakness, or reduced physical strength.
                                 </div>
                                 <div>
                                     This therapeutic oil is traditionally used to:
@@ -209,8 +206,6 @@ function Massage()
                                     <li>Improve muscle strength and performance</li>
                                     <li>Enhance blood circulation</li>
                                     <li>Help manage stress-related fatigue</li>
-                                    <li>Support vitality in diabetic individuals</li>
-                                    <li>Promote overall male wellness</li>
                                 </ul>
                                 <div>
                                     Sambika Massage Oil works externally through gentle massage, helping the body absorb its herbal properties and naturally support strength and confidence.
@@ -258,19 +253,11 @@ function Massage()
                             </div>
                             <div className={fourthContentClassName}>
                                 <ul>
-                                    <li> Provides a powerful boost for enhanced strength, performance, and confidence </li>
-                                    <li> Supports improvement in sperm count </li>
-                                    <li> Helps with recovery from loose erection and low performance concerns </li>
-                                    <li> Assists in managing stress-related loss of interest </li>
-                                    <li> Supports stronger and firmer erection </li>
-                                    <li> Helps control early leakage concerns </li>
-                                    <li> Supports muscle strengthening to help manage white discharge issues </li>
-                                    <li> Assists in addressing low erection concerns related to diabetic conditions </li>
-                                    <li> Helps manage age-related performance issues </li>
-                                    <li> Supports recovery from weakness caused by stress and certain lifestyle habits such as excessive mobile use, smoking, alcohol, and tobacco consumption </li>
-                                    <li> Promotes thicker, stronger, and harder erection </li>
-                                    <li> Provides an overall boost to power, performance, and pleasure with improved stamina </li>
-                                    <li> Works by supporting muscle strength, improving blood flow, and enhancing nerve responsiveness </li>
+                                    <li> Relieves post-workout soreness, stiffness, and physical fatigue to speed up bounce-back time between workouts. </li>
+                                    <li> Fights physical exhaustion, helping you sustain energy levels and power through high-intensity training. </li>
+                                    <li> Stimulates localized blood flow, ensuring vital nutrients and oxygen reach tired muscles faster. </li>
+                                    <li> Supports nerve responsiveness and muscle vigor, encouraging maximum muscle pump and control. </li>
+                                    <li> Rebuilds physical vitality, driving overall performance gains and boosting daily workout confidence. </li>
                                 </ul>
                             </div>
                         </div>
@@ -283,9 +270,9 @@ function Massage()
                             <div className={fifthContentClassName}>
                                 <ul>
                                     <li> Shake well before use</li>
-                                    <li> Take sufficient quantity on your hand and apply on private part </li>
-                                    <li> Apply externally on upper skin, lower skin and tip </li>
-                                    <li> Apply 1 hour before bed </li>
+                                    <li> Take sufficient quantity on your hand and apply on calf, knee and shoulder </li>
+                                    <li> Apply before or during workouts for increased stamina and muscle power </li>
+                                    <li> Starts muscle relief in 15 minutes of application </li>
                                 </ul>
                             </div>
                         </div>
