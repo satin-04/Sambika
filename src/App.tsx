@@ -9,6 +9,7 @@ import Joints from './components/Joints.tsx';
 import Feet from './components/Feet.tsx';
 import Hair from './components/Hair.tsx';
 import Massage from './components/Massage.tsx';
+import VVeins from './components/VVeins.tsx';
 import Certifications from './components/Certifications.tsx';
 import Footer from './components/Footer.tsx';
 import Cart from './components/Cart.tsx';
@@ -20,6 +21,7 @@ import JointsLanding from './components/JointsLanding.tsx';
 import FeetLanding from './components/FeetLanding.tsx';
 import HairLanding from './components/HairLanding.tsx';
 import MassageLanding from './components/MassageLanding.tsx';
+import VVeinsLanding from './components/VVeinsLanding.tsx';
 import { Helmet } from 'react-helmet';
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
@@ -84,6 +86,7 @@ function App() {
             <Feet />
             <Hair />
             <Massage />
+            <VVeins />
             <Testimonials />
             <Home />
             <Vision />
@@ -126,6 +129,13 @@ function App() {
             <Footer />
           </>
         } />
+        <Route path="/v-veins" element={
+          <>
+            <Navbar />
+            <VVeins />
+            <Footer />
+          </>
+        } />
         <Route path="/shiprocket-order-summary" element={
           <>
             <Navbar />
@@ -147,6 +157,7 @@ function App() {
         <Route path="/lp/feet" element={<FeetLanding />} />
         <Route path="/lp/hair" element={<HairLanding />} />
         <Route path="/lp/massage" element={<MassageLanding />} />
+        <Route path="/lp/v-veins" element={<VVeinsLanding />} />
       </Routes>
     </Router>
   )

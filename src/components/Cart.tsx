@@ -17,6 +17,7 @@ const SHIPROCKET_VARIANT_IDS = {
     feet: "2000000000003",
     hair: "2000000000005",
     massage: "2000000000007",
+    vveins: "2000000000009",
 };
 
 function Cart()
@@ -28,6 +29,7 @@ function Cart()
     const [feetCount, setFeetCount] = useState(0);
     const [hairCount, setHairCount] = useState(0);
     const [massageCount, setMassageCount] = useState(0);
+    const [vveinsCount, setVveinsCount] = useState(0);
 
     // Reference prices shown on this page — Cash on Delivery (COD) prices,
     // matching the advertised price shown on the product pages. Matches the
@@ -36,10 +38,11 @@ function Cart()
     const jointCodPrice = 500;
     const feetCodPrice = 500; // Matches Joints Kare Oil pricing.
     const hairMassageCodPrice = 450;
+    const vveinsCodPrice = 747;
 
     // Bundle discount: 5% off when buying 3 or more items
-    const subtotal = (jointCount * jointCodPrice) + (feetCount * feetCodPrice) + ((hairCount + massageCount) * hairMassageCodPrice);
-    const totalItems = jointCount + feetCount + hairCount + massageCount;
+    const subtotal = (jointCount * jointCodPrice) + (feetCount * feetCodPrice) + ((hairCount + massageCount) * hairMassageCodPrice) + (vveinsCount * vveinsCodPrice);
+    const totalItems = jointCount + feetCount + hairCount + massageCount + vveinsCount;
     const bundleDiscount = totalItems >= 3 ? Math.floor(subtotal * 0.05) : 0;
 
     const cartTotal = totalItems > 0 ? subtotal - bundleDiscount : 0;
@@ -59,6 +62,7 @@ function Cart()
             feetCount > 0 && { variantId: SHIPROCKET_VARIANT_IDS.feet, quantity: feetCount },
             hairCount > 0 && { variantId: SHIPROCKET_VARIANT_IDS.hair, quantity: hairCount },
             massageCount > 0 && { variantId: SHIPROCKET_VARIANT_IDS.massage, quantity: massageCount },
+            vveinsCount > 0 && { variantId: SHIPROCKET_VARIANT_IDS.vveins, quantity: vveinsCount },
         ].filter(Boolean) as { variantId: string; quantity: number }[];
 
         if (items.length === 0) {
@@ -136,6 +140,14 @@ function Cart()
         setMassageCount(massageCount => massageCount == 0 ? 0 : massageCount - 1);
     };
 
+    const incrementVveinsCount = () => {
+        setVveinsCount(vveinsCount => vveinsCount + 1);
+    };
+
+    const decrementVveinsCount = () => {
+        setVveinsCount(vveinsCount => vveinsCount == 0 ? 0 : vveinsCount - 1);
+    };
+
 
     useEffect(() => {
         if(product === 1)
@@ -154,8 +166,12 @@ function Cart()
         {
             setMassageCount(massageCount => massageCount + 1);
         }
+        if(product === 5)
+        {
+            setVveinsCount(vveinsCount => vveinsCount + 1);
+        }
         // Fire InitiateCheckout — value uses base price of the selected product
-        const initialValue = product === 1 || product === 2 ? 500 : 450;
+        const initialValue = product === 5 ? 747 : product === 1 || product === 2 ? 500 : 450;
         fbInitiateCheckout(initialValue, 1);
         ga4BeginCheckout(initialValue);
     }, [product]);
@@ -292,6 +308,39 @@ function Cart()
                                     <button
                                         className="bg-gray-200 btn-decrement-count"
                                         onClick={incrementMassageCount}
+                                    >
+                                        +
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="cart-title"></div>
+                        </>
+                    )}
+
+                    {vveinsCount > 0 && (
+                        <>
+                        <div className="bg-white p-4 rounded-lg cart-product-grid">
+                            <img
+                                src="/assets/vveins.webp"
+                                alt="SAMBIKA V-Veins Kare Oil"
+                                className="cart_product_img"
+                                loading="lazy"
+                            />
+                            <div>
+                                <h3 className="text-lg font-bold cart-product-header">SAMBIKA V-Veins Kare Oil</h3>
+                                <span className="product_cart_cost"><span>Rs.</span> {vveinsCodPrice}</span>
+                                <div className="flex items-center gap-4 mt-1 py-3">
+                                    <button
+                                        className="bg-gray-200 btn-decrement-count"
+                                        onClick={decrementVveinsCount}
+                                    >
+                                        −
+                                    </button>
+                                    <span className="text-md font-medium p-2">{vveinsCount}</span>
+                                    <button
+                                        className="bg-gray-200 btn-decrement-count"
+                                        onClick={incrementVveinsCount}
                                     >
                                         +
                                     </button>

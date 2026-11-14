@@ -23,6 +23,7 @@ function Navbar() {
                                 <li><Link className="dropdown-item" to="/feet">Feet Kare Oil</Link></li>
                                 <li><Link className="dropdown-item" to="/hair">Hair Roots Kare Oil</Link></li>
                                 <li><Link className="dropdown-item" to="/massage">Massage Oil</Link></li>
+                                <li><Link className="dropdown-item" to="/v-veins">V-Veins Kare Oil</Link></li>
                             </ul>
                         </li>
                         <li className="nav-item">

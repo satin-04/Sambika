@@ -10,6 +10,7 @@ const allProducts = [
   { id: 2, name: 'Feet Kare Oil',   image: 'feet.webp',   price: 500, onlinePrice: 450, route: '/feet',   tagline: 'Heel Pain & Diabetic Feet' },
   { id: 3, name: 'Hair Roots Kare Oil', image: 'hair.webp', price: 450, onlinePrice: 400, route: '/hair', tagline: 'Stop Hair Fall, Grow Stronger Hair' },
   { id: 4, name: 'Massage Oil',     image: 'massage.webp', price: 450, onlinePrice: 400, route: '/massage', tagline: "Men's Stamina & Vitality" },
+    { id: 5, name: 'V-Veins Kare Oil', image: 'vveins.webp', price: 747, onlinePrice: 600, route: '/v-veins', tagline: 'Everyday Leg Care' },
 ];
 
 interface LandingPageProps {
@@ -104,6 +105,7 @@ function LandingPage({ product }: LandingPageProps) {
           </ul>
         </div>
 
+        {product.reviews.length > 0 && (
         <div className="lp-testimonials">
           <h3>⭐ What Our Customers Say</h3>
           {product.reviews.map((r, i) => (
@@ -113,6 +115,7 @@ function LandingPage({ product }: LandingPageProps) {
             </div>
           ))}
         </div>
+        )}
 
         <div className="lp-certifications">
           <img src="/assets/ISO_Certified.webp" alt="ISO Certified" className="lp-cert-img" loading="lazy" />

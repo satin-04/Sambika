@@ -16,6 +16,7 @@ export interface OrderSummaryOrder {
   FeetKareOil?: number;
   HairKareOil?: number;
   MassageOil?: number;
+  VVeinsKareOil?: number;
   Amount?: string | number;
 }
 
@@ -79,6 +80,20 @@ const OrderSummaryDetails = ({ order }: { order: OrderSummaryOrder }) => {
             <h3 className="text-lg font-bold cart-product-header">SAMBIKA Massage Oil</h3>
             <div className="flex items-center gap-4 mt-1 py-3">
               <span className="order-summary-quantity">Quantity: {order.MassageOil}</span>
+            </div>
+          </div>
+        </div>
+      )}
+
+      <div className="cart-title"></div>
+
+      {(order.VVeinsKareOil ?? 0) > 0 && (
+        <div className="bg-white p-4 rounded-lg cart-product-grid">
+          <img src="/assets/vveins.webp" alt="SAMBIKA V-Veins Kare Oil" className="cart_product_img" loading="lazy" />
+          <div>
+            <h3 className="text-lg font-bold cart-product-header">SAMBIKA V-Veins Kare Oil</h3>
+            <div className="flex items-center gap-4 mt-1 py-3">
+              <span className="order-summary-quantity">Quantity: {order.VVeinsKareOil}</span>
             </div>
           </div>
         </div>
