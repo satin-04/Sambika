@@ -38,7 +38,7 @@ function Cart()
     const jointCodPrice = 500;
     const feetCodPrice = 500; // Matches Joints Kare Oil pricing.
     const hairMassageCodPrice = 450;
-    const vveinsCodPrice = 747;
+    const vveinsCodPrice = 700;
 
     // Bundle discount: 5% off when buying 3 or more items
     const subtotal = (jointCount * jointCodPrice) + (feetCount * feetCodPrice) + ((hairCount + massageCount) * hairMassageCodPrice) + (vveinsCount * vveinsCodPrice);
@@ -171,7 +171,7 @@ function Cart()
             setVveinsCount(vveinsCount => vveinsCount + 1);
         }
         // Fire InitiateCheckout — value uses base price of the selected product
-        const initialValue = product === 5 ? 747 : product === 1 || product === 2 ? 500 : 450;
+        const initialValue = product === 5 ? 700 : product === 1 || product === 2 ? 500 : 450;
         fbInitiateCheckout(initialValue, 1);
         ga4BeginCheckout(initialValue);
     }, [product]);

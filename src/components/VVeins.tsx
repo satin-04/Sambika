@@ -32,14 +32,14 @@ function VVeins()
 
     useEffect(() => {
         if (isProductRoute) {
-            fbViewContent('SAMBIKA V-Veins Kare Oil', 'v-veins-kare-oil', 747);
-            ga4ViewItem('SAMBIKA V-Veins Kare Oil', 'v-veins-kare-oil', 747);
+            fbViewContent('SAMBIKA V-Veins Kare Oil', 'v-veins-kare-oil', 700);
+            ga4ViewItem('SAMBIKA V-Veins Kare Oil', 'v-veins-kare-oil', 700);
         }
     }, [isProductRoute]);
 
     const handleProductClick = (product: number) => {
-        fbAddToCart('SAMBIKA V-Veins Kare Oil', 'v-veins-kare-oil', 747);
-        ga4AddToCart('SAMBIKA V-Veins Kare Oil', 'v-veins-kare-oil', 747);
+        fbAddToCart('SAMBIKA V-Veins Kare Oil', 'v-veins-kare-oil', 700);
+        ga4AddToCart('SAMBIKA V-Veins Kare Oil', 'v-veins-kare-oil', 700);
         navigate('/cart', { state: { product } });
     };
 
@@ -77,10 +77,10 @@ function VVeins()
                     <h3 className="product_heading"><b>SAMBIKA V-Veins Kare Oil</b></h3>
                     <div className="product_cost px-2">
                         <span><s><span>Rs.</span> 747</s></span>
-                        <span className="product_actual_cost ms-2"><span>Rs.</span> 747</span>
-                        <span className="product_discount ms-2">0%</span>
+                        <span className="product_actual_cost ms-2"><span>Rs.</span> 700</span>
+                                                <span className="product_discount ms-2">6%</span>
                         <div style={{ fontSize: '0.8rem', color: '#555', marginTop: '4px' }}>
-                            💳 <strong>₹600</strong> Online &nbsp;|&nbsp; 💵 <strong>₹747</strong> COD
+                            💳 <strong>₹600</strong> Online &nbsp;|&nbsp; 💵 <strong>₹700</strong> COD
                         </div>
                         <div className="product_cost_footer">
                             Tax included. Shipping calculated at checkout.

@@ -5,7 +5,7 @@ const vveinsProduct = {
   name: 'SAMBIKA V-Veins Kare Oil',
   contentId: 'v-veins-kare-oil',
   image: 'vveins.webp',
-  price: 747,
+  price: 700,
   onlinePrice: 600,
   mrp: 747,
   title: 'SAMBIKA V-Veins Kare Oil | Ayurvedic Leg Care Oil | ₹600 Online',
